@@ -12,6 +12,7 @@ function App() {
   return (
     <Root>
       <div>초기 설정</div>
+      <div>CI/CD 설정</div>
     </Root>
   );
 }
