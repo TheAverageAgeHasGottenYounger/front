@@ -1,24 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import styled from "styled-components";
+
+const Root = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh; /* Root가 화면의 전체 높이를 차지하도록 설정 */
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Root>
+      <div>초기 설정</div>
+    </Root>
   );
 }
 
