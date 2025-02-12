@@ -46,37 +46,37 @@ export const typography = {
     fontWeight: "700",
     lineHeight: "140%",
   },
-  bodyM: {
+  body_M_18: {
     fontSize: "18px",
     fontWeight: "500",
     lineHeight: "140%",
   },
-  bodyS: {
+  body_M_16: {
     fontSize: "16px",
     fontWeight: "500",
     lineHeight: "140%",
   },
-  buttonSb16: {
+  button_Sb_16: {
     fontSize: "16px",
     fontWeight: "600",
     lineHeight: "140%",
   },
-  buttonSb18: {
+  button_Sb_18: {
     fontSize: "18px",
     fontWeight: "600",
     lineHeight: "140%",
   },
-  buttonB18: {
+  button_B_18: {
     fontSize: "18px",
     fontWeight: "700",
     lineHeight: "140%",
   },
-  labelSb16: {
+  label_Sb_16: {
     fontSize: "16px",
     fontWeight: "600",
     lineHeight: "140%",
   },
-  labelSb14: {
+  label_Sb_14: {
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "140%",
