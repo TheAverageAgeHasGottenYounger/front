@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as itemS from "./Styled/Login.styles"
+import * as items from "./Styled/Login.styles"
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
 export default function Login() {
+
+  const [id, setId] = useState('');
+	const [password, setPassword] = useState('');
 
   // const navigate = useNavigate();
 
@@ -65,11 +68,41 @@ export default function Login() {
   //   }
   // };
   return (
-    <></>
-      // <itemS.Container>
-      //   <itemS.InnerContainer>
-          
-      //   </itemS.InnerContainer>
-      // </itemS.Container>
+      <items.Container>
+        {/* <items.InnerContainer> */}
+        <items.Logo>
+        </items.Logo>
+
+        <items.InputWrapper>
+          <items.InputContainer>
+            <items.Label>아이디</items.Label>
+            <items.LabelInput
+              type="text"
+              placeholder="아이디를 입력해주세요."
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
+          </items.InputContainer>
+
+          <items.InputContainer>
+            <items.Label>비밀번호</items.Label>
+            <items.LabelInput
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </items.InputContainer>
+        </items.InputWrapper>
+
+        <items.Button>
+          로그인하기
+        </items.Button>
+
+        <items.Navi>
+          회원가입하기
+        </items.Navi>
+        {/* </items.InnerContainer> */}
+      </items.Container>
   )
 }

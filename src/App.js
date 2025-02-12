@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./APP/pages/Login/Login";
+import TypeChoice from "./APP/pages/Signup/TypeChoice/Signup.TypeChoice.main";
 
 const Root = styled.div`
   position: absolute;
@@ -15,6 +16,7 @@ function App() {
     <Root>
       <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/type" element={<TypeChoice />} />
           {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
         </Routes>
     </Root>
