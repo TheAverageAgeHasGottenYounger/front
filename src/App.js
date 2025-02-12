@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Navigate, Route, Routes } from "react-router-dom";
 
 const Root = styled.div`
   position: absolute;
@@ -11,8 +12,10 @@ const Root = styled.div`
 function App() {
   return (
     <Root>
-      <div>초기 설정</div>
-      <div>CI/CD 설정 2</div>
+      <Routes>
+          {/* <Route path="/login" element={<Login />} /> */}
+          {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
+        </Routes>
     </Root>
   );
 }
