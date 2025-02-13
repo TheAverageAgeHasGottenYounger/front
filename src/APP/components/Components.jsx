@@ -1,9 +1,9 @@
 import React from "react";
 import * as styled from "./Components.styles";
 
-export const Button = ({ text, primary, outline, disabled, onClick }) => {
+export const Button = ({ text, primary, outline, disabled, onClick, width = "100%" }) => {
     return (
-      <styled.Button primary={primary} outline={outline} disabled={disabled} onClick={onClick}>
+      <styled.Button primary={primary} outline={outline} disabled={disabled} onClick={onClick} style={{ width }}>
         {text}
       </styled.Button>
     );
@@ -18,8 +18,8 @@ export const Label = ({ text, star }) => {
     );
 };
 
-export const Input = ({ placeholder, value, onChange, type = "text" }) => {
-    return <styled.Input type={type} placeholder={placeholder} value={value} onChange={onChange} />;
+export const Input = ({ placeholder, value, onChange, type = "text", width = "100%" }) => {
+    return <styled.Input type={type} placeholder={placeholder} value={value} onChange={onChange} style={{ width }}/>;
 };
 
 export const Dropdown = ({ options, value, onChange, placeholder }) => {

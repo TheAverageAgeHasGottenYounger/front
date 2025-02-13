@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./APP/pages/Login/Login";
-import React, { useState } from "react";
-import { Button, Label, Input, Dropdown, TextArea } from "./APP/components/Components";
-
 import TypeChoice from "./APP/pages/Signup/TypeChoice/Signup.TypeChoice.main";
+import Form from "./APP/pages/Signup/Form/Signup.Form.main";
+import React, { useState } from "react";
+// import { Button, Label, Input, Dropdown, TextArea } from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -23,7 +23,7 @@ function App() {
   };
   return (
     <Root>
-        <Label text = "asldfjalsd"/>
+        {/* <Label text = "asldfjalsd"/>
         <Label text = "asldfjalsd" star/>
         <Input 
           placeholder="asdlfja;lsfkd"
@@ -54,10 +54,11 @@ function App() {
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         />
-        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} />
+        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
       <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/type" element={<TypeChoice />} />
+          <Route path="/form" element={<Form />} />
           {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
         </Routes>
     </Root>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as items from "./Styled/Signup.TypeChoice.main.styles"
+import { Button, Label, Input } from "../../../../APP/components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
@@ -40,8 +41,18 @@ export default function TypeChoice() {
 
         <items.ButtonContainer>
           <items.ButtoninnerContainer>
-            <items.BackButton>이전</items.BackButton>
-            <items.ContinueButton>다음</items.ContinueButton>
+            <Button 
+              text="이전" 
+              outline 
+              onClick={() => (console.log(""))} 
+              width="127px"
+            />
+            <Button 
+              text="다음" 
+              primary 
+              onClick={() => (console.log(""))} 
+              width="228px"
+            />
           </items.ButtoninnerContainer>
         </items.ButtonContainer>
       </items.Container>

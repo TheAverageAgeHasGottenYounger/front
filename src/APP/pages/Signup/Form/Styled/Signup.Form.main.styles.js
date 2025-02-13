@@ -14,38 +14,27 @@ export const Head = styled.div`
   color: ${tokens.colors.gray[900]};
   width: 361px;
   // margin-top: 76px;
-  margin-bottom: 45px;
+  margin-bottom: 38px;
 `;
 
-export const TypeChoiceContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 478px;
-`;
-
-export const TypeContainer = styled.div`
-  width: 361px;
-  height: 229px;
-  border: none;
+export const Logo = styled.div`
+  background-color: black;
+  width: 138px;
+  height: 164px;
   border-radius: 30px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.14);
+  margin-bottom: 28px;
 `;
 
-export const TypeTextBox = styled.div`
+export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 28px 0 0 28px;
+  justify-content: space-between; 
 `;
 
-export const TypeName = styled.div`
-  ${tokens.typography.h2};
-  color: ${tokens.colors.gray[900]};
-  margin-bottom: 8px;
-`;
-
-export const TypeExplanation = styled.div`
-  color: ${tokens.colors.gray[600]};
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 38px;
 `;
 
 export const ButtonContainer = styled.div`
