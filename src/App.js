@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import React, { useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./APP/pages/Login/Login";
 import TypeChoice from "./APP/pages/Signup/TypeChoice/Signup.TypeChoice.main";
+import Info from "./APP/pages/Signup/Info/Signup.Info.main";
 import Form from "./APP/pages/Signup/Form/Signup.Form.main";
-import React, { useState } from "react";
+import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
 // import { Button, Label, Input, Dropdown, TextArea } from "./APP/components/Components";
 
 const Root = styled.div`
@@ -23,7 +25,7 @@ function App() {
   };
   return (
     <Root>
-        {/* <Label text = "asldfjalsd"/>
+      {/* <Label text = "asldfjalsd"/>
         <Label text = "asldfjalsd" star/>
         <Input 
           placeholder="asdlfja;lsfkd"
@@ -56,11 +58,13 @@ function App() {
         />
         <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
       <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/type" element={<TypeChoice />} />
-          <Route path="/form" element={<Form />} />
-          {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
-        </Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/type" element={<TypeChoice />} />
+        <Route path="/info" element={<Info />} />
+        <Route path="/form" element={<Form />} />
+        <Route path="/addinfo" element={<AddInfo />} />
+        {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
+      </Routes>
     </Root>
   );
 }
