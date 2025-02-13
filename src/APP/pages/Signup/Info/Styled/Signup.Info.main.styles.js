@@ -14,45 +14,43 @@ export const Head = styled.div`
   color: ${tokens.colors.gray[900]};
   width: 361px;
   // margin-top: 76px;
-  margin-bottom: 45px;
+  margin-bottom: 38px;
 `;
 
-export const TypeChoiceContainer = styled.div`
+export const Logo = styled.div`
+  background-color: black;
+  width: 138px;
+  height: 164px;
+  border-radius: 30px;
+  margin-bottom: 28px;
+`;
+
+export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 478px;
 `;
 
-export const TypeContainer = styled.div`
-  width: 361px;
-  height: 229px;
-  border: none;
-  border-radius: 30px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.14);
-  /* transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease; 부드러운 변화 효과 */
-
-  &:hover {
-    border: 2px solid ${tokens.colors.primary.lighten[100]};
-    background-color: ${tokens.colors.primary.lighten[400]};
-    box-shadow: none;
-  }
-`;
-
-export const TypeTextBox = styled.div`
+export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 28px 0 0 28px;
+  margin-bottom: 38px;
 `;
 
-export const TypeName = styled.div`
-  ${tokens.typography.h2};
-  color: ${tokens.colors.gray[900]};
-  margin-bottom: 8px;
+export const DropdownContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 361px;
 `;
 
-export const TypeExplanation = styled.div`
-  color: ${tokens.colors.gray[600]};
+export const AddButton = styled.button`
+  background-color: white;
+  width: 361px;
+  height: 58px;
+  border: 1.5px dotted ${tokens.colors.gray[300]};
+  border-radius: 12px;
+  margin-top: 12px;
 `;
 
 export const ButtonContainer = styled.div`
