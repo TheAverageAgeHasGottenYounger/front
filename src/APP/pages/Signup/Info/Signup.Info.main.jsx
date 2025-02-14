@@ -6,6 +6,8 @@ import { Button, Label, Input, Dropdown } from "../../../components/Components";
 // import axios from 'axios';
 
 export default function Info() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedValue, setSelectedValue] = useState(""); // 주소
@@ -199,13 +201,13 @@ export default function Info() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/type")}
             width="127px"
           />
           <Button
             text="다음"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/form")}
             width="228px"
           />
         </items.ButtoninnerContainer>

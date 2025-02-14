@@ -1,17 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.AddInfo.main.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  TextArea,
-} from "../../../components/Components";
+import { Button, Label, Input, Dropdown, TextArea } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
 export default function AddInfo() {
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState("");
 
@@ -113,13 +108,13 @@ export default function AddInfo() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/form")}
             width="127px"
           />
           <Button
             text="회원가입 완료"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/login")}
             width="228px"
           />
         </items.ButtoninnerContainer>

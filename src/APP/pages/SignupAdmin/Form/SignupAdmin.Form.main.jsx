@@ -6,6 +6,8 @@ import { Button, Label, Input, Dropdown } from "../../../components/Components";
 // import axios from 'axios';
 
 export default function FormAdmin() {
+  const navigate = useNavigate();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -137,13 +139,13 @@ export default function FormAdmin() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/admin/signup/add-info")}
             width="127px"
           />
           <Button
             text="회원가입 완료"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/login")}
             width="228px"
           />
         </items.ButtoninnerContainer>

@@ -6,9 +6,16 @@ import { Button, Label, Input } from "../../../../APP/components/Components";
 // import axios from 'axios';
 
 export default function TypeChoice() {
+  const navigate = useNavigate();
+  const [selectedType, setSelectedType] = useState(null);
 
-  const [id, setId] = useState('');
-	const [password, setPassword] = useState('');
+  const handleNextClick = () => {
+    if (selectedType === "caregiver") {
+      navigate("/signup/info");
+    } else if (selectedType === "admin") {
+      navigate("/admin/signup/info");
+    }
+  };
 
   return (
       <items.Container>
@@ -18,7 +25,9 @@ export default function TypeChoice() {
           관리자인가요?
         </items.Head>
         <items.TypeChoiceContainer>
-          <items.TypeContainer>
+          <items.TypeContainer
+            onClick={() => setSelectedType("caregiver")}
+          >
             <items.TypeTextBox>  
               <items.TypeName>요양보호사에요</items.TypeName>
               <items.TypeExplanation>
@@ -29,7 +38,9 @@ export default function TypeChoice() {
             <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지"/>
           </items.TypeContainer>
 
-          <items.TypeContainer>
+          <items.TypeContainer
+            onClick={() => setSelectedType("admin")}
+          >
             <items.TypeTextBox>
               <items.TypeName>관리자/사회복지사에요</items.TypeName>
               <items.TypeExplanation>
@@ -46,14 +57,15 @@ export default function TypeChoice() {
             <Button 
               text="이전" 
               outline 
-              onClick={() => (console.log(""))} 
+              onClick={() => navigate("/login")} 
               width="127px"
             />
             <Button 
               text="다음" 
               primary 
-              onClick={() => (console.log(""))} 
+              onClick={handleNextClick} 
               width="228px"
+              disabled={!selectedType} // 선택하지 않으면 버튼 비활성화
             />
           </items.ButtoninnerContainer>
         </items.ButtonContainer>
