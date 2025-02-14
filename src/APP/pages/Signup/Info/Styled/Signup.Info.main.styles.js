@@ -37,13 +37,41 @@ export const Head = styled.div`
   margin-bottom: 38px;
 `;
 
-export const Logo = styled.div`
-  background-color: black;
+// 프로필 /////////////////////////////////
+export const ProfileContainer = styled.div``;
+
+export const ProfileBox = styled.div`
+  position: relative;
+  width: 138px;
+  height: 138px;
+  border-radius: 30px;
+  margin-bottom: 44px;
+`;
+
+export const Profile = styled.img`
   width: 138px;
   height: 164px;
   border-radius: 30px;
-  margin-bottom: 28px;
 `;
+
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+export const Upload = styled.button`
+  background-color: white;
+  color: ${tokens.colors.gray[700]};
+  position: absolute;
+  width: 114px;
+  height: 42px;
+  border: 1.5px solid ${tokens.colors.gray[500]};
+  border-radius: 40px;
+  z-index: 100;
+  bottom: -26px;
+  right: 12px;
+  /* cursor: pointer; */
+`;
+///////////////////////////////////////////
 
 export const InputWrapper = styled.div`
   display: flex;
