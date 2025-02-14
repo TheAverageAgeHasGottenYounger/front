@@ -6,7 +6,7 @@ import TypeChoice from "./APP/pages/Signup/TypeChoice/Signup.TypeChoice.main";
 import Info from "./APP/pages/Signup/Info/Signup.Info.main";
 import Form from "./APP/pages/Signup/Form/Signup.Form.main";
 import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
-// import { Button, Label, Input, Dropdown, TextArea } from "./APP/components/Components";
+// import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -16,13 +16,29 @@ const Root = styled.div`
   min-height: 100vh; /* Root가 화면의 전체 높이를 차지하도록 설정 */
 `;
 
+const Container = styled.div`
+  display: flex; 
+  gap: 4px; 
+  flex-wrap: wrap; 
+`;
+
+
 function App() {
   const [inputValue, setInputValue] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
+  const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
+
   const handleChange = (e) => {
     setText(e.target.value);
   };
+
+  const toggleSelect = (day) => {
+    setSelectedDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
+
   return (
     <Root>
       {/* <Label text = "asldfjalsd"/>
@@ -56,6 +72,17 @@ function App() {
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         />
+
+        <Container>
+              {["월", "화", "수", "목", "금", "토", "일"].map((day) => (
+                <SelectButton
+                  key={day}
+                  text={day}
+                  selected={selectedDays.includes(day)}
+                  onClick={() => toggleSelect(day)}
+                />
+            ))}
+        </Container>
         <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
       <Routes>
         <Route path="/login" element={<Login />} />
