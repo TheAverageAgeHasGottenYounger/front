@@ -38,11 +38,38 @@ export const InputContainer = styled.div`
   margin-bottom: 38px;
 `;
 
+export const TimeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+  margin-bottom: 18px;
+`;
+
 export const DropdownContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 361px;
+`;
+
+export const AddressContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 361px;
+`;
+
+export const AddressSearchButton = styled.button`
+  width: 100px;
+  height: 58px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${tokens.colors.gray[600]};
+  ${tokens.typography.body_M_16};
+  color: white;
+  border: none;
+  border-radius: 12px;
 `;
 
 export const AddButton = styled.button`
@@ -53,11 +80,10 @@ export const AddButton = styled.button`
   ${tokens.typography.label_Sb_16};
   border: 1.5px solid ${tokens.colors.gray[300]};
   border-radius: 12px;
-  margin-top: 18px;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin-bottom: 42px;
+  margin-bottom: 60px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -91,6 +117,7 @@ export const LabelContainer = styled.div`
 export const Label = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   ${tokens.typography.h3};
   color: ${tokens.colors.gray[900]};
   padding: 4px;

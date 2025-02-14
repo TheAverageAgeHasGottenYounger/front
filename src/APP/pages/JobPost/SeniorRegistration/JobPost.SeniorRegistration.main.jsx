@@ -8,9 +8,33 @@ import { Button, Label, Input, Dropdown, SelectButton } from "../../../component
 export default function SeniorRegistration() {
   const [name, setName] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
+  
+  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedDay, setSelectedDay] = useState("");
+
+  const [selectedStartTime, setSelectedStartTime] = useState("");
+  const [selectedEndTime, setSelectedEndTime] = useState("");
+
   const [selectedGender, setSelectedGender] = useState("");
+
+  const [selectedGrade, setSelectedGrade] = useState("");
+
   const [selectedDays, setSelectedDays] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
+
+  const [timeSchedules, setTimeSchedules] = useState([
+    { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" }
+  ]);
+
+  const longTermCareGrades = [
+    { value: "1", label: "1등급" },
+    { value: "2", label: "2등급" },
+    { value: "3", label: "3등급" },
+    { value: "4", label: "4등급" },
+    { value: "5", label: "5등급" },
+    { value: "인지지원", label: "인지지원등급" },
+  ];
 
   const mealSupportOptions = [
     "스스로 식사 가능",
@@ -50,16 +74,49 @@ export default function SeniorRegistration() {
     "❤️ 40°C 친근 한 가족같이 적극적인 돌봄",
   ];
 
+  const generateYearOptions = () => {
+    const currentYear = new Date().getFullYear();
+    const years = [];
+    for (let year = 1901; year <= currentYear; year++) {
+      years.push({ value: year, label: year.toString() });
+    }
+    return years;
+  };
+  
+  const generateMonthOptions = () => {
+    return Array.from({ length: 12 }, (_, i) => ({ value: i + 1, label: `${i + 1}월` }));
+  };
+  
+  const generateDayOptions = () => {
+    return Array.from({ length: 31 }, (_, i) => ({ value: i + 1, label: `${i + 1}일` }));
+  };  
+
+  const generateTimeOptions = () => {
+    const times = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        const formattedHour = hour.toString().padStart(2, '0');
+        const formattedMinute = minute.toString().padStart(2, '0');
+        times.push({ value: `${formattedHour}:${formattedMinute}`, label: `${formattedHour}:${formattedMinute}` });
+      }
+    }
+    return times;
+  };  
+
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
 
-  const toggleSelectDay = (day) => {
-    setSelectedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
+  const toggleSelectDay = (id, day) => setTimeSchedules(prev => prev.map(schedule => schedule.id === id ? { ...schedule, selectedDays: schedule.selectedDays.includes(day) ? schedule.selectedDays.filter(d => d !== day) : [...schedule.selectedDays, day] } : schedule));
+
+  const addSchedule = () => {
+    setTimeSchedules((prev) => [...prev, { id: Date.now(), selectedDays: [], selectedStartTime: "", selectedEndTime: "" }]);
   };
-  
+
+  const removeSchedule = id => setTimeSchedules(prev => prev.length > 1 ? prev.filter(schedule => schedule.id !== id) : prev);
+
+  const updateTime = (id, field, value) => setTimeSchedules(prev => prev.map(schedule => schedule.id === id ? { ...schedule, [field]: value } : schedule));
+
   const toggleSelectOptions = (option) => {
     setSelectedOptions((prev) =>
       prev.includes(option) ? prev.filter((o) => o !== option) : [...prev, option]
@@ -89,47 +146,32 @@ export default function SeniorRegistration() {
         <items.InputContainer>
           <Label text="생년월일" star />
           <items.DropdownContainer>
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              placeholder="년도"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
-            />
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              placeholder="월"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
-            />
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              placeholder="일"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
-            />
+          <Dropdown
+            options={generateYearOptions()}
+            placeholder="년도"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            width="115px"
+          />
+          <Dropdown
+            options={generateMonthOptions()}
+            placeholder="월"
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            width="115px"
+          />
+          <Dropdown
+            options={generateDayOptions()}
+            placeholder="일"
+            value={selectedDay}
+            onChange={(e) => setSelectedDay(e.target.value)}
+            width="115px"
+          />
           </items.DropdownContainer>
         </items.InputContainer>
 
         <items.InputContainer>
-
-
         <Label text="성별" star />
-
         <items.SelectGenderContainer>
           <SelectButton
             key="남자"
@@ -150,56 +192,71 @@ export default function SeniorRegistration() {
         </items.SelectGenderContainer>
         </items.InputContainer>
 
-
         <items.InputContainer>
-        <items.Label>
-          희망 요일•시간
-        </items.Label>
-        <img src="/img/delete.svg" alt="삭제" width="21" height="21"/>
-
-        <items.SelectContainer>
-          {["월", "화", "수", "목", "금", "토", "일"].map((day) => (
-            <SelectButton
-              key={day}
-              text={day}
-              selected={selectedDays.includes(day)}
-              onClick={() => toggleSelectDay(day)}
-              width="46px"
-              height="46px"
-            />
-        ))}
-        </items.SelectContainer>
-        <items.DropdownContainer>
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              placeholder="시작 시간"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="166px"
-            />
-            <Label text="~"></Label>
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              placeholder="종료 시간"
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="166px"
-            />
-          </items.DropdownContainer>
-          <items.AddButton>
-            <img src="/img/add.svg" alt="추가" width="21" height="21"/> 일정 추가
-          </items.AddButton>
+        <Label text="장기요양등급" star />
+        <Dropdown
+            options={longTermCareGrades}
+            placeholder="등급 선택"
+            value={selectedGrade}
+            onChange={(e) => setSelectedGrade(e.target.value)}
+            width="166px"
+          />
         </items.InputContainer>
 
+        <items.InputContainer>
+          <Label text="주소" star />
+          <items.AddressContainer>
+            <Input
+                type="text"
+                placeholder="주소를 입력해주세요."
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                width="206px"
+              />
+            <items.AddressSearchButton>검색</items.AddressSearchButton>
+          </items.AddressContainer>
+        </items.InputContainer>
 
+        {timeSchedules.map((schedule, index) => (
+          <items.TimeContainer key={schedule.id}>
+            <items.Label>
+            희망 요일•시간 {index > 0 ? `${index+1}` : ""}
+            {index > 0 && <img src="/img/delete.svg" alt="삭제" width="21" height="21" onClick={() => removeSchedule(schedule.id)} style={{ cursor: "pointer" }} />}
+            </items.Label>
+            <items.SelectContainer>
+              {["월", "화", "수", "목", "금", "토", "일"].map(day => (
+                <SelectButton key={day} text={day} selected={schedule.selectedDays.includes(day)} onClick={() => toggleSelectDay(schedule.id, day)} width="46px" height="46px" />
+              ))}
+            </items.SelectContainer>
+            <items.DropdownContainer>
+              <Dropdown options={generateTimeOptions()} placeholder="시작 시간" value={schedule.selectedStartTime} onChange={(e) => updateTime(schedule.id, "selectedStartTime", e.target.value)} width="166px" />
+              <Label text="~"></Label>
+              <Dropdown options={generateTimeOptions()} placeholder="종료 시간" value={schedule.selectedEndTime} onChange={(e) => updateTime(schedule.id, "selectedEndTime", e.target.value)} width="166px" />
+            </items.DropdownContainer>
+          </items.TimeContainer>
+        ))}
+        <items.AddButton onClick={addSchedule}><img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가</items.AddButton>
+        
+        <items.InputContainer>
+          <Label text="희망 급여" star />
+          <items.DropdownContainer>
+          <Dropdown
+            options={generateYearOptions()}
+            placeholder="시급"
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(e.target.value)}
+            width="135px"
+          />
+          <Input
+            type="text"
+            placeholder="이름을 입력해주세요."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            width="218px"
+          />
+          
+          </items.DropdownContainer>
+        </items.InputContainer>
 
         <items.Label>케어 필요 항목</items.Label>
 
@@ -222,7 +279,6 @@ export default function SeniorRegistration() {
           ))}
           </items.SelectGridContainer>
         </items.InputContainer>
-
 
         <items.InputContainer>
           <items.LabelContainer>
