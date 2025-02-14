@@ -86,10 +86,10 @@ export const TextArea = ({ placeholder, value, onChange, maxLength }) => {
   );
 };
 
-export const SelectButton = ({ text, selected, onClick }) => {
-    return (
-        <styled.SelectButton selected={selected} onClick={onClick} borderRadius="8px">
-            {text}
-        </styled.SelectButton>
-    );
+export const SelectButton = ({ text, selected, onClick, placeholder, borderRadius = "8px" }) => {
+  return (
+      <styled.SelectButton selected={selected} onClick={onClick} borderRadius={borderRadius}>
+          {text || placeholder}
+      </styled.SelectButton>
+  );
 };

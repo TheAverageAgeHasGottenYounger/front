@@ -44,7 +44,8 @@ function App() {
 
   return (
     <Root>
-      {/* <Label text = "asldfjalsd"/>
+      {/*
+      <Label text = "asldfjalsd"/>
         <Label text = "asldfjalsd" star/>
         <Input 
           placeholder="asdlfja;lsfkd"
@@ -72,6 +73,7 @@ function App() {
             { value: "option2", label: "옵션 2" },
             { value: "option3", label: "옵션 3" }
           ]}
+          placeholder="선택해주세요"
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         />
@@ -86,7 +88,8 @@ function App() {
                 />
             ))}
         </Container>
-        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
+        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> }
+      */}
       <Routes>
         {/* 로그인 */}
         <Route path="/login" element={<Login />} />
