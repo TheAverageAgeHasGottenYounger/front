@@ -86,9 +86,15 @@ export const TextArea = ({ placeholder, value, onChange, maxLength }) => {
   );
 };
 
-export const SelectButton = ({ text, selected, onClick }) => {
+export const SelectButton = ({ 
+  text,
+  selected,
+  onClick,
+  width = "100%",
+  height = "100%"
+  }) => {
     return (
-        <styled.SelectButton selected={selected} onClick={onClick} borderRadius="8px">
+        <styled.SelectButton selected={selected} onClick={onClick} borderRadius="8px" style={{ width, height }}>
             {text}
         </styled.SelectButton>
     );

@@ -34,6 +34,7 @@ export const InputWrapper = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 18px;
   margin-bottom: 38px;
 `;
 
@@ -45,12 +46,18 @@ export const DropdownContainer = styled.div`
 `;
 
 export const AddButton = styled.button`
+  display: flex;
   background-color: white;
   width: 361px;
   height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
+  ${tokens.typography.label_Sb_16};
+  border: 1.5px solid ${tokens.colors.gray[300]};
   border-radius: 12px;
-  margin-top: 12px;
+  margin-top: 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 42px;
 `;
 
 export const ButtonContainer = styled.div`
@@ -74,4 +81,51 @@ export const ButtoninnerContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 361px;
+`;
+
+export const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Label = styled.div`
+  display: flex;
+  align-items: center;
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+  padding: 4px;
+`;
+
+export const ExtraLabel = styled.div`
+  ${tokens.typography.Body_M_18};
+  color: ${tokens.colors.gray[600]};
+  padding: 4px;
+`;
+
+export const SelectGenderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+`;
+
+export const SelectContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6.5px;
+  margin-bottom: 18px;
+`;
+
+export const SelectGridContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+`;
+
+export const SelectColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.5px;
+  margin-bottom: 18px;
 `;
