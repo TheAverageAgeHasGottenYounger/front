@@ -71,8 +71,7 @@ export default function Login() {
   // };
   return (
       <items.Container>
-        <items.Logo>
-        </items.Logo>
+        <items.Logo src="/img/logo.svg" alt="로고이미지"/>
 
         <items.InputWrapper>
           <items.InputContainer>

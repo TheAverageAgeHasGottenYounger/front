@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.img`
   background-color: black;
   width: 361px;
   height: 271px;

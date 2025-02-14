@@ -26,6 +26,7 @@ export default function TypeChoice() {
                 구직 정보를 찾고 있어요
               </items.TypeExplanation>
             </items.TypeTextBox>
+            <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지"/>
           </items.TypeContainer>
 
           <items.TypeContainer>
@@ -36,6 +37,7 @@ export default function TypeChoice() {
                 요양보호사를 찾고 있어요
               </items.TypeExplanation>
             </items.TypeTextBox>
+            <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지"/>
           </items.TypeContainer>
         </items.TypeChoiceContainer>
 

@@ -20,27 +20,26 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex; 
-  gap: 4px; 
-  flex-wrap: wrap; 
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
 `;
 
-
 function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
-  const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
-  const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
+  // const [inputValue, setInputValue] = useState("");
+  // const [selectedValue, setSelectedValue] = useState("");
+  // const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
+  // const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
 
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setText(e.target.value);
+  // };
 
-  const toggleSelect = (day) => {
-    setSelectedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
-  };
+  // const toggleSelect = (day) => {
+  //   setSelectedDays((prev) =>
+  //     prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+  //   );
+  // };
 
   return (
     <Root>
@@ -109,7 +108,6 @@ function App() {
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
       </Routes>
-
     </Root>
   );
 }

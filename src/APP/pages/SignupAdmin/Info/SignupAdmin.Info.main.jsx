@@ -15,7 +15,9 @@ export default function InfoAdmin() {
 
   return (
     <items.Container>
-      {/* 타입 내부에 있는 이미지는 배경이미지로 한 후에 좌표를 써보자 */}
+      <items.StepContainer>
+        <items.StepImg src="/img/first-step.svg" alt="first-step" />
+      </items.StepContainer>
       <items.Head>
         회원가입을 시작할게요!
         <br />

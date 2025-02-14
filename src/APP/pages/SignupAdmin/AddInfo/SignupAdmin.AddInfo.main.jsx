@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea} from "../../../components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+} from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
@@ -11,6 +17,9 @@ export default function AddInfoAdmin() {
 
   return (
     <items.Container>
+      <items.StepContainer>
+        <items.StepImg src="/img/second-step.svg" alt="second-step" />
+      </items.StepContainer>
       <items.Head>
         센터에 대해 더 자세히
         <br />

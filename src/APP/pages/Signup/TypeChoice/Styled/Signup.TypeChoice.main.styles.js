@@ -37,6 +37,7 @@ export const TypeContainer = styled.div`
     background-color: ${tokens.colors.primary.lighten[400]};
     box-shadow: none;
   }
+  position: relative;
 `;
 
 export const TypeTextBox = styled.div`
@@ -53,6 +54,16 @@ export const TypeName = styled.div`
 
 export const TypeExplanation = styled.div`
   color: ${tokens.colors.gray[600]};
+`;
+
+export const Graphic = styled.img`
+  position: absolute;
+  bottom: 10px; 
+  right: 10px;
+  width: 141px; 
+  height: 117px;
+  z-index: 1;
+  // opacity: 0.8;
 `;
 
 export const ButtonContainer = styled.div`
