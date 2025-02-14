@@ -32,53 +32,73 @@ export const fonts = {
 
 export const typography = {
   h1: {
+    fontFamily: "Pretendard",
     fontSize: "28px",
     fontWeight: "700",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   h2: {
+    fontFamily: "Pretendard",
     fontSize: "26px",
     fontWeight: "700",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   h3: {
+    fontFamily: "Pretendard",
     fontSize: "22px",
     fontWeight: "700",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   body_M_18: {
+    fontFamily: "Pretendard",
     fontSize: "18px",
     fontWeight: "500",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   body_M_16: {
+    fontFamily: "Pretendard",
     fontSize: "16px",
     fontWeight: "500",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   button_Sb_16: {
+    fontFamily: "Pretendard",
     fontSize: "16px",
     fontWeight: "600",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   button_Sb_18: {
+    fontFamily: "Pretendard",
     fontSize: "18px",
     fontWeight: "600",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   button_B_18: {
+    fontFamily: "Pretendard",
     fontSize: "18px",
     fontWeight: "700",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   label_Sb_16: {
+    fontFamily: "Pretendard",
     fontSize: "16px",
     fontWeight: "600",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
   label_Sb_14: {
+    fontFamily: "Pretendard",
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "140%",
+    letterSpacing: "-1px",
   },
 };
