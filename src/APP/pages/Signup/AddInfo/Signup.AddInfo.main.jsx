@@ -1,7 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea} from "../../../components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+} from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
@@ -11,6 +17,9 @@ export default function AddInfo() {
 
   return (
     <items.Container>
+      <items.StepContainer>
+        <items.StepImg src="/img/final-step.svg" alt="final-step" />
+      </items.StepContainer>
       <items.Head>
         더 자세한 정보를 알려주세요
         <br />

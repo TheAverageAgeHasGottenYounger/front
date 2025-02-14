@@ -11,7 +11,9 @@ export default function Form() {
 
   return (
     <items.Container>
-      {/* 타입 내부에 있는 이미지는 배경이미지로 한 후에 좌표를 써보자 */}
+      <items.StepContainer>
+        <items.StepImg src="/img/second-step.svg" alt="second-step" />
+      </items.StepContainer>
       <items.Head>
         사용할 아이디와
         <br />
