@@ -6,6 +6,9 @@ import TypeChoice from "./APP/pages/Signup/TypeChoice/Signup.TypeChoice.main";
 import Info from "./APP/pages/Signup/Info/Signup.Info.main";
 import Form from "./APP/pages/Signup/Form/Signup.Form.main";
 import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
+import InfoAdmin from "./APP/pages/SignupAdmin/Info/SignupAdmin.Info.main";
+import FormAdmin from "./APP/pages/SignupAdmin/Form/SignupAdmin.Form.main";
+import AddInfoAdmin from "./APP/pages/SignupAdmin/AddInfo/SignupAdmin.AddInfo.main";
 // import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
 
 const Root = styled.div`
@@ -85,13 +88,25 @@ function App() {
         </Container>
         <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
       <Routes>
+        {/* 로그인 */}
         <Route path="/login" element={<Login />} />
-        <Route path="/type" element={<TypeChoice />} />
-        <Route path="/info" element={<Info />} />
-        <Route path="/form" element={<Form />} />
-        <Route path="/addinfo" element={<AddInfo />} />
-        {/* <Route path="*" element={<Navigate to="/" />} /> 모든 다른 경로는 홈으로 리다이렉트 */}
+
+        {/* 회원가입 과정 */}
+        <Route path="/signup/type" element={<TypeChoice />} />
+        <Route path="/signup/info" element={<Info />} />
+        <Route path="/signup/form" element={<Form />} />
+        <Route path="/signup/add-info" element={<AddInfo />} />
+
+        {/* 관리자 회원가입 과정 */}
+        {/* <Route path="/admin/signup/info" element={<InfoAdmin />} /> */}
+        <Route path="/admin/signup/info" element={<InfoAdmin />} />
+        <Route path="/admin/signup/form" element={<FormAdmin />} />
+        <Route path="/admin/signup/add-info" element={<AddInfoAdmin />} />
+
+        {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
+        {/* <Route path="*" element={<Navigate to="/login" />} /> */}
       </Routes>
+
     </Root>
   );
 }
