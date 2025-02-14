@@ -37,6 +37,14 @@ export const Head = styled.div`
   margin-bottom: 38px;
 `;
 
+
+export const Head3 = styled.div`
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+  width: 361px;
+  margin-bottom: 8px;
+`;
+
 export const TopWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -50,7 +58,7 @@ export const BottomWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 349px;
-  margin-bottom: 97px;
+  margin-bottom: 127px;
 `;
 
 export const LabelButtonWrapper = styled.div`
@@ -108,11 +116,30 @@ export const SubText = styled.span`
 `;
 
 export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 361px;
   height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
+  border: 1.5px dashed ${tokens.colors.gray[300]};
   border-radius: 12px;
+  margin-top: 12px;
+`;
+
+export const AddImg = styled.img`
+  margin-right: 8px;
+`;
+
+export const AddText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const Body = styled.span`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[500]};
+  width: 361px;
 `;
 
 export const ButtonContainer = styled.div`

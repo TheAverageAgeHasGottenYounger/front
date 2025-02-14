@@ -87,7 +87,10 @@ export default function AddInfo() {
 
         <items.LabelUtilWrapper>
           <Label text="주요 경력 (선택)" />
-          <items.AddButton>+ 경력 추가</items.AddButton>
+          <items.AddButton>
+            <items.AddImg src="/img/add.svg" alt="추가하기" />
+            <items.AddText>경력 추가</items.AddText>
+          </items.AddButton>
         </items.LabelUtilWrapper>
 
         <items.LabelUtilWrapper>
@@ -102,6 +105,13 @@ export default function AddInfo() {
           />
         </items.LabelUtilWrapper>
       </items.BottomWrapper>
+
+      <items.Head3>
+        저는 이런 돌봄 스타일을
+        <br />
+        가졌어요!
+      </items.Head3>
+      <items.Body>선택한 스타일에 따라 맞춤형 어르신이 추천돼요</items.Body>
 
       <items.ButtonContainer>
         <items.ButtoninnerContainer>

@@ -191,9 +191,11 @@ export default function Info() {
               width="140px"
             />
           </items.DropdownContainer>
-          <items.AddButton>+ 자격증 추가</items.AddButton>
+          <items.AddButton>
+            <items.AddImg src="/img/add.svg" alt="추가하기" />
+            <items.AddText>자격증 추가</items.AddText>
+          </items.AddButton>
         </items.InputContainer>
-        {/* 자격증 추기 */}
       </items.InputWrapper>
 
       <items.ButtonContainer>

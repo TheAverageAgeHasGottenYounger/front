@@ -93,12 +93,24 @@ export const DropdownContainer = styled.div`
 `;
 
 export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 361px;
   height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
+  border: 1.5px dashed ${tokens.colors.gray[300]};
   border-radius: 12px;
   margin-top: 12px;
+`;
+
+export const AddImg = styled.img`
+  margin-right: 8px;
+`;
+
+export const AddText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[900]};
 `;
 
 export const ButtonContainer = styled.div`
