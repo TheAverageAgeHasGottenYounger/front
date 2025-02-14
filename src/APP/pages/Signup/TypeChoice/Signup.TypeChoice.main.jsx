@@ -27,6 +27,7 @@ export default function TypeChoice() {
         <items.TypeChoiceContainer>
           <items.TypeContainer
             onClick={() => setSelectedType("caregiver")}
+            isSelected={selectedType === "caregiver"}
           >
             <items.TypeTextBox>  
               <items.TypeName>요양보호사에요</items.TypeName>
@@ -40,6 +41,7 @@ export default function TypeChoice() {
 
           <items.TypeContainer
             onClick={() => setSelectedType("admin")}
+            isSelected={selectedType === "admin"}
           >
             <items.TypeTextBox>
               <items.TypeName>관리자/사회복지사에요</items.TypeName>
