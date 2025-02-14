@@ -6,6 +6,8 @@ import { Button, Label, Input, Dropdown } from "../../../components/Components";
 // import axios from 'axios';
 
 export default function Form() {
+  const navigate = useNavigate();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,13 +52,13 @@ export default function Form() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/info")}
             width="127px"
           />
           <Button
             text="다음"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/add-info")}
             width="228px"
           />
         </items.ButtoninnerContainer>

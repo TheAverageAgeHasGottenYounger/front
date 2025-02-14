@@ -6,6 +6,7 @@ import { Button, Label, Input } from "../../../APP/components/Components";
 // import axios from 'axios';
 
 export default function Login() {
+  const navigate = useNavigate();
 
   const [id, setId] = useState('');
 	const [password, setPassword] = useState('');
@@ -102,9 +103,10 @@ export default function Login() {
           onClick={() => (console.log(""))} 
         />
 
-        <items.Navi>
-          회원가입하기
-        </items.Navi>
+        <items.SignupLink onClick={() => navigate("/signup/type")}>
+          <items.SignupLinkText>회원가입하기</items.SignupLinkText>
+          <items.Arrow src="/img/arrow-right.svg" alt="화살표" />
+        </items.SignupLink>
       </items.Container>
   )
 }
