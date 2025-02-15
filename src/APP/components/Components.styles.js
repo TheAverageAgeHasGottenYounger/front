@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import * as tokens from "../../tokens";
 
 export const Button = styled.button`
@@ -8,15 +8,24 @@ export const Button = styled.button`
   ${tokens.typography.button_Sb_18};
   color: ${(props) => (props.primary ? "white" : tokens.colors.gray[700])};
   background-color: ${(props) =>
-    props.primary ? tokens.colors.primary[0] : props.outline ? "transparent" : tokens.colors.gray[200]};
-  border: ${(props) => (props.outline ? `1px solid ${tokens.colors.gray[300]}` : "none")};
+    props.primary
+      ? tokens.colors.primary[0]
+      : props.outline
+      ? "transparent"
+      : tokens.colors.gray[200]};
+  border: ${(props) =>
+    props.outline ? `1px solid ${tokens.colors.gray[300]}` : "none"};
   border-radius: 40px;
   cursor: pointer;
   pointer-events: ${(props) => (props.disabled ? "none" : "auto")};
 
   &:hover {
     background-color: ${(props) =>
-      props.primary ? tokens.colors.primary.darken[100] : props.outline ? tokens.colors.gray[100] : tokens.colors.gray[100]};
+      props.primary
+        ? tokens.colors.primary.darken[100]
+        : props.outline
+        ? tokens.colors.gray[100]
+        : tokens.colors.gray[100]};
   }
 `;
 
@@ -34,7 +43,7 @@ export const Label = styled.div`
 
 export const Star = styled.span`
   ${tokens.typography.button_Sb_18};
-  color: #D32F2F;
+  color: #d32f2f;
 `;
 
 export const Input = styled.input`
@@ -125,10 +134,122 @@ export const TextAreaCounter = styled.div`
 export const SelectButton = styled.button`
   padding: 12px 16px;
   border-radius: ${({ borderRadius }) => borderRadius || "8px"};
-  border: 1px solid ${({ selected }) => (selected ? tokens.colors.primary[0] : tokens.colors.gray[300])};
-  background-color: ${({ selected }) => (selected ? tokens.colors.primary.lighten[400] : "transparent")};
+  border: 1px solid
+    ${({ selected }) =>
+      selected ? tokens.colors.primary[0] : tokens.colors.gray[300]};
+  background-color: ${({ selected }) =>
+    selected ? tokens.colors.primary.lighten[400] : "transparent"};
   color: ${tokens.colors.gray[700]};
   font-size: 16px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+`;
+
+// 카드
+export const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  width: 337px;
+  border: none;
+  border-radius: 22px;
+  padding: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+`;
+
+export const CardInfoContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const CardProfile = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  margin-right: 12px;
+`;
+
+export const CardInfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const CardName = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[900]};
+  margin: 9px 0 8px 0;
+`;
+
+export const CardInfoBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+`;
+
+export const CardInfoIcon = styled.img`
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+`;
+
+export const CardInfoText = styled.div`
+  ${tokens.typography.label_Sb_14};
+  color: ${tokens.colors.gray[600]};
+`;
+
+export const CardRequestBar = styled.div`
+  ${tokens.typography.label_Sb_14};
+  color: #18181b;
+  width: 84px; // 초과시 줄바꿈
+`;
+
+export const CardCheckButtonBox = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+`;
+
+export const CardCheckButton = styled.button`
+  background-color: #ff8d3c;
+  ${tokens.typography.label_Sb_14};
+  color: white;
+  width: 120px;
+  height: 38px;
+  border: none;
+  border-radius: 23.5px;
+`;
+
+export const BigCardRequestBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+`;
+
+export const BigCardRequestBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+`;
+
+export const CardRequestIcon = styled.img`
+  width: 15px;
+  height: 15px;
+  margin-right: 4px;
+`;
+
+export const CardRequestText = styled.div`
+  ${tokens.typography.label_Sb_14};
+  color: ${tokens.colors.gray[600]};
 `;
