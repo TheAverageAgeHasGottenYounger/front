@@ -228,28 +228,178 @@ export const CardCheckButton = styled.button`
   border-radius: 23.5px;
 `;
 
+
+// BIG 카드
+export const BigCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  border: none;
+  border-radius: 30px 30px 0 0;
+  width: 377px;
+  height: 708px;
+  padding-left: 16px; 
+  margin-top: 141px;
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
+
+  &::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari에서 스크롤바 숨기기 */
+  }
+  position: relative;  
+`;
+
+export const BigCardProfile = styled.img`
+  position: absolute;
+  z-index: 100;
+  top: -82px;
+  left: 132px;
+  width: 130px;
+  height: 130px;
+  border: none;
+  border-radius: 107.5px;
+`;
+
+export const BigCardName = styled.div`
+  ${tokens.typography.h2};
+  color: ${tokens.colors.gray[900]};
+  width: 361px;
+  margin-top: 66px;
+  margin-bottom: 8px;
+`;
+
+export const BigCardStyleBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 361px;
+`;
+
+export const BigCardStyleBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150px;
+`;
+
+export const BigCardStyleIcon = styled.img`
+  margin-left: 6px;
+  margin-right: 14px;
+`;
+
+export const BigCardStyleText = styled.div`
+  ${tokens.typography.body_M_18};
+  color: ${tokens.colors.primary[0]};
+`;
+
+export const BigCardStyleContent = styled.div`
+  ${tokens.typography.body_M_18};
+  color: #181818;
+`;
+
 export const BigCardRequestBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
+  height: 103px;
 `;
 
 export const BigCardRequestBar = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 6px;
 `;
 
-export const CardRequestIcon = styled.img`
-  width: 15px;
-  height: 15px;
-  margin-right: 4px;
+export const BigCardRequestIL = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 150px;
 `;
 
-export const CardRequestText = styled.div`
-  ${tokens.typography.label_Sb_14};
+export const BigCardRequestIcon = styled.img`
+  width: 18px;
+  height: 18px;
+  margin-right: 11px;
+`;
+
+export const BigCardRequestLabel = styled.div`
+  ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[600]};
 `;
+
+export const BigCardRequestText = styled.div`
+  ${tokens.typography.body_M_18};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const BigCardConditionBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+export const Blank = styled.div`
+  width: 361px;
+  height: 16px;
+`;
+
+export const BigCardRequestCareList = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+`;
+
+export const BigCardRequestCareListItem = styled.div`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[500]};
+`;
+
+export const BigCardInfoBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 108px;
+  position: relative;
+`;
+
+export const LockBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; 
+  background-color: white;
+  width: 268px;
+  height: 108px;
+  border: 1.5px solid ${tokens.colors.gray[200]};
+  border-radius: 12px;
+  position: absolute;
+  z-index: 100px;
+  top: 0px;
+  right: 0px;
+`;
+
+export const LockIcon = styled.img`
+  
+`;
+
+export const LockText = styled.div`
+  ${tokens.typography.body_M_18};
+  color: ${tokens.colors.gray[400]};
+`;
+
+export const Hr = styled.div`
+  width: 361px;
+  height: 0px;
+  border: 1px solid ${tokens.colors.gray[200]};
+  margin: 40px 0;
+`;
+

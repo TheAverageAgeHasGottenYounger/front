@@ -134,3 +134,82 @@ export const Card = ({ contents, onClick, width = "100%" }) => {
     </styled.CardContainer>
   );
 };
+
+export const BigCard = ({ contents, type, width = "100%" }) => {
+  return (
+    <styled.BigCardContainer>
+      <styled.BigCardProfile src={contents.profileUrl} alt="프로필" />
+      <styled.BigCardName>{contents.name} 어르신</styled.BigCardName>
+      <styled.BigCardStyleBox>
+        <styled.BigCardStyleBar>
+          <styled.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
+          <styled.BigCardStyleText>온기 스타일</styled.BigCardStyleText>
+        </styled.BigCardStyleBar>
+        <styled.BigCardStyleContent>{contents.content}</styled.BigCardStyleContent>
+      </styled.BigCardStyleBox>
+      <styled.Hr />
+      <styled.BigCardRequestBox>
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestIL>
+            <styled.BigCardRequestIcon src="/img/location.svg" alt="위치아이콘" />
+            <styled.BigCardRequestLabel>근무지역</styled.BigCardRequestLabel>
+          </styled.BigCardRequestIL>
+          <styled.BigCardRequestText>{contents.address}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestIL>
+            <styled.BigCardRequestIcon src="/img/callender.svg" alt="달력아이콘" />
+            <styled.BigCardRequestLabel>근무일</styled.BigCardRequestLabel>
+          </styled.BigCardRequestIL>
+          <styled.BigCardRequestText>{contents.date}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestIL>
+            <styled.BigCardRequestIcon src="/img/clock.svg" alt="시계아이콘" />
+            <styled.BigCardRequestLabel>가능시간</styled.BigCardRequestLabel>
+          </styled.BigCardRequestIL>
+          <styled.BigCardRequestText>{contents.time}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+      </styled.BigCardRequestBox>
+      <styled.Hr />
+      <styled.BigCardConditionBox>
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestIL>
+            <styled.BigCardRequestIcon src="/img/salary.svg" alt="급여아이콘" />
+            <styled.BigCardRequestLabel>희망급여</styled.BigCardRequestLabel>
+          </styled.BigCardRequestIL>
+          <styled.BigCardRequestText>{contents.salary}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+        <styled.Blank />
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestIL>
+            <styled.BigCardRequestIcon src="/img/care.svg" alt="케어아이콘" />
+            <styled.BigCardRequestLabel>케어항목</styled.BigCardRequestLabel>
+          </styled.BigCardRequestIL>
+          <styled.BigCardRequestCareList>
+            {contents.careList.map((item, index) => (
+              <styled.BigCardRequestCareListItem key={index}>{item}</styled.BigCardRequestCareListItem>
+            ))}
+          </styled.BigCardRequestCareList>
+        </styled.BigCardRequestBar>
+      </styled.BigCardConditionBox>
+      <styled.Hr />
+      <styled.BigCardInfoBox>
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestLabel>연락처</styled.BigCardRequestLabel>
+          <styled.BigCardRequestText>{contents.phoneNumber}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+        <styled.Blank />
+        <styled.BigCardRequestBar>
+          <styled.BigCardRequestLabel>상세 주소</styled.BigCardRequestLabel>
+          <styled.BigCardRequestText>{contents.addressDetail}</styled.BigCardRequestText>
+        </styled.BigCardRequestBar>
+        {/* 자물쇠 */}
+        <styled.LockBox>
+          <styled.LockIcon src="/img/lock.svg" alt="자물쇠"/>
+          <styled.LockText>매칭 요청 후 확인 가능해요!</styled.LockText>
+        </styled.LockBox>
+      </styled.BigCardInfoBox>
+    </styled.BigCardContainer>
+  );
+};
