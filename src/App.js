@@ -9,6 +9,8 @@ import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
 import InfoAdmin from "./APP/pages/SignupAdmin/Info/SignupAdmin.Info.main";
 import FormAdmin from "./APP/pages/SignupAdmin/Form/SignupAdmin.Form.main";
 import AddInfoAdmin from "./APP/pages/SignupAdmin/AddInfo/SignupAdmin.AddInfo.main";
+import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
+import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 // import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
 
 const Root = styled.div`
@@ -104,6 +106,10 @@ function App() {
         <Route path="/admin/signup/info" element={<InfoAdmin />} />
         <Route path="/admin/signup/form" element={<FormAdmin />} />
         <Route path="/admin/signup/add-info" element={<AddInfoAdmin />} />
+
+        {/* 매칭 현황 */}
+        <Route path="/matchoverview" element={<MatchOverview />} />
+        <Route path="/matchoverview/item" element={<MatchOverviewItem />} />
 
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
