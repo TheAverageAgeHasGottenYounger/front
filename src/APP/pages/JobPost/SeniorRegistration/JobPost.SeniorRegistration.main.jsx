@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/JobPost.SeniorRegistration.main.styles";
-import { Button, Label, Input, Dropdown, SelectButton } from "../../../components/Components";
+import { PageHeader, Button, Label, Input, Dropdown, SelectButton } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
 export default function SeniorRegistration() {
+  const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
+
   const [name, setName] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   
@@ -67,11 +69,11 @@ export default function SeniorRegistration() {
   ];
 
   const CaregiverStyleOptions = [
-    "🧊 34°C 메뉴얼과 규칙을 중요시하는 꼼꼼형",
-    "🟦 36°C 조용하고 신뢰있게 돕는 차분형",
-    "🟠 37°C 필요에 따라 유연하게 조정하는 균형형",
-    "🔥 38°C 감정에 공감하는 정서 교감형",
-    "❤️ 40°C 친근 한 가족같이 적극적인 돌봄",
+    "🧊 메뉴얼과 규칙을 중요시하는 꼼꼼형",
+    "🟦 조용하고 신뢰있게 돕는 차분형",
+    "🟠 필요에 따라 유연하게 조정하는 균형형",
+    "🔥 감정에 공감하는 정서 교감형",
+    "❤️ 친근 한 가족같이 적극적인 돌봄",
   ];
 
   const generateYearOptions = () => {
@@ -125,8 +127,23 @@ export default function SeniorRegistration() {
 
   return (
     <items.Container>
+      <PageHeader title="어르신 정보 등록" />
+
       {/*   프로필 */}
-      <items.Logo></items.Logo>
+      <items.ProfileContainer>
+        <items.ProfileBox>
+          <items.Profile src={profileUrl} alt="프로필이미지" />
+          <items.Upload>사진 등록하기</items.Upload>
+        </items.ProfileBox>
+        <items.HiddenFileInput
+          type="file"
+          accept=".gif, .jpg, .png, .jpeg, .svg"
+          // ref={fileInputRef}
+          // onChange={handleFileChange}
+        />
+      </items.ProfileContainer>
+
+
 
       <items.InputWrapper>
 
@@ -249,13 +266,16 @@ export default function SeniorRegistration() {
           />
           <Input
             type="text"
-            placeholder="이름을 입력해주세요."
+            placeholder="금액을 입력해주세요."
             value={name}
             onChange={(e) => setName(e.target.value)}
-            width="218px"
+            width="170px"
           />
-          
           </items.DropdownContainer>
+          <items.ExtraInstructionContainer>
+            <items.ExtraInstruction>월급 : 0원</items.ExtraInstruction>
+            <items.ExtraInstruction>최저 임금 : 10,030원</items.ExtraInstruction>
+          </items.ExtraInstructionContainer>
         </items.InputContainer>
 
         <items.Label>케어 필요 항목</items.Label>

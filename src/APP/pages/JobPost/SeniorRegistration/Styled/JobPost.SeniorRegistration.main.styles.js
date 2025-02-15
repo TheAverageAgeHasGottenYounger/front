@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 90px 0;
+  padding-bottom: 135px;
 `;
 
 export const Head = styled.div`
@@ -23,6 +23,42 @@ export const Logo = styled.div`
   height: 164px;
   border-radius: 30px;
   margin-bottom: 28px;
+`;
+
+export const ProfileContainer = styled.div`
+  margin-top: 27px;
+`;
+
+export const ProfileBox = styled.div`
+  position: relative;
+  width: 138px;
+  height: 138px;
+  border-radius: 30px;
+  margin-bottom: 44px;
+`;
+export const Profile = styled.img`
+  width: 138px;
+  height: 164px;
+  border-radius: 30px;
+  margin-bottom: 28px;
+`;
+
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+export const Upload = styled.button`
+  background-color: white;
+  color: ${tokens.colors.gray[700]};
+  position: absolute;
+  width: 114px;
+  height: 42px;
+  border: 1.5px solid ${tokens.colors.gray[500]};
+  border-radius: 40px;
+  z-index: 100;
+  bottom: -26px;
+  right: 12px;
+  /* cursor: pointer; */
 `;
 
 export const InputWrapper = styled.div`
@@ -127,6 +163,18 @@ export const ExtraLabel = styled.div`
   ${tokens.typography.Body_M_18};
   color: ${tokens.colors.gray[600]};
   padding: 4px;
+`;
+
+export const ExtraInstruction = styled.div`
+  ${tokens.typography.Body_M_16};
+  color: ${tokens.colors.gray[700]};
+`;
+
+export const ExtraInstructionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 8px;
 `;
 
 export const SelectGenderContainer = styled.div`

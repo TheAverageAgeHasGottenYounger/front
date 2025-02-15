@@ -132,3 +132,27 @@ export const SelectButton = styled.button`
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 `;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 59px;
+  background-color: white;
+`;
+
+export const BackButton = styled.button`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+export const Title = styled.div`
+  ${tokens.typography.button_Sb_18};
+  color: ${tokens.colors.gray[900]};
+`;
