@@ -93,12 +93,15 @@ export const SelectButton = ({
   onClick,
   placeholder,
   borderRadius = "8px",
+  width = "100%",
+  height = "100%",
 }) => {
   return (
     <styled.SelectButton
       selected={selected}
       onClick={onClick}
       borderRadius={borderRadius}
+      style={{ width, height }}
     >
       {text || placeholder}
     </styled.SelectButton>
