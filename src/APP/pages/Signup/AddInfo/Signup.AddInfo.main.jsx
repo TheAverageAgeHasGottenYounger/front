@@ -1,16 +1,52 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea} from "../../../components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+} from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import axios from "axios";
 
 export default function AddInfo() {
+  const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState("");
 
+  // 회원가입 버튼
+  const handleSubmit = async () => {
+    // try {
+    //   const response = await axios.post(
+    //     "https://api.ondue.store/member/login",
+    //     null, // 요청 본문 없이 params만 전달할 경우 null 사용
+    //     {
+    //       params: {
+    //         id: id,
+    //         password: password,
+    //       },
+    //       headers: {
+    //         "Content-Type": "application/json", // 필요에 따라 설정
+    //       },
+    //     }
+    //   );
+    //   console.log("response headers", response.headers); // 헤더에서 응답 받기
+    //   if (response.data["isSuccess"]) {
+    //     console.log("회원가입 성공!");
+    //     window.location.replace("/login");
+    //   }
+    // } catch (error) {
+    //   console.error("회원가입 오류:", error);
+    // }
+  };
+
   return (
     <items.Container>
+      <items.StepContainer>
+        <items.StepImg src="/img/final-step.svg" alt="final-step" />
+      </items.StepContainer>
       <items.Head>
         더 자세한 정보를 알려주세요
         <br />
@@ -83,7 +119,10 @@ export default function AddInfo() {
 
         <items.LabelUtilWrapper>
           <Label text="주요 경력 (선택)" />
-          <items.AddButton>+ 경력 추가</items.AddButton>
+          <items.AddButton>
+            <items.AddImg src="/img/add.svg" alt="추가하기" />
+            <items.AddText>경력 추가</items.AddText>
+          </items.AddButton>
         </items.LabelUtilWrapper>
 
         <items.LabelUtilWrapper>
@@ -99,18 +138,25 @@ export default function AddInfo() {
         </items.LabelUtilWrapper>
       </items.BottomWrapper>
 
+      <items.Head3>
+        저는 이런 돌봄 스타일을
+        <br />
+        가졌어요!
+      </items.Head3>
+      <items.Body>선택한 스타일에 따라 맞춤형 어르신이 추천돼요</items.Body>
+
       <items.ButtonContainer>
         <items.ButtoninnerContainer>
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/form")}
             width="127px"
           />
           <Button
             text="회원가입 완료"
             primary
-            onClick={() => console.log("")}
+            onClick={handleSubmit}
             width="228px"
           />
         </items.ButtoninnerContainer>

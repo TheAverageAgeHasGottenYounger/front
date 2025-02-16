@@ -9,7 +9,7 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.img`
   background-color: black;
   width: 361px;
   height: 271px;
@@ -30,6 +30,19 @@ export const InputContainer = styled.div`
   margin-bottom: 38px;
 `;
 
-export const Navi = styled.div`
+export const SignupLink = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   margin-top: 65px;
+`;
+
+export const SignupLinkText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: #678EE0;
+`;
+
+export const Arrow = styled.img`
+  margin-left: 9.5px;
 `;

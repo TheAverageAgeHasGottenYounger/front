@@ -6,12 +6,16 @@ import { Button, Label, Input, Dropdown } from "../../../components/Components";
 // import axios from 'axios';
 
 export default function Form() {
+  const navigate = useNavigate();
+
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <items.Container>
-      {/* 타입 내부에 있는 이미지는 배경이미지로 한 후에 좌표를 써보자 */}
+      <items.StepContainer>
+        <items.StepImg src="/img/second-step.svg" alt="second-step" />
+      </items.StepContainer>
       <items.Head>
         사용할 아이디와
         <br />
@@ -48,13 +52,13 @@ export default function Form() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/info")}
             width="127px"
           />
           <Button
             text="다음"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/add-info")}
             width="228px"
           />
         </items.ButtoninnerContainer>

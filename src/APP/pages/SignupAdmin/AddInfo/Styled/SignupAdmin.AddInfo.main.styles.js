@@ -9,6 +9,26 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
+export const StepContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: white;
+  z-index: 100;
+`;
+
+export const StepImg = styled.img`
+  /* width: 361px;
+  height: 15px; */
+`;
+
 export const Head = styled.div`
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};

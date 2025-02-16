@@ -7,6 +7,8 @@ import Modal from "./SignupAdmin.info.modal";
 // import axios from 'axios';
 
 export default function InfoAdmin() {
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedValue, setSelectedValue] = useState(""); // 주소
@@ -15,7 +17,9 @@ export default function InfoAdmin() {
 
   return (
     <items.Container>
-      {/* 타입 내부에 있는 이미지는 배경이미지로 한 후에 좌표를 써보자 */}
+      <items.StepContainer>
+        <items.StepImg src="/img/first-step.svg" alt="first-step" />
+      </items.StepContainer>
       <items.Head>
         회원가입을 시작할게요!
         <br />
@@ -93,13 +97,13 @@ export default function InfoAdmin() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/signup/type")}
             width="127px"
           />
           <Button
             text="다음"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/admin/signup/add-info")}
             width="228px"
           />
         </items.ButtoninnerContainer>

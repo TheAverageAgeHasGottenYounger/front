@@ -9,12 +9,40 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
+export const StepContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: white;
+  z-index: 100;
+`;
+
+export const StepImg = styled.img`
+  /* width: 361px;
+  height: 15px; */
+`;
+
 export const Head = styled.div`
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};
   width: 361px;
   // margin-top: 76px;
   margin-bottom: 38px;
+`;
+
+
+export const Head3 = styled.div`
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+  width: 361px;
+  margin-bottom: 8px;
 `;
 
 export const TopWrapper = styled.div`
@@ -30,7 +58,7 @@ export const BottomWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 349px;
-  margin-bottom: 97px;
+  margin-bottom: 127px;
 `;
 
 export const LabelButtonWrapper = styled.div`
@@ -88,11 +116,30 @@ export const SubText = styled.span`
 `;
 
 export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 361px;
   height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
+  border: 1.5px dashed ${tokens.colors.gray[300]};
   border-radius: 12px;
+  margin-top: 12px;
+`;
+
+export const AddImg = styled.img`
+  margin-right: 8px;
+`;
+
+export const AddText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const Body = styled.span`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[500]};
+  width: 361px;
 `;
 
 export const ButtonContainer = styled.div`

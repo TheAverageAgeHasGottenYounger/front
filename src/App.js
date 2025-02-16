@@ -15,9 +15,8 @@ import SelectSenior from "./APP/pages/JobPost/SelectSenior/JobPost.SelectSenior.
 import SeniorCheck from "./APP/pages/JobPost/SeniorCheck/JobPost.SeniorCheck.main";
 import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.SeniorRegistration.main";
 import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
-
-
-
+import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
+import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 // import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
 
 const Root = styled.div`
@@ -29,31 +28,31 @@ const Root = styled.div`
 `;
 
 const Container = styled.div`
-  display: flex; 
-  gap: 4px; 
-  flex-wrap: wrap; 
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
 `;
 
-
 function App() {
-  const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
-  const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
-  const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
+  // const [inputValue, setInputValue] = useState("");
+  // const [selectedValue, setSelectedValue] = useState("");
+  // const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
+  // const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
 
-  const handleChange = (e) => {
-    setText(e.target.value);
-  };
+  // const handleChange = (e) => {
+  //   setText(e.target.value);
+  // };
 
-  const toggleSelect = (day) => {
-    setSelectedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-    );
-  };
+  // const toggleSelect = (day) => {
+  //   setSelectedDays((prev) =>
+  //     prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+  //   );
+  // };
 
   return (
     <Root>
-      {/* <Label text = "asldfjalsd"/>
+      {/*
+      <Label text = "asldfjalsd"/>
         <Label text = "asldfjalsd" star/>
         <Input 
           placeholder="asdlfja;lsfkd"
@@ -81,6 +80,7 @@ function App() {
             { value: "option2", label: "옵션 2" },
             { value: "option3", label: "옵션 3" }
           ]}
+          placeholder="선택해주세요"
           value={selectedValue}
           onChange={(e) => setSelectedValue(e.target.value)}
         />
@@ -95,7 +95,8 @@ function App() {
                 />
             ))}
         </Container>
-        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> */}
+        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> }
+      */}
       <Routes>
         {/* 로그인 */}
         <Route path="/login" element={<Login />} />
@@ -112,6 +113,10 @@ function App() {
         <Route path="/admin/signup/form" element={<FormAdmin />} />
         <Route path="/admin/signup/add-info" element={<AddInfoAdmin />} />
 
+        {/* 매칭 현황 */}
+        <Route path="/matchoverview" element={<MatchOverview />} />
+        <Route path="/matchoverview/item" element={<MatchOverviewItem />} />
+
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
 
@@ -123,7 +128,6 @@ function App() {
         <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
         <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
       </Routes>
-
     </Root>
   );
 }

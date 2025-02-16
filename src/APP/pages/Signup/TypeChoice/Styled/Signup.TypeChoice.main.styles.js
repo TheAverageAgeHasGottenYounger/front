@@ -23,20 +23,20 @@ export const TypeChoiceContainer = styled.div`
   justify-content: space-between;
   height: 478px;
 `;
-
 export const TypeContainer = styled.div`
   width: 361px;
   height: 229px;
-  border: none;
+  border: ${({ isSelected }) => isSelected ? `2px solid ${tokens.colors.primary.lighten[100]}` : 'none'}; // 선택된 항목에 테두리 추가
   border-radius: 30px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.14);
-  /* transition: background-color 0.3s ease, border 0.3s ease, box-shadow 0.3s ease; 부드러운 변화 효과 */
+  box-shadow: ${({ isSelected }) => isSelected ? '0px 0px 0px 0px rgba(0, 0, 0, 0)' : '0px 0px 10px 0px rgba(0, 0, 0, 0.14)'};
+  background-color: ${({ isSelected }) => isSelected ? `${tokens.colors.primary.lighten[400]}` : 'white'};
+  cursor: pointer;  // 클릭 가능한 스타일로 변경
 
-  &:hover {
-    border: 2px solid ${tokens.colors.primary.lighten[100]};
-    background-color: ${tokens.colors.primary.lighten[400]};
-    box-shadow: none;
-  }
+  // &:hover {
+  //   background-color: ${({ isSelected }) => isSelected ? `${tokens.colors.primary.lighten[400]}` : `${tokens.colors.primary.lighten[100]}`};
+  //   box-shadow: ${({ isSelected }) => isSelected ? 'none' : '0px 0px 10px 0px rgba(0, 0, 0, 0.14)'};
+  // }
+  position: relative;
 `;
 
 export const TypeTextBox = styled.div`
@@ -53,6 +53,16 @@ export const TypeName = styled.div`
 
 export const TypeExplanation = styled.div`
   color: ${tokens.colors.gray[600]};
+`;
+
+export const Graphic = styled.img`
+  position: absolute;
+  bottom: 10px; 
+  right: 10px;
+  width: 141px; 
+  height: 117px;
+  z-index: 1;
+  // opacity: 0.8;
 `;
 
 export const ButtonContainer = styled.div`

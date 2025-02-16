@@ -9,6 +9,26 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
+export const StepContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 54px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: white;
+  z-index: 100;
+`;
+
+export const StepImg = styled.img`
+  /* width: 361px;
+  height: 15px; */
+`;
+
 export const Head = styled.div`
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};
@@ -17,13 +37,41 @@ export const Head = styled.div`
   margin-bottom: 38px;
 `;
 
-export const Logo = styled.div`
-  background-color: black;
+// 프로필 /////////////////////////////////
+export const ProfileContainer = styled.div``;
+
+export const ProfileBox = styled.div`
+  position: relative;
+  width: 138px;
+  height: 138px;
+  border-radius: 30px;
+  margin-bottom: 44px;
+`;
+
+export const Profile = styled.img`
   width: 138px;
   height: 164px;
   border-radius: 30px;
-  margin-bottom: 28px;
 `;
+
+export const HiddenFileInput = styled.input`
+  display: none;
+`;
+
+export const Upload = styled.button`
+  background-color: white;
+  color: ${tokens.colors.gray[700]};
+  position: absolute;
+  width: 114px;
+  height: 42px;
+  border: 1.5px solid ${tokens.colors.gray[500]};
+  border-radius: 40px;
+  z-index: 100;
+  bottom: -26px;
+  right: 12px;
+  /* cursor: pointer; */
+`;
+///////////////////////////////////////////
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -45,12 +93,24 @@ export const DropdownContainer = styled.div`
 `;
 
 export const AddButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 361px;
   height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
+  border: 1.5px dashed ${tokens.colors.gray[300]};
   border-radius: 12px;
   margin-top: 12px;
+`;
+
+export const AddImg = styled.img`
+  margin-right: 8px;
+`;
+
+export const AddText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[900]};
 `;
 
 export const ButtonContainer = styled.div`

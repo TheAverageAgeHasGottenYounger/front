@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea} from "../../../components/Components";
+import { Button, Label, Input, Dropdown, TextArea } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
 export default function AddInfoAdmin() {
+  const navigate = useNavigate();
+
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState("");
 
   return (
     <items.Container>
+      <items.StepContainer>
+        <items.StepImg src="/img/second-step.svg" alt="second-step" />
+      </items.StepContainer>
       <items.Head>
         센터에 대해 더 자세히
         <br />
@@ -90,13 +95,13 @@ export default function AddInfoAdmin() {
           <Button
             text="이전"
             outline
-            onClick={() => console.log("")}
+            onClick={() => navigate("/admin/signup/info")}
             width="127px"
           />
           <Button
-            text="회원가입 완료"
+            text="다음"
             primary
-            onClick={() => console.log("")}
+            onClick={() => navigate("/admin/signup/form")}
             width="228px"
           />
         </items.ButtoninnerContainer>
