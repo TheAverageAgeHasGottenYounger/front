@@ -9,21 +9,24 @@ export default function SeniorRegistration() {
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
 
   const [name, setName] = useState("");
-  const [selectedValue, setSelectedValue] = useState("");
   
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedDay, setSelectedDay] = useState("");
 
-  const [selectedStartTime, setSelectedStartTime] = useState("");
-  const [selectedEndTime, setSelectedEndTime] = useState("");
-
   const [selectedGender, setSelectedGender] = useState("");
 
   const [selectedGrade, setSelectedGrade] = useState("");
 
-  const [selectedDays, setSelectedDays] = useState([]);
+  const [selectedPayType, setSelectedPayType] = useState("");
+  const [selectedPay, setSelectedPay] = useState("");
+
   const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+  // const [selectedOptions, setSelectedOptions] = useState([]);
+
+
 
   const [timeSchedules, setTimeSchedules] = useState([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" }
@@ -36,6 +39,10 @@ export default function SeniorRegistration() {
     { value: "4", label: "4등급" },
     { value: "5", label: "5등급" },
     { value: "인지지원", label: "인지지원등급" },
+  ];
+
+  const payType = [
+    { value: "시급", label: "시급" },
   ];
 
   const mealSupportOptions = [
@@ -258,17 +265,17 @@ export default function SeniorRegistration() {
           <Label text="희망 급여" star />
           <items.DropdownContainer>
           <Dropdown
-            options={generateYearOptions()}
+            options={payType}
             placeholder="시급"
-            value={selectedYear}
-            onChange={(e) => setSelectedYear(e.target.value)}
+            value={selectedPay}
+            onChange={(e) => setSelectedPayType(e.target.value)}
             width="135px"
           />
           <Input
-            type="text"
+            type="number"
             placeholder="금액을 입력해주세요."
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setSelectedPay(e.target.value)}
             width="170px"
           />
           </items.DropdownContainer>
