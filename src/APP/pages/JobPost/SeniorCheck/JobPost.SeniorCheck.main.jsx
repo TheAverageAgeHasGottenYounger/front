@@ -5,7 +5,7 @@ import { PageHeader, Button, Label, Input, Dropdown, SelectButton } from "../../
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
-export default function SeniorRegistration() {
+export default function SeniorCheck() {
   const navigate = useNavigate();
 
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
