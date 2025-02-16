@@ -132,7 +132,9 @@ export const TextAreaCounter = styled.div`
 `;
 
 export const SelectButton = styled.button`
-  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: ${({ borderRadius }) => borderRadius || "8px"};
   border: 1px solid
     ${({ selected }) =>
@@ -140,9 +142,38 @@ export const SelectButton = styled.button`
   background-color: ${({ selected }) =>
     selected ? tokens.colors.primary.lighten[400] : "transparent"};
   color: ${tokens.colors.gray[700]};
-  font-size: 16px;
+  ${tokens.typography.body_M_16};
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+`;
+
+export const HeaderContainer = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  height: 59px;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: white;
+  z-index: 100;
+`;
+
+export const BackButton = styled.button`
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+`;
+
+export const Title = styled.div`
+  ${tokens.typography.button_Sb_18};
+  color: ${tokens.colors.gray[900]};
 `;
 
 // 카드
@@ -402,4 +433,3 @@ export const Hr = styled.div`
   border: 1px solid ${tokens.colors.gray[200]};
   margin: 40px 0;
 `;
-

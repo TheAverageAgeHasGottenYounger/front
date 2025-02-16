@@ -1,5 +1,6 @@
 import React from "react";
 import * as styled from "./Components.styles";
+import { useNavigate } from "react-router-dom";
 
 export const Button = ({
   text,
@@ -211,5 +212,17 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
         </styled.LockBox>
       </styled.BigCardInfoBox>
     </styled.BigCardContainer>
+  );
+};
+
+export const PageHeader = ({ title }) => {
+  const navigate = useNavigate();
+  return (
+    <styled.HeaderContainer>
+        <styled.BackButton>
+          <img src="/img/left_arrow.svg" alt="이전" onClick={() => navigate(-1)}/>
+        </styled.BackButton>
+      <styled.Title>{title}</styled.Title>
+    </styled.HeaderContainer>
   );
 };

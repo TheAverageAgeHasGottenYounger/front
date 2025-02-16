@@ -9,6 +9,12 @@ import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
 import InfoAdmin from "./APP/pages/SignupAdmin/Info/SignupAdmin.Info.main";
 import FormAdmin from "./APP/pages/SignupAdmin/Form/SignupAdmin.Form.main";
 import AddInfoAdmin from "./APP/pages/SignupAdmin/AddInfo/SignupAdmin.AddInfo.main";
+import CaregiverDetails from "./APP/pages/JobPost/CaregiverDetails/JobPost.CaregiverDetails.main";
+import MatchingStatus from "./APP/pages/JobPost/MatchingStatus/JobPost.MatchingStatus.main";
+import SelectSenior from "./APP/pages/JobPost/SelectSenior/JobPost.SelectSenior.main";
+import SeniorCheck from "./APP/pages/JobPost/SeniorCheck/JobPost.SeniorCheck.main";
+import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.SeniorRegistration.main";
+import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 // import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
@@ -113,6 +119,14 @@ function App() {
 
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
+
+        {/* 구인 과정 */}
+        <Route path="/jobpost/caregiverdetails" element={<CaregiverDetails />} />
+        <Route path="/jobpost/matchingstatus" element={<MatchingStatus />} />
+        <Route path="/jobpost/selectsenior" element={<SelectSenior />} />
+        <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
+        <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
+        <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
       </Routes>
     </Root>
   );
