@@ -6,6 +6,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 86px;
   padding-bottom: 135px;
 `;
 
@@ -26,7 +27,6 @@ export const Logo = styled.div`
 `;
 
 export const ProfileContainer = styled.div`
-  margin-top: 27px;
 `;
 
 export const ProfileBox = styled.div`

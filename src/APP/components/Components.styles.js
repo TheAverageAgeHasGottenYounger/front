@@ -140,6 +140,11 @@ export const HeaderContainer = styled.div`
   justify-content: center;
   height: 59px;
   background-color: white;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: white;
+  z-index: 100;
 `;
 
 export const BackButton = styled.button`
