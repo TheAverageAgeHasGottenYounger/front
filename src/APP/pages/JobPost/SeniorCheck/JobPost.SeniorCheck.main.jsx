@@ -28,7 +28,7 @@ export default function SeniorCheck() {
   // const [selectedOptions, setSelectedOptions] = useState([]);
   // const [selectedOptions, setSelectedOptions] = useState([]);
 
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [timeSchedules, setTimeSchedules] = useState([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" }
@@ -151,7 +151,7 @@ export default function SeniorCheck() {
         </items.HeadContainer>
 
       <items.ProfileContainer>
-        <items.ProfileBox>
+      <items.ProfileBox onClick={() => navigate("/jobpost/SelectSenior")}>
           <img src="/img/add_user.svg" width="96px" height="96px" alt="추가"/>
           <items.ProfileLabel>불러오기</items.ProfileLabel>
         </items.ProfileBox>
@@ -413,11 +413,31 @@ export default function SeniorCheck() {
           <Button
             text="저장"
             primary
-            onClick={() => console.log("")}
+            onClick={() => setIsModalOpen(true)}
             width="361px"
           />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
+
+      {/* 모달 컴포넌트 */}
+      {isModalOpen && (
+        <items.ModalOverlay>
+          <items.ModalContainer>
+            <items.ModalCloseButton
+              src="/img/close.svg"
+              alt="창닫기"
+              onClick={() => setIsModalOpen(false)}
+            />
+            <items.ModalText>구인 등록이 완료되었어요!<br/>매칭을 시작할까요?</items.ModalText>
+            <Button
+              text="매칭 시작하기"
+              primary
+              onClick={() => setIsModalOpen(true)}
+              width="275px"
+            />
+            </items.ModalContainer>
+        </items.ModalOverlay>
+      )}
     </items.Container>
   );
 }

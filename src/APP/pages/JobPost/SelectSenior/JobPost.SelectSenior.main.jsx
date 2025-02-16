@@ -7,6 +7,8 @@ import { PageHeader, Button, Label, Input, Dropdown, SelectButton } from "../../
 
 
 export default function SelectSenior() {
+  const navigate = useNavigate();
+
   const [selectedSenior, setSelectedSenior] = useState(null);
 
   const seniors = [
@@ -64,7 +66,7 @@ export default function SelectSenior() {
           <Button
               text="확인"
               primary
-              onClick={() => console.log("")}
+              onClick={() => navigate("/jobpost/SeniorCheck")}
               width="361px"
             />
         </items.ButtoninnerContainer>
