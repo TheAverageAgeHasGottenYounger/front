@@ -12,7 +12,7 @@ import AddInfoAdmin from "./APP/pages/SignupAdmin/AddInfo/SignupAdmin.AddInfo.ma
 import CaregiverDetails from "./APP/pages/JobPost/CaregiverDetails/JobPost.CaregiverDetails.main";
 import MatchingStatus from "./APP/pages/JobPost/MatchingStatus/JobPost.MatchingStatus.main";
 import SelectSenior from "./APP/pages/JobPost/SelectSenior/JobPost.SelectSenior.main";
-import SeniorCheckBeforePost from "./APP/pages/JobPost/SeniorCheckBeforePost/JobPost.SeniorCheckBeforePost.main";
+import SeniorCheck from "./APP/pages/JobPost/SeniorCheck/JobPost.SeniorCheck.main";
 import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.SeniorRegistration.main";
 import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
 
@@ -119,7 +119,7 @@ function App() {
         <Route path="/jobpost/caregiverdetails" element={<CaregiverDetails />} />
         <Route path="/jobpost/matchingstatus" element={<MatchingStatus />} />
         <Route path="/jobpost/selectsenior" element={<SelectSenior />} />
-        <Route path="/jobpost/seniorcheckbeforepost" element={<SeniorCheckBeforePost />} />
+        <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
         <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
         <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
       </Routes>

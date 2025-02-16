@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import * as items from "./Styled/JobPost.SeniorRegistration.main.styles";
+import * as items from "./Styled/JobPost.SeniorCheck.main.styles";
 import { PageHeader, Button, Label, Input, Dropdown, SelectButton } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
 export default function SeniorRegistration() {
+  const navigate = useNavigate();
+
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
 
   const [name, setName] = useState("");
@@ -134,25 +136,35 @@ export default function SeniorRegistration() {
 
   return (
     <items.Container>
-      <PageHeader title="어르신 정보 등록" />
+      <PageHeader title="구인 등록" />
 
-      {/*   프로필 */}
+      <items.InputWrapper>
+        <items.HeadContainer>
+        <items.Label>
+          임시 문장 입니다.
+        </items.Label>
+        <items.ExtraLabel>
+          구인이 필요한 어르신을 선택해주세요
+          <br/>
+          기본에 입력한 정보가 반영돼요
+        </items.ExtraLabel>
+        </items.HeadContainer>
+
       <items.ProfileContainer>
         <items.ProfileBox>
-          <items.Profile src={profileUrl} alt="프로필이미지" />
-          <items.Upload>사진 등록하기</items.Upload>
+          <img src="/img/add_user.svg" width="96px" height="96px" alt="추가"/>
+          <items.ProfileLabel>불러오기</items.ProfileLabel>
         </items.ProfileBox>
-        <items.HiddenFileInput
-          type="file"
-          accept=".gif, .jpg, .png, .jpeg, .svg"
-          // ref={fileInputRef}
-          // onChange={handleFileChange}
-        />
+
+        <items.ProfileBox onClick={() => navigate("/jobpost/seniorregistration")}>
+          <img src="/img/add_user.svg" width="96px" height="96px" alt="추가"/>
+          <items.ProfileLabel>새로 등록</items.ProfileLabel>
+        </items.ProfileBox>
+        
       </items.ProfileContainer>
 
 
 
-      <items.InputWrapper>
 
         <items.Label>기본 정보</items.Label>
 
@@ -261,7 +273,6 @@ export default function SeniorRegistration() {
         ))}
         <items.AddButton onClick={addSchedule}><img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가</items.AddButton>
         
-        {/*
         <items.InputContainer>
           <Label text="희망 급여" star />
           <items.DropdownContainer>
@@ -274,7 +285,7 @@ export default function SeniorRegistration() {
           />
           <Input
             type="number"
-            placeholder="금액을 입력해주세요."
+            placeholder="금액을 입력해주세요." 
             value={name}
             onChange={(e) => setSelectedPay(e.target.value)}
             width="170px"
@@ -285,7 +296,6 @@ export default function SeniorRegistration() {
             <items.ExtraInstruction>최저 임금 : 10,030원</items.ExtraInstruction>
           </items.ExtraInstructionContainer>
         </items.InputContainer>
-        */}
 
         <items.Label>케어 필요 항목</items.Label>
 
