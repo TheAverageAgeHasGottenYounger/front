@@ -1,14 +1,46 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea } from "../../../components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+} from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import axios from "axios";
 
 export default function AddInfo() {
   const navigate = useNavigate();
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState("");
+
+  // 회원가입 버튼
+  const handleSubmit = async () => {
+    // try {
+    //   const response = await axios.post(
+    //     "https://api.ondue.store/member/login",
+    //     null, // 요청 본문 없이 params만 전달할 경우 null 사용
+    //     {
+    //       params: {
+    //         id: id,
+    //         password: password,
+    //       },
+    //       headers: {
+    //         "Content-Type": "application/json", // 필요에 따라 설정
+    //       },
+    //     }
+    //   );
+    //   console.log("response headers", response.headers); // 헤더에서 응답 받기
+    //   if (response.data["isSuccess"]) {
+    //     console.log("회원가입 성공!");
+    //     window.location.replace("/login");
+    //   }
+    // } catch (error) {
+    //   console.error("회원가입 오류:", error);
+    // }
+  };
 
   return (
     <items.Container>
@@ -124,7 +156,7 @@ export default function AddInfo() {
           <Button
             text="회원가입 완료"
             primary
-            onClick={() => navigate("/login")}
+            onClick={handleSubmit}
             width="228px"
           />
         </items.ButtoninnerContainer>
