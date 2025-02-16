@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const ACCESS_TOKEN = 'accessToken';
+export const ACCESS_TOKEN = "accessToken";
 
 // Axios 인스턴스 생성
 const request = axios.create({
-  baseURL: 'https://user-dev.kau-koala.com', // 환경 변수로 API 주소 설정
+  baseURL: "hhttps://api.ondue.store", // 환경 변수로 API 주소 설정
   headers: {
     withCredentials: true,
     Authorization: `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`,
@@ -29,27 +29,24 @@ request.interceptors.response.use(
   },
   async (error) => {
     // 에러 발생 시 로딩 상태 숨김 (로딩 관련 제거)
-    
-    // 알림 함수 가져오기
-    const alert = getAlertFunction();
-    
+
     if (error.response && error.response.data) {
       const { data } = error.response;
       const { code, message } = data;
 
       switch (code) {
-        case 'NOTICE':
-          await alert(message); // 알림 메시지 처리
+        case "NOTICE":
+          alert(message); // 알림 메시지 처리
           break;
-        case 'TOKEN_EXPIRED':
+        case "TOKEN_EXPIRED":
           window.localStorage.clear();
-          window.location.href = '/login';
+          window.location.href = "/login";
           break;
         default:
           console.error(`Unexpected error: ${message}`, error);
-          if (message === '만료된 토큰입니다.') {
+          if (message === "만료된 토큰입니다.") {
             window.localStorage.clear();
-            window.location.href = '/login';
+            window.location.href = "/login";
           }
           break;
       }
