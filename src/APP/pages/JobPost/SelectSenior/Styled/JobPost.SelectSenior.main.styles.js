@@ -9,48 +9,68 @@ export const Container = styled.div`
   padding: 90px 0;
 `;
 
-export const Head = styled.div`
-  ${tokens.typography.h2};
-  color: ${tokens.colors.gray[900]};
-  width: 361px;
-  // margin-top: 76px;
-  margin-bottom: 38px;
-`;
-
-export const Logo = styled.div`
-  background-color: black;
-  width: 138px;
-  height: 164px;
-  border-radius: 30px;
-  margin-bottom: 28px;
-`;
-
-export const InputWrapper = styled.div`
+export const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 30px;
 `;
 
-export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 38px;
-`;
-
-export const DropdownContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+export const SeniorItem = styled.div`
   width: 361px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const AddButton = styled.button`
+export const ProfileContainer = styled.div`
+  position: relative;
+  width: 86px;
+  height: 86px;
+`;
+
+export const ProfileImage = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+`;
+
+export const SelectedIcon = styled.img`
   background-color: white;
-  width: 361px;
-  height: 58px;
-  border: 1.5px dotted ${tokens.colors.gray[300]};
-  border-radius: 12px;
-  margin-top: 12px;
+  border-radius: 50%;  
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+`;
+
+export const InfoContainer = styled.div`
+  flex-grow: 1;
+  margin-left: 22px;
+  margin-right: 30px;
+`;
+
+export const Name = styled.div`
+  ${tokens.typography.Button_Sb_18};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const GenderBirth = styled.div`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[400]};
+`;
+
+export const Gender = styled.span`
+  ${tokens.typography.body_M_16};
+  color: ${(props) => (props.color === "blue" ? "blue" : "red")};
+  margin-right: 10px;
+`;
+
+export const Address = styled.div`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[400]};
 `;
 
 export const ButtonContainer = styled.div`

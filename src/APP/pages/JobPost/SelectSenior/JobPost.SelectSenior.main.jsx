@@ -1,127 +1,72 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/JobPost.SelectSenior.main.styles";
-import { Button, Label, Input, Dropdown } from "../../../components/Components";
+import { PageHeader, Button, Label, Input, Dropdown, SelectButton } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 // import axios from 'axios';
 
-export default function Info() {
-  const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [selectedValue, setSelectedValue] = useState(""); // 주소
-  const [code, setCode] = useState("");
+
+export default function SelectSenior() {
+  const [selectedSenior, setSelectedSenior] = useState(null);
+
+  const seniors = [
+    { id: 1, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+    { id: 2, name: "이혜자", gender: "여", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+    { id: 3, name: "김재호", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+    { id: 4, name: "이영식", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+    { id: 5, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+    { id: 6, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
+  ];
+
+    // 선택된 어르신 변경
+    const handleSelectSenior = (id) => {
+      setSelectedSenior(id);
+    };
 
   return (
     <items.Container>
-      {/* 타입 내부에 있는 이미지는 배경이미지로 한 후에 좌표를 써보자 */}
-      <items.Head>
-        회원가입을 시작할게요!
-        <br />
-        기본 정보를 입력해주세요
-      </items.Head>
+      <PageHeader title="어르신 선택" />
 
-      {/*   프로필 */}
-      <items.Logo></items.Logo>
+      <items.InnerContainer>
+       
 
-      <items.InputWrapper>
-        <items.InputContainer>
-          <Label text="이름" star />
-          <Input
-            type="text"
-            placeholder="이름를 입력해주세요."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            width="313px"
-          />
-        </items.InputContainer>
+      {seniors.map((senior) => (
+          <items.SeniorItem key={senior.id}>
+            <items.ProfileContainer>
+              <items.ProfileImage src={senior.image} alt={senior.name} />
+              {selectedSenior === senior.id && <items.SelectedIcon src="/img/check_circle.svg" alt="선택됨" />}
+            </items.ProfileContainer>
 
-        <items.InputContainer>
-          <Label text="연락처" star />
-          <Input
-            type="text"
-            placeholder="예) 010-3121-2311"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-            width="313px"
-          />
-        </items.InputContainer>
+            <items.InfoContainer>
+              <items.Name>{senior.name}</items.Name>
+              <items.GenderBirth>
+                <items.Gender color={senior.gender === "남" ? "blue" : "red"}>{senior.gender}</items.Gender>
+                {senior.birth}
+              </items.GenderBirth>
+              <items.Address>{senior.address}</items.Address>
+            </items.InfoContainer>
 
-        <items.InputContainer>
-          <Label text="주소" star />
-          <items.DropdownContainer>
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
+            <SelectButton
+              text="선택"
+              selected={selectedSenior === senior.id}
+              onClick={() => handleSelectSenior(senior.id)}
+              width="90px"
+              height="38px"
+              borderRadius="10px"
             />
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
-            />
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="115px"
-            />
-          </items.DropdownContainer>
-        </items.InputContainer>
+          </items.SeniorItem>
+        ))}
 
-        <items.InputContainer>
-          <Label text="보유 자격증" star />
-          <items.DropdownContainer>
-            <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedValue}
-              onChange={(e) => setSelectedValue(e.target.value)}
-              width="165px"
-            />
-            <Input
-              type="text"
-              placeholder="자격증 번호 압력"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              width="140px"
-            />
-          </items.DropdownContainer>
-          <items.AddButton>+ 자격증 추가</items.AddButton>
-        </items.InputContainer>
-        {/* 자격증 추기 */}
-      </items.InputWrapper>
+      </items.InnerContainer>
 
       <items.ButtonContainer>
         <items.ButtoninnerContainer>
           <Button
-            text="이전"
-            outline
-            onClick={() => console.log("")}
-            width="127px"
-          />
-          <Button
-            text="다음"
-            primary
-            onClick={() => console.log("")}
-            width="228px"
-          />
+              text="확인"
+              primary
+              onClick={() => console.log("")}
+              width="361px"
+            />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
     </items.Container>

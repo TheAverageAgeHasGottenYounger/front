@@ -123,7 +123,9 @@ export const TextAreaCounter = styled.div`
 `;
 
 export const SelectButton = styled.button`
-  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: ${({ borderRadius }) => borderRadius || "8px"};
   border: 1px solid ${({ selected }) => (selected ? tokens.colors.primary[0] : tokens.colors.gray[300])};
   background-color: ${({ selected }) => (selected ? tokens.colors.primary.lighten[400] : "transparent")};
