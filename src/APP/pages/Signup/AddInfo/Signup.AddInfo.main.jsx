@@ -10,36 +10,52 @@ import {
 } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 import axios from "axios";
+import { useSignup } from "../../../common/SignupContext";
 
 export default function AddInfo() {
+  const { signupData } = useSignup();
   const navigate = useNavigate();
+
   const [selectedValue, setSelectedValue] = useState("");
   const [text, setText] = useState("");
 
   // 회원가입 버튼
   const handleSubmit = async () => {
-    // try {
-    //   const response = await axios.post(
-    //     "https://api.ondue.store/member/login",
-    //     null, // 요청 본문 없이 params만 전달할 경우 null 사용
-    //     {
-    //       params: {
-    //         id: id,
-    //         password: password,
-    //       },
-    //       headers: {
-    //         "Content-Type": "application/json", // 필요에 따라 설정
-    //       },
-    //     }
-    //   );
-    //   console.log("response headers", response.headers); // 헤더에서 응답 받기
-    //   if (response.data["isSuccess"]) {
-    //     console.log("회원가입 성공!");
-    //     window.location.replace("/login");
-    //   }
-    // } catch (error) {
-    //   console.error("회원가입 오류:", error);
-    // }
+    const requestBody = {
+      profileImageFile: signupData.profileImageFile,
+      memberRequest: {
+        name: signupData.name,
+        phoneNumber: signupData.phoneNumber,
+        city: signupData.city,
+        gu: signupData.gu,
+        dong: signupData.dong,
+        id: signupData.id,
+        password: signupData.password,
+        dementiaEducationYn: signupData.dementiaEducationYn,
+        carYn: signupData.carYn,
+        certificate: signupData.certificate,
+        introduction: signupData.introduction,
+        career: signupData.career,
+        careerPeriod: signupData.careerPeriod,
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "https://api.ondue.store/member/worker-join",
+        requestBody,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.data.isSuccess) {
+        console.log("회원가입 성공!");
+        window.location.replace("/login");
+      }
+    } catch (error) {
+      console.error("회원가입 오류:", error);
+    }
   };
 
   return (

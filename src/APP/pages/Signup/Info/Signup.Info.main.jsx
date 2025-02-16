@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.Info.main.styles";
 import { Button, Label, Input, Dropdown } from "../../../components/Components";
 import axios from "axios";
+import { useSignup } from "../../../common/SignupContext";
 
 export default function Info() {
+  const { signupData, setSignupData } = useSignup();
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -52,6 +54,7 @@ export default function Info() {
         setPreviousProfileUrl(profileUrl);
         setProfileUrl(newProfileUrl);
         setProfile(newProfileUrl);
+        setSignupData((prev) => ({ ...prev, profileImageFile: newProfileUrl }));
       } else {
         console.error("파일 업로드 실패:", response.data);
       }
@@ -79,6 +82,12 @@ export default function Info() {
     } catch (error) {
       console.error("파일 삭제 에러:", error);
     }
+  };
+
+  // 이름 change event
+  const handleName = (value) => {
+    setName(value);
+    setSignupData((prev) => ({ ...prev, name: value }));
   };
 
   return (
@@ -114,7 +123,7 @@ export default function Info() {
             type="text"
             placeholder="이름를 입력해주세요."
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => handleName(e.target.value)}
             width="313px"
           />
         </items.InputContainer>

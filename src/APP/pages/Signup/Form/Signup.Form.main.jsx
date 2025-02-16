@@ -2,14 +2,26 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.Form.main.styles";
 import { Button, Label, Input, Dropdown } from "../../../components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import { useSignup } from "../../../common/SignupContext";
 
 export default function Form() {
+  const { signupData, setSignupData } = useSignup();
   const navigate = useNavigate();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+
+  // 아이디 change event
+  const handleId = (value) => {
+    setId(value);
+    setSignupData((prev) => ({ ...prev, id: value }));
+  };
+
+  // 비밀번호 change event
+  const handlePassword = (value) => {
+    setPassword(value);
+    setSignupData((prev) => ({ ...prev, password: value }));
+  };
 
   return (
     <items.Container>
@@ -29,7 +41,7 @@ export default function Form() {
             type="text"
             placeholder="아이디를 입력해주세요."
             value={id}
-            onChange={(e) => setId(e.target.value)}
+            onChange={(e) => handleId(e.target.value)}
             width="313px"
           />
         </items.InputContainer>
@@ -40,7 +52,7 @@ export default function Form() {
             type="text"
             placeholder="비밀번호를 입력해주새요"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => handlePassword(e.target.value)}
             width="313px"
           />
         </items.InputContainer>
