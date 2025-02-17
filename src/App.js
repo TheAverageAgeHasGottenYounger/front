@@ -18,6 +18,9 @@ import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.V
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
+import Home from "./APP/pages/Home/Home.main";
+import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
+
 
 import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
 
@@ -138,6 +141,11 @@ function App() {
 
         {/* 대시보드 */}
         <Route path="/dashboard" element={<DashBoard />} />
+
+        {/* 홈 */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/homeadmin" element={<HomeAdmin />} />
+
 
       </Routes>
     </Root>
