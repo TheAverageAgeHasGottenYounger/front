@@ -10,36 +10,86 @@ import {
 } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 import axios from "axios";
+import { useSignup } from "../../../common/SignupContext";
 
 export default function AddInfo() {
+  const { signupData, setSignupData } = useSignup();
   const navigate = useNavigate();
-  const [selectedValue, setSelectedValue] = useState("");
-  const [text, setText] = useState("");
+
+  const [selectedCareerPeriod, setSelectedCareerPeriod] = useState(
+    signupData.careerPeriod || ""
+  );
+  const [introduction, setIntroduction] = useState(
+    signupData.introduction || ""
+  );
+
+  // 차량 보유 여부 및 치매 교육 여부 상태
+  const [carYn, setCarYn] = useState(signupData.carYn || false);
+  const [dementiaEducationYn, setDementiaEducationYn] = useState(
+    signupData.dementiaEducationYn || false
+  );
+
+  // 차량 보유 여부 설정
+  const handleCarYn = (value) => {
+    setCarYn(value);
+    setSignupData((prev) => ({ ...prev, carYn: value }));
+  };
+
+  // 치매 교육 이수 여부 설정
+  const handleDementiaEducationYn = (value) => {
+    setDementiaEducationYn(value);
+    setSignupData((prev) => ({ ...prev, dementiaEducationYn: value }));
+  };
+
+  // 경력 기간 선택
+  const handleCareerPeriodChange = (value) => {
+    setSelectedCareerPeriod(value);
+    setSignupData((prev) => ({ ...prev, careerPeriod: value }));
+  };
+
+  // 한줄 소개 입력
+  const handleIntroductionChange = (value) => {
+    setIntroduction(value);
+    setSignupData((prev) => ({ ...prev, introduction: value }));
+  };
 
   // 회원가입 버튼
   const handleSubmit = async () => {
-    // try {
-    //   const response = await axios.post(
-    //     "https://api.ondue.store/member/login",
-    //     null, // 요청 본문 없이 params만 전달할 경우 null 사용
-    //     {
-    //       params: {
-    //         id: id,
-    //         password: password,
-    //       },
-    //       headers: {
-    //         "Content-Type": "application/json", // 필요에 따라 설정
-    //       },
-    //     }
-    //   );
-    //   console.log("response headers", response.headers); // 헤더에서 응답 받기
-    //   if (response.data["isSuccess"]) {
-    //     console.log("회원가입 성공!");
-    //     window.location.replace("/login");
-    //   }
-    // } catch (error) {
-    //   console.error("회원가입 오류:", error);
-    // }
+    const requestBody = {
+      profileImageFile: signupData.profileImageFile,
+      memberRequest: {
+        name: signupData.name,
+        phoneNumber: signupData.phoneNumber,
+        city: signupData.city,
+        gu: signupData.gu,
+        dong: signupData.dong,
+        id: signupData.id,
+        password: signupData.password,
+        dementiaEducationYn: signupData.dementiaEducationYn,
+        carYn: signupData.carYn,
+        certificate: signupData.certificate,
+        introduction: signupData.introduction,
+        career: signupData.career,
+        careerPeriod: signupData.careerPeriod,
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        "https://api.ondue.store/member/worker-join",
+        requestBody,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.data.isSuccess) {
+        console.log("요양보호사 회원가입 성공!");
+        window.location.replace("/login");
+      }
+    } catch (error) {
+      console.error("요양보호사 회원가입 오류:", error);
+    }
   };
 
   return (
@@ -63,13 +113,13 @@ export default function AddInfo() {
             <Button
               text="네"
               primary
-              onClick={() => console.log("")}
+              onClick={() => handleCarYn(true)}
               width="174px"
             />
             <Button
               text="아니오"
               disabled
-              onClick={() => console.log("")}
+              onClick={() => handleCarYn(false)}
               width="174px"
             />
           </items.ButtoninnerContainer>
@@ -84,13 +134,13 @@ export default function AddInfo() {
             <Button
               text="네"
               primary
-              onClick={() => console.log("")}
+              onClick={() => handleDementiaEducationYn(true)}
               width="174px"
             />
             <Button
               text="아니오"
               disabled
-              onClick={() => console.log("")}
+              onClick={() => handleDementiaEducationYn(false)}
               width="174px"
             />
           </items.ButtoninnerContainer>
@@ -107,12 +157,13 @@ export default function AddInfo() {
           <Label text="경력 기간 (선택)" />
           <Dropdown
             options={[
-              { value: "option1", label: "옵션 1" },
-              { value: "option2", label: "옵션 2" },
-              { value: "option3", label: "옵션 3" },
+              { value: "1년 이하", label: "1년 이하" },
+              { value: "1~3년", label: "1~3년" },
+              { value: "3~5년", label: "3~5년" },
+              { value: "5년 이상", label: "5년 이상" },
             ]}
-            value={selectedValue}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            value={selectedCareerPeriod}
+            onChange={(e) => handleCareerPeriodChange(e.target.value)}
             width="171px"
           />
         </items.LabelUtilWrapper>
@@ -129,9 +180,9 @@ export default function AddInfo() {
           <Label text="한줄 소개 (선택)" />
           <TextArea
             placeholder="한줄 소개를 입력해주세요"
-            value={text}
+            value={introduction}
             onChange={(e) => {
-              setText(e.target.value);
+              handleIntroductionChange(e.target.value);
             }}
             maxLength={60}
           />

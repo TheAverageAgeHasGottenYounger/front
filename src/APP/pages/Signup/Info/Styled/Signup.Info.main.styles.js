@@ -85,11 +85,30 @@ export const InputContainer = styled.div`
   margin-bottom: 38px;
 `;
 
+export const DropInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 38px;
+`;
+
 export const DropdownContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 361px;
+`;
+
+export const FixCertificateText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${tokens.colors.gray[100]};
+  color: ${tokens.colors.gray[700]};
+  width: 165px;
+  height: 58px;
+  border: none;
+  border-radius: 12px;
 `;
 
 export const AddButton = styled.button`
