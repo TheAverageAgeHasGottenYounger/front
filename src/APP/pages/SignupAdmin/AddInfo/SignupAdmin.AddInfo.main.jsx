@@ -1,15 +1,70 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.AddInfo.main.styles";
-import { Button, Label, Input, Dropdown, TextArea } from "../../../components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+} from "../../../components/Components";
+import { useAdminSignup } from "../../../common/SignupContext";
 
 export default function AddInfoAdmin() {
+  const { adminSignupData, setAdminSignupData } = useAdminSignup();
   const navigate = useNavigate();
 
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedCenterGrade, setSelectedCenterGrade] = useState("");
+  const [selectedPeriod, setSelectedPeriod] = useState("");
   const [text, setText] = useState("");
+
+  const [carYn, setCarYn] = useState(adminSignupData.carYn || false);
+
+  const [introduction, setIntroduction] = useState(
+    adminSignupData.introduction || ""
+  );
+
+  // 센터 추가 정보
+  // const handleCenterNameChange = (value) => {
+  //   setAdminSignupData((prev) => ({
+  //     ...prev,
+  //     center: { ...prev.center, name: value },
+  //   }));
+  // };
+
+  // 차량 보유 여부 설정
+  const handleCarYn = (value) => {
+    setCarYn(value);
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, carYn: value },
+    }));
+  };
+
+  // 한줄 소개 입력
+  const handleIntroductionChange = (value) => {
+    setIntroduction(value);
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, introduction: value },
+    }));
+  };
+
+  const handleCenterGrade = (value) => {
+    setSelectedCenterGrade(value);
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, grade: value },
+    }));
+  };
+
+  const handlePeriod = (value) => {
+    setSelectedPeriod(value);
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, operationPeriod: value },
+    }));
+  };
 
   return (
     <items.Container>
@@ -31,13 +86,13 @@ export default function AddInfoAdmin() {
           <Button
             text="네"
             primary
-            onClick={() => console.log("")}
+            onClick={() => handleCarYn(true)}
             width="174px"
           />
           <Button
             text="아니오"
             disabled
-            onClick={() => console.log("")}
+            onClick={() => handleCarYn(false)}
             width="174px"
           />
         </items.ButtoninnerContainer>
@@ -53,12 +108,13 @@ export default function AddInfoAdmin() {
           <Label text="센터 등급 (선택)" />
           <Dropdown
             options={[
-              { value: "option1", label: "옵션 1" },
-              { value: "option2", label: "옵션 2" },
-              { value: "option3", label: "옵션 3" },
+              { value: "1 등급", label: "1 등급" },
+              { value: "2 등급", label: "2 등급" },
+              { value: "3 등급", label: "3 등급" },
             ]}
-            value={selectedValue}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            value={selectedCenterGrade}
+            placeholder={"등급 선택"}
+            onChange={(e) => handleCenterGrade(e.target.value)}
             width="171px"
           />
         </items.LabelUtilWrapper>
@@ -67,12 +123,13 @@ export default function AddInfoAdmin() {
           <Label text="운영 기간 (선택)" />
           <Dropdown
             options={[
-              { value: "option1", label: "옵션 1" },
-              { value: "option2", label: "옵션 2" },
-              { value: "option3", label: "옵션 3" },
+              { value: "1년 이내", label: "1년 이내" },
+              { value: "1년 ~ 3년", label: "1년 ~ 3년" },
+              { value: "5년 이상", label: "5년 이상" },
             ]}
-            value={selectedValue}
-            onChange={(e) => setSelectedValue(e.target.value)}
+            value={selectedPeriod}
+            placeholder={"운영 기간 선택"}
+            onChange={(e) => handlePeriod(e.target.value)}
             width="171px"
           />
         </items.LabelUtilWrapper>
@@ -81,9 +138,9 @@ export default function AddInfoAdmin() {
           <Label text="한줄 소개 (선택)" />
           <TextArea
             placeholder="한줄 소개를 입력해주세요"
-            value={text}
+            value={introduction}
             onChange={(e) => {
-              setText(e.target.value);
+              handleIntroductionChange(e.target.value);
             }}
             maxLength={60}
           />
@@ -101,7 +158,11 @@ export default function AddInfoAdmin() {
           <Button
             text="다음"
             primary
-            onClick={() => navigate("/admin/signup/form")}
+            // onClick={() => navigate("/admin/signup/form")}
+            onClick={() => {
+              console.log("회원가입 데이터2:", adminSignupData); // 현재 상태 확인
+              navigate("/admin/signup/form");
+            }}
             width="228px"
           />
         </items.ButtoninnerContainer>
