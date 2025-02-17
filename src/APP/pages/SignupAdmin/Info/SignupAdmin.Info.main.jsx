@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.Info.main.styles";
 import { Button, Label, Input, Dropdown } from "../../../components/Components";
@@ -14,10 +14,10 @@ export default function InfoAdmin() {
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
   const [showBasicInfo, setShowBasicInfo] = useState(false);
 
-  // 주소
-  const [selectedCity, setSelectedCity] = useState(""); // 시
-  const [selectedDistrict, setSelectedDistrict] = useState(""); // 구
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState(""); // 동
+  // 주소 관련 상태
+  const [cityOptions, setCityOptions] = useState([]); // 시 리스트
+  const [guOptions, setGuOptions] = useState([]); // 구 리스트
+  const [dongOptions, setDongOptions] = useState([]); // 동 리스트
 
   // 센터명 change event
   const handleCenterNameChange = (value) => {
@@ -33,20 +33,65 @@ export default function InfoAdmin() {
     setAdminSignupData((prev) => ({ ...prev, phoneNumber: value }));
   };
 
-  // 시, 구, 동 각각의 드롭다운 핸들러
-  const handleCityChange = (value) => {
-    setSelectedCity(value);
-    setAdminSignupData((prev) => ({ ...prev, city: value }));
+  // '시' 목록 불러오기 (화면 렌더링 시)
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get("https://api.ondue.store/map/city");
+        console.log('시 response', response);
+        setCityOptions(response.data.result.map((city) => ({ value: city, label: city })));
+      } catch (error) {
+        console.error("시 목록 불러오기 실패:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  // '시' 선택 핸들러 -> '구' 목록 요청
+  const handleCityChange = async (value) => {
+    // setAdminSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, city: value, gu: "", dong: "" },
+    }))
+    setGuOptions([]); // 기존 '구' 리스트 초기화
+    setDongOptions([]); // 기존 '동' 리스트 초기화
+
+    try {
+      const response = await axios.get(`https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`);
+      console.log('구 response', response);
+      setGuOptions(response.data.result.map((gu) => ({ value: gu, label: gu })));
+    } catch (error) {
+      console.error("구 목록 불러오기 실패:", error);
+    }
   };
 
-  const handleDistrictChange = (value) => {
-    setSelectedDistrict(value);
-    setAdminSignupData((prev) => ({ ...prev, gu: value }));
+  // '구' 선택 핸들러 -> '동' 목록 요청
+  const handleGuChange = async (value) => {
+    // setAdminSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, gu: value, dong: "" },
+    }))
+    setDongOptions([]); // 기존 '동' 리스트 초기화
+
+    try {
+      const response = await axios.get(`https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`);
+      console.log('동 response', response);
+      setDongOptions(response.data.result.map((dong) => ({ value: dong, label: dong })));
+    } catch (error) {
+      console.error("동 목록 불러오기 실패:", error);
+    }
   };
 
-  const handleNeighborhoodChange = (value) => {
-    setSelectedNeighborhood(value);
-    setAdminSignupData((prev) => ({ ...prev, dong: value }));
+  // '동' 선택 핸들러
+  const handleDongChange = (value) => {
+    // setAdminSignupData((prev) => ({ ...prev, dong: value }));
+    setAdminSignupData((prev) => ({
+      ...prev,
+      center: { ...prev.center, dong: value },
+    }))
   };
 
   // 검색 함수
@@ -58,6 +103,7 @@ export default function InfoAdmin() {
           adminSignupData.center.name
         )}`
       );
+      console.log('검색 response', response);
 
       if (response.data.result.result === false) {
         // 모달 열기
@@ -81,7 +127,7 @@ export default function InfoAdmin() {
           adminSignupData.center.name
         )}`
       );
-      console.log(response);
+      console.log('등록response', response);
       if (response.data.isSuccess) {
         setAdminSignupData((prev) => ({
           ...prev,
@@ -98,7 +144,7 @@ export default function InfoAdmin() {
       console.error("검색 중 오류 발생:", error);
     }
   };
-
+  
   return (
     <items.Container>
       <items.StepContainer>
@@ -146,43 +192,27 @@ export default function InfoAdmin() {
               <Label text="주소" star />
               <items.DropdownContainer>
                 <Dropdown
-                  options={[{ value: "option1", label: "옵션 1" }]}
+                  options={cityOptions}
                   value={adminSignupData.center.city}
                   placeholder={"OO시"}
-                  onChange={(e) =>
-                    setAdminSignupData((prev) => ({
-                      ...prev,
-                      // city: e.target.value,
-                      center: { ...prev.center, city: e.target.value },
-                    }))
-                  }
+                  onChange={(e) => handleCityChange(e.target.value)}
                   width="115px"
                 />
                 <Dropdown
-                  options={[{ value: "option1", label: "옵션 1" }]}
+                  options={guOptions}
                   value={adminSignupData.center.gu}
                   placeholder={"OO구"}
-                  onChange={(e) =>
-                    setAdminSignupData((prev) => ({
-                      ...prev,
-                      // gu: e.target.value,
-                      center: { ...prev.center, gu: e.target.value },
-                    }))
-                  }
+                  onChange={(e) => handleGuChange(e.target.value)}
                   width="115px"
+                  disabled={!adminSignupData.city} // '시' 선택 전 비활성화
                 />
                 <Dropdown
-                  options={[{ value: "option1", label: "옵션 1" }]}
+                  options={dongOptions}
                   value={adminSignupData.center.dong}
                   placeholder={"OO동"}
-                  onChange={(e) =>
-                    setAdminSignupData((prev) => ({
-                      ...prev,
-                      // dong: e.target.value,
-                      center: { ...prev.center, dong: e.target.value },
-                    }))
-                  }
+                  onChange={(e) => handleDongChange(e.target.value)}
                   width="115px"
+                  disabled={!adminSignupData.gu} // '구' 선택 전 비활성화
                 />
               </items.DropdownContainer>
             </items.InputContainer>

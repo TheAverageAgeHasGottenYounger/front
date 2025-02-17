@@ -14,10 +14,10 @@ export default function Info() {
   const [fixCertificateCode, setFixCertificateCode] = useState("");
   const [optionCertificateCode, setOptionCertificateCode] = useState("");
 
-  // 주소
-  const [selectedCity, setSelectedCity] = useState(""); // 시
-  const [selectedDistrict, setSelectedDistrict] = useState(""); // 구
-  const [selectedNeighborhood, setSelectedNeighborhood] = useState(""); // 동
+  // 주소 관련 상태
+  const [cityOptions, setCityOptions] = useState([]); // 시 리스트
+  const [guOptions, setGuOptions] = useState([]); // 구 리스트
+  const [dongOptions, setDongOptions] = useState([]); // 동 리스트
 
   // 프로필 이미지
   const fileInputRef = useRef(null);
@@ -99,19 +99,55 @@ export default function Info() {
     setSignupData((prev) => ({ ...prev, phoneNumber: value }));
   };
 
-  // 시, 구, 동 각각의 드롭다운 핸들러
-  const handleCityChange = (value) => {
-    setSelectedCity(value);
-    setSignupData((prev) => ({ ...prev, city: value }));
+  // '시' 목록 불러오기 (화면 렌더링 시)
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get("https://api.ondue.store/map/city");
+        console.log('시 response', response);
+        setCityOptions(response.data.result.map((city) => ({ value: city, label: city })));
+      } catch (error) {
+        console.error("시 목록 불러오기 실패:", error);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
+  // '시' 선택 핸들러 -> '구' 목록 요청
+  const handleCityChange = async (value) => {
+    // setSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
+    setSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
+    setGuOptions([]); // 기존 '구' 리스트 초기화
+    setDongOptions([]); // 기존 '동' 리스트 초기화
+
+    try {
+      const response = await axios.get(`https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`);
+      console.log('구 response', response);
+      setGuOptions(response.data.result.map((gu) => ({ value: gu, label: gu })));
+    } catch (error) {
+      console.error("구 목록 불러오기 실패:", error);
+    }
   };
 
-  const handleDistrictChange = (value) => {
-    setSelectedDistrict(value);
-    setSignupData((prev) => ({ ...prev, gu: value }));
+  // '구' 선택 핸들러 -> '동' 목록 요청
+  const handleGuChange = async (value) => {
+    // setSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
+    setSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
+    setDongOptions([]); // 기존 '동' 리스트 초기화
+
+    try {
+      const response = await axios.get(`https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`);
+      console.log('동 response', response);
+      setDongOptions(response.data.result.map((dong) => ({ value: dong, label: dong })));
+    } catch (error) {
+      console.error("동 목록 불러오기 실패:", error);
+    }
   };
 
-  const handleNeighborhoodChange = (value) => {
-    setSelectedNeighborhood(value);
+  // '동' 선택 핸들러
+  const handleDongChange = (value) => {
+    // setSignupData((prev) => ({ ...prev, dong: value }));
     setSignupData((prev) => ({ ...prev, dong: value }));
   };
 
@@ -233,37 +269,27 @@ export default function Info() {
           <Label text="주소" star />
           <items.DropdownContainer>
             <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedCity}
+              options={cityOptions}
+              value={signupData.city}
               placeholder={"OO시"}
               onChange={(e) => handleCityChange(e.target.value)}
               width="115px"
             />
             <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedDistrict}
+              options={guOptions}
+              value={signupData.gu}
               placeholder={"OO구"}
-              onChange={(e) => handleDistrictChange(e.target.value)}
+              onChange={(e) => handleGuChange(e.target.value)}
               width="115px"
+              disabled={!signupData.city} // '시' 선택 전 비활성화
             />
             <Dropdown
-              options={[
-                { value: "option1", label: "옵션 1" },
-                { value: "option2", label: "옵션 2" },
-                { value: "option3", label: "옵션 3" },
-              ]}
-              value={selectedNeighborhood}
+              options={dongOptions}
+              value={signupData.dong}
               placeholder={"OO동"}
-              onChange={(e) => handleNeighborhoodChange(e.target.value)}
+              onChange={(e) => handleDongChange(e.target.value)}
               width="115px"
+              disabled={!signupData.gu} // '구' 선택 전 비활성화
             />
           </items.DropdownContainer>
         </items.InputContainer>
