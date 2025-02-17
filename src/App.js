@@ -17,6 +17,8 @@ import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.S
 import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
+import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
+
 import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
 
 const Root = styled.div`
@@ -133,6 +135,10 @@ function App() {
         <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
         <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
         <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
+
+        {/* 대시보드 */}
+        <Route path="/dashboard" element={<DashBoard />} />
+
       </Routes>
     </Root>
   );

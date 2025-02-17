@@ -259,6 +259,84 @@ export const CardCheckButton = styled.button`
   border-radius: 23.5px;
 `;
 
+// 대시보드 카드
+export const DashBoardCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  width: 361px;
+  border: none;
+  border-radius: 22px;
+  padding: 21px 14px;
+  margin-bottom: 24px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+`;
+
+export const DashBoardCardInfoBox = styled.div`
+  width: 223px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+`;
+
+export const DashBoardCardInfoHeader = styled.div`
+  width: 223px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const DashBoardCardInfoBar = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const DashBoardCardInfoIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+`;
+
+export const DashBoardCardInfoText = styled.div`
+  ${tokens.typography.label_Sb_16};
+  color: ${tokens.colors.gray[600]};
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const getTagColor = (label) => {
+  switch (label) {
+    case "대기":
+      return "#5C5CEF"; // 파랑
+    case "거절":
+      return "#FF5E4C"; // 빨강
+    case "조율요청":
+      return tokens.colors.primary.darken[100]; // 주황
+    case "수락":
+      return "#3DC558"; // 초록
+    default:
+      return tokens.colors.gray[700]; // 기본값
+  }
+};
+
+export const Tag = styled.div`
+  display: inline-block;  padding: 5.5px 16px;
+  ${tokens.typography.label_Sb_16};
+  color: ${({ label }) => getTagColor(label)};
+  background-color: ${({ label }) => `${getTagColor(label)}20`};
+  border: 1px solid ${({ label }) => getTagColor(label)};
+  border-radius: 10px;
+`;
 
 // BIG 카드
 export const BigCardContainer = styled.div`

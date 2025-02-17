@@ -218,6 +218,34 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
   );
 };
 
+export const DashBoardCard = ({ contents, onClick, width = "100%" }) => {
+  return (
+    <styled.DashBoardCardContainer style={{ width }}>
+      <styled.CardInfoContainer>
+        <styled.CardProfile src={contents.profileUrl} alt="프로필" />
+
+        <styled.DashBoardCardInfoBox>
+          <styled.DashBoardCardInfoHeader>
+            <styled.CardName>{contents.name} 어르신</styled.CardName>
+            <styled.DashBoardCardInfoBar>
+              <styled.DashBoardCardInfoIcon src="/img/callender.svg" alt="달력아이콘" />
+              <styled.DashBoardCardInfoText>{contents.date}</styled.DashBoardCardInfoText>
+            </styled.DashBoardCardInfoBar>
+          </styled.DashBoardCardInfoHeader>
+
+          <styled.TagContainer>
+            <styled.Tag label="대기">대기 {contents.wait}건</styled.Tag>
+            <styled.Tag label="거절">거절 {contents.reject}건</styled.Tag>
+            <styled.Tag label="조율요청">조율요청 {contents.contact}건</styled.Tag>
+            <styled.Tag label="수락">수락 {contents.apply}건</styled.Tag>
+          </styled.TagContainer>
+        </styled.DashBoardCardInfoBox>
+        
+      </styled.CardInfoContainer>
+    </styled.DashBoardCardContainer>
+  );
+};
+
 export const PageHeader = ({ title }) => {
   const navigate = useNavigate();
   return (
