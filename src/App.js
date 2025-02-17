@@ -17,7 +17,9 @@ import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.S
 import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
-// import { Button, Label, Input, Dropdown, TextArea, SelectButton } from "./APP/components/Components";
+import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
+
+import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -96,7 +98,13 @@ function App() {
             ))}
         </Container>
         <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> }
+        
+        
+        <NavigationBar dashboard={true} />
+      
+      
       */}
+
       <Routes>
         {/* 로그인 */}
         <Route path="/login" element={<Login />} />
@@ -127,6 +135,10 @@ function App() {
         <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
         <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
         <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
+
+        {/* 대시보드 */}
+        <Route path="/dashboard" element={<DashBoard />} />
+
       </Routes>
     </Root>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import * as styled from "./Components.styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const Button = ({
   text,
@@ -218,6 +218,34 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
   );
 };
 
+export const DashBoardCard = ({ contents, onClick, width = "100%" }) => {
+  return (
+    <styled.DashBoardCardContainer style={{ width }}>
+      <styled.CardInfoContainer>
+        <styled.CardProfile src={contents.profileUrl} alt="프로필" />
+
+        <styled.DashBoardCardInfoBox>
+          <styled.DashBoardCardInfoHeader>
+            <styled.CardName>{contents.name} 어르신</styled.CardName>
+            <styled.DashBoardCardInfoBar>
+              <styled.DashBoardCardInfoIcon src="/img/callender.svg" alt="달력아이콘" />
+              <styled.DashBoardCardInfoText>{contents.date}</styled.DashBoardCardInfoText>
+            </styled.DashBoardCardInfoBar>
+          </styled.DashBoardCardInfoHeader>
+
+          <styled.TagContainer>
+            <styled.Tag label="대기">대기 {contents.wait}건</styled.Tag>
+            <styled.Tag label="거절">거절 {contents.reject}건</styled.Tag>
+            <styled.Tag label="조율요청">조율요청 {contents.contact}건</styled.Tag>
+            <styled.Tag label="수락">수락 {contents.apply}건</styled.Tag>
+          </styled.TagContainer>
+        </styled.DashBoardCardInfoBox>
+        
+      </styled.CardInfoContainer>
+    </styled.DashBoardCardContainer>
+  );
+};
+
 export const PageHeader = ({ title }) => {
   const navigate = useNavigate();
   return (
@@ -229,3 +257,28 @@ export const PageHeader = ({ title }) => {
     </styled.HeaderContainer>
   );
 };
+
+export const NavigationBar = ({ dashboard }) => {
+  const navigate = useNavigate();
+  const location = useLocation(); 
+  const menuItems = [
+    { id: "home", label: "홈", icon: "/img/navigation_home.svg", route: "/home" },
+    { id: "match", label: "매칭관리", icon: "/img/navigation_matching.svg", route: "/matching" },
+    ...(dashboard ? [{ id: "dashboard", label: "대시보드", icon: "/img/navigation_dashboard.svg", route: "/dashboard" }] : []),
+    { id: "profile", label: "내 정보", icon: "/img/navigation_profile.svg", route: "/profile" },
+  ];
+  return (
+    <styled.NavContainer>
+      {menuItems.map((item) => {
+        const isActive = location.pathname === item.route;
+        return (
+          <styled.NavItem key={item.id} onClick={() => navigate(item.route)}>
+            <styled.NavIcon src={item.icon} alt={item.label} active={isActive} />
+            <styled.NavLabel active={isActive}>{item.label}</styled.NavLabel>
+          </styled.NavItem>
+        );
+      })}
+    </styled.NavContainer>
+  );
+};
+export default NavigationBar;
