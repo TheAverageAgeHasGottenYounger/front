@@ -27,7 +27,7 @@ export default function Login() {
           },
         }
       );
-
+      console.log(response);
       const accessToken = response.data.result; // 응답에서 Access Token 추출
       console.log(accessToken);
       if (accessToken) {

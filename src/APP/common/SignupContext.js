@@ -33,9 +33,6 @@ export const AdminSignupProvider = ({ children }) => {
   const [adminSignupData, setAdminSignupData] = useState({
     profileImageFile: "",
     phoneNumber: "",
-    city: "",
-    gu: "",
-    dong: "",
     carYn: true,
     id: "",
     password: "",

@@ -73,9 +73,30 @@ export default function InfoAdmin() {
   };
 
   // 모달 닫기 & 기본 정보 폼 표시
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setShowBasicInfo(true); // 모달이 닫힌 후 기본 정보 폼을 보이도록 설정
+  const handleResister = async () => {
+    try {
+      // API 요청 보내기
+      const response = await axios.get(
+        `https://api.ondue.store/center?centerName=${encodeURIComponent(
+          adminSignupData.center.name
+        )}`
+      );
+      console.log(response);
+      if (response.data.isSuccess) {
+        setAdminSignupData((prev) => ({
+          ...prev,
+          center: {
+            ...prev.center,
+            id: response.data.result.id,
+            name: response.data.result.name,
+          },
+        }));
+        setIsModalOpen(false);
+        setShowBasicInfo(true); // 모달이 닫힌 후 기본 정보 폼을 보이도록 설정
+      }
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -192,7 +213,7 @@ export default function InfoAdmin() {
       {/* 모달 렌더링 */}
       {isModalOpen && (
         <Modal
-          onClose={handleCloseModal}
+          onClose={handleResister}
           onClick={() => setIsModalOpen(false)}
           centerName={adminSignupData.center.name}
         />

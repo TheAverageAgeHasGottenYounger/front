@@ -87,27 +87,26 @@ export default function FormAdmin() {
   const handleSubmit = async () => {
     console.log("Sss", adminSignupData);
     const requestBody = {
-      profileImageFile: adminSignupData.profileImageFile,
-      memberRequest: {
-        phoneNumber: adminSignupData.phoneNumber,
-        city: adminSignupData.city,
-        gu: adminSignupData.gu,
-        dong: adminSignupData.dong,
-        carYn: adminSignupData.carYn,
-        id: adminSignupData.id,
-        password: adminSignupData.password,
-        center: {
-          name: adminSignupData.center.name,
-          bathCarYn: adminSignupData.center.bathCarYn,
-          grade: adminSignupData.center.grade,
-          operationPeriod: adminSignupData.center.operationPeriod,
-          city: adminSignupData.center.city,
-          gu: adminSignupData.center.gu,
-          dong: adminSignupData.center.dong,
-          introduction: adminSignupData.center.introduction,
-        },
+      // profileImageFile: adminSignupData.profileImageFile,
+      // memberRequest: {
+      profileUrl: adminSignupData.profileImageFile,
+      phoneNumber: adminSignupData.phoneNumber,
+      carYn: adminSignupData.carYn,
+      id: adminSignupData.id,
+      password: adminSignupData.password,
+      center: {
+        name: adminSignupData.center.name,
+        bathCarYn: adminSignupData.center.bathCarYn,
+        grade: adminSignupData.center.grade,
+        operationPeriod: adminSignupData.center.operationPeriod,
+        city: adminSignupData.center.city,
+        gu: adminSignupData.center.gu,
+        dong: adminSignupData.center.dong,
+        introduction: adminSignupData.center.introduction,
+        // },
       },
     };
+    console.log(requestBody);
 
     try {
       const response = await axios.post(
@@ -120,7 +119,7 @@ export default function FormAdmin() {
 
       if (response.data.isSuccess) {
         console.log("관리자 회원가입 성공!");
-        // window.location.replace("/login");
+        window.location.replace("/login");
       }
     } catch (error) {
       console.error("관리자 회원가입 오류:", error);
