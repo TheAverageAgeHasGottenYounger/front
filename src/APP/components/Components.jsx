@@ -1,6 +1,6 @@
 import React from "react";
 import * as styled from "./Components.styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const Button = ({
   text,
@@ -229,3 +229,28 @@ export const PageHeader = ({ title }) => {
     </styled.HeaderContainer>
   );
 };
+
+export const NavigationBar = ({ dashboard }) => {
+  const navigate = useNavigate();
+  const location = useLocation(); 
+  const menuItems = [
+    { id: "home", label: "홈", icon: "/img/navigation_home.svg", route: "/home" },
+    { id: "match", label: "매칭관리", icon: "/img/navigation_matching.svg", route: "/matching" },
+    ...(dashboard ? [{ id: "dashboard", label: "대시보드", icon: "/img/navigation_dashboard.svg", route: "/dashboard" }] : []),
+    { id: "profile", label: "내 정보", icon: "/img/navigation_profile.svg", route: "/profile" },
+  ];
+  return (
+    <styled.NavContainer>
+      {menuItems.map((item) => {
+        const isActive = location.pathname === item.route;
+        return (
+          <styled.NavItem key={item.id} onClick={() => navigate(item.route)}>
+            <styled.NavIcon src={item.icon} alt={item.label} active={isActive} />
+            <styled.NavLabel active={isActive}>{item.label}</styled.NavLabel>
+          </styled.NavItem>
+        );
+      })}
+    </styled.NavContainer>
+  );
+};
+export default NavigationBar;

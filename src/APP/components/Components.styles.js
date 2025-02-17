@@ -433,3 +433,39 @@ export const Hr = styled.div`
   border: 1px solid ${tokens.colors.gray[200]};
   margin: 40px 0;
 `;
+
+export const NavContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 103px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+`;
+
+export const NavItem = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+`;
+
+export const NavIcon = styled.img`
+  width: 32px;
+  height: 32px;
+  filter: ${(props) => (props.active ? "invert(38%) sepia(76%) saturate(683%) hue-rotate(340deg)" : "none")};
+`;
+
+export const NavLabel = styled.div`
+  ${tokens.typography.body_M_18};
+  color: ${(props) => (props.active ? tokens.colors.primary[0] : tokens.colors.gray[500])};
+  margin-top: 6px;
+`;
