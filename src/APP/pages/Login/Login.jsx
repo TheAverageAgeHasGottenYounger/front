@@ -15,7 +15,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const response = await axios.post(
-        "https://api.ondue.store/member/login",
+        "https://api.ondue.store/member/login/v2",
         null, // 요청 본문 없이 params만 전달할 경우 null 사용
         {
           params: {
@@ -28,16 +28,15 @@ export default function Login() {
         }
       );
 
-      console.log("response headers", response.headers); // 헤더에서 응답 받기
-
-      const accessToken = response.headers["access-token"]; // 헤더에서 Access Token 추출
+      const accessToken = response.data.result; // 응답에서 Access Token 추출
+      console.log(accessToken);
       if (accessToken) {
+        console.log("z");
         localStorage.setItem(ACCESS_TOKEN, accessToken);
       }
 
       if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
-        window.location.replace("/login");
       }
     } catch (error) {
       console.error("로그인 오류:", error);

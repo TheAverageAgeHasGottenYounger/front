@@ -70,7 +70,10 @@ export default function Form() {
           <Button
             text="다음"
             primary
-            onClick={() => navigate("/signup/add-info")}
+            onClick={() => {
+              console.log("회원가입 데이터2:", signupData); // 현재 상태 확인
+              navigate("/signup/add-info");
+            }}
             width="228px"
           />
         </items.ButtoninnerContainer>
