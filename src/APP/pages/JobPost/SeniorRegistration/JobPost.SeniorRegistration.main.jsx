@@ -9,17 +9,21 @@ import {
   Dropdown,
   SelectButton,
 } from "../../../components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import { ACCESS_TOKEN } from '../../../Api/request';
+import axios from 'axios';
+import request from '../../../Api/request';
+import { useSignup } from "../../../common/SignupContext";
+
 
 export default function SeniorRegistration() {
+  const { signupData, setSignupData } = useSignup();
+
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
 
   const [name, setName] = useState("");
 
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedDay, setSelectedDay] = useState("");
 
   const [selectedGender, setSelectedGender] = useState("");
 
@@ -28,10 +32,43 @@ export default function SeniorRegistration() {
   const [selectedPayType, setSelectedPayType] = useState("");
   const [selectedPay, setSelectedPay] = useState("");
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
-  // const [selectedOptions, setSelectedOptions] = useState([]);
-  // const [selectedOptions, setSelectedOptions] = useState([]);
-  // const [selectedOptions, setSelectedOptions] = useState([]);
+
+  // 요일
+  const [dayList, setDayList] = useState([]);
+  const [selectedDay, setSelectedDay] = useState(
+    signupData.day || []
+  );
+
+  // 배변 보조
+  const [toiletList, setToiletList] = useState([]);
+  const [selectedToilet, setSelectedToilet] = useState(
+    signupData.toilet || []
+  );
+
+  // 이동 보조
+  const [moveList, setMoveList] = useState([]);
+  const [selectedMove, setSelectedMove] = useState(
+    signupData.move || []
+  );
+
+  // 일상 생활 보조
+  const [lifeList, setLifeList] = useState([]);
+  const [selectedLife, setSelectedLife] = useState(
+    signupData.life || []
+  );
+
+  // 식사 보조
+  const [foodList, setFoodList] = useState([]);
+  const [selectedFood, setSelectedFood] = useState(
+    signupData.food || []
+  );
+
+  // 요양 스타일
+  const [caregiverStyles, setCaregiverStyles] = useState([]);
+  const [selectedCareStyle, setSelectedCareStyle] = useState(
+    signupData.careStyle || ""
+  );
+  
 
   const [timeSchedules, setTimeSchedules] = useState([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
@@ -44,46 +81,6 @@ export default function SeniorRegistration() {
     { value: "4", label: "4등급" },
     { value: "5", label: "5등급" },
     { value: "인지지원", label: "인지지원등급" },
-  ];
-
-  const payType = [{ value: "시급", label: "시급" }];
-
-  const mealSupportOptions = [
-    "스스로 식사 가능",
-    "식사 차려드리기",
-    "죽, 반찬 등 요리 필요",
-    "경관식 보조",
-  ];
-
-  const toiletSupportOptions = [
-    "스스로 배변 가능",
-    "가끔 대소변 실수 시 도움",
-    "기저귀 케어 필요",
-    "유치도뇨/방광루/장루 관리",
-  ];
-
-  const mobilitySupportOptions = [
-    "스스로 거동 가능",
-    "이동시 부축 도움",
-    "휠체어 이동 보조",
-    "거동 불가",
-  ];
-
-  const dailyLivingSupportOptions = [
-    "청소, 빨래 보조",
-    "목욕 보조",
-    "병원 동행",
-    "산책, 간단한 운동",
-    "말벗 등 정서지원",
-    "인지자극 활동",
-  ];
-
-  const CaregiverStyleOptions = [
-    "🧊 메뉴얼과 규칙을 중요시하는 꼼꼼형",
-    "🟦 조용하고 신뢰있게 돕는 차분형",
-    "🟠 필요에 따라 유연하게 조정하는 균형형",
-    "🔥 감정에 공감하는 정서 교감형",
-    "❤️ 친근 한 가족같이 적극적인 돌봄",
   ];
 
   const generateYearOptions = () => {
@@ -166,13 +163,173 @@ export default function SeniorRegistration() {
       )
     );
 
-  const toggleSelectOptions = (option) => {
-    setSelectedOptions((prev) =>
+
+  // 요일 목록 가져오기
+  useEffect(() => {
+    const fetchDayList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/day"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("요일 목록 response", response);
+        setDayList(enumList);
+      } catch (error) {
+        console.error("요일 목록 불러오기 오류:", error);
+      }
+    };
+    fetchDayList();
+  }, []);
+
+  // 요일 선택
+  const handleDayChange = (option) => {
+    setSelectedDay((prev) =>
       prev.includes(option)
         ? prev.filter((o) => o !== option)
         : [...prev, option]
     );
+    console.log(selectedDay);
   };
+
+
+  // 식사 보조 목록 가져오기
+  useEffect(() => {
+    const fetchFoodList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/food-assist"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("식사 보조 등급 response", response);
+        setFoodList(enumList);
+      } catch (error) {
+        console.error("식사 보조 등급 목록 불러오기 오류:", error);
+      }
+    };
+    fetchFoodList();
+  }, []);
+
+  // 식사 보조 선택
+  const handleFoodChange = (option) => {
+    setSelectedFood((prev) =>
+      prev.includes(option)
+        ? prev.filter((o) => o !== option)
+        : [...prev, option]
+    );
+    console.log(selectedFood);
+  };
+
+
+  // 이동 보조 목록 가져오기
+  useEffect(() => {
+    const fetchMoveList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/move-assist"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("이동 보조 등급 response", response);
+        setMoveList(enumList);
+      } catch (error) {
+        console.error("이동 보조 등급 목록 불러오기 오류:", error);
+      }
+    };
+    fetchMoveList();
+  }, []);
+
+  // 이동 보조 선택
+  const handleMoveChange = (option) => {
+    setSelectedMove((prev) =>
+      prev.includes(option)
+        ? prev.filter((o) => o !== option)
+        : [...prev, option]
+    );
+    console.log(selectedMove);
+  };
+
+
+  // 일상 생활 보조 목록 가져오기
+  useEffect(() => {
+    const fetchLifeList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/life-assist"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("일상 생활 보조 등급 response", response);
+        setLifeList(enumList);
+      } catch (error) {
+        console.error("일상 생활 보조 등급 목록 불러오기 오류:", error);
+      }
+    };
+    fetchLifeList();
+  }, []);
+
+  // 일상 생활 보조 선택
+  const handleLifeChange = (option) => {
+    setSelectedLife((prev) =>
+      prev.includes(option)
+        ? prev.filter((o) => o !== option)
+        : [...prev, option]
+    );
+    console.log(selectedLife);
+  };
+
+
+  // 배변 보조 목록 가져오기
+  useEffect(() => {
+    const fetchToiletList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/toilet-assist"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("배변 보조 등급 response", response);
+        setToiletList(enumList);
+      } catch (error) {
+        console.error("배변 보조 등급 목록 불러오기 오류:", error);
+      }
+    };
+    fetchToiletList();
+  }, []);
+
+  // 배변 보조 선택
+  const handleToiletChange = (option) => {
+    setSelectedToilet((prev) =>
+      prev.includes(option)
+        ? prev.filter((o) => o !== option)
+        : [...prev, option]
+    );
+    console.log(selectedToilet);
+  };
+
+
+  // 온기 스타일 목록 가져오기
+  useEffect(() => {
+    const fetchCaregiverStyles = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/care-style"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("온기 스타일 response", response);
+        setCaregiverStyles(enumList);
+      } catch (error) {
+        console.error("온기 스타일 목록 불러오기 오류:", error);
+      }
+    };
+    fetchCaregiverStyles();
+  }, []);
+
+  // 온기 스타일 선택
+  const handleCareStyleChange = (selectedCode) => {
+    setSelectedCareStyle(selectedCode);
+    setSignupData((prev) => ({
+      ...prev,
+      careStyle: selectedCode, // signupData에 code 값 저장
+    }));
+  };
+
 
   return (
     <items.Container>
@@ -296,12 +453,12 @@ export default function SeniorRegistration() {
               )}
             </items.Label>
             <items.SelectContainer>
-              {["월", "화", "수", "목", "금", "토", "일"].map((day) => (
+              {dayList.map(({code, value}) => (
                 <SelectButton
-                  key={day}
-                  text={day}
-                  selected={schedule.selectedDays.includes(day)}
-                  onClick={() => toggleSelectDay(schedule.id, day)}
+                  key={code}
+                  text={value}
+                  selected={selectedDay.includes(code)}
+                  onClick={() => handleDayChange(code)}
                   width="46px"
                   height="46px"
                 />
@@ -334,32 +491,6 @@ export default function SeniorRegistration() {
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
         </items.AddButton>
 
-        {/*
-        <items.InputContainer>
-          <Label text="희망 급여" star />
-          <items.DropdownContainer>
-          <Dropdown
-            options={payType}
-            placeholder="시급"
-            value={selectedPay}
-            onChange={(e) => setSelectedPayType(e.target.value)}
-            width="135px"
-          />
-          <Input
-            type="number"
-            placeholder="금액을 입력해주세요."
-            value={name}
-            onChange={(e) => setSelectedPay(e.target.value)}
-            width="170px"
-          />
-          </items.DropdownContainer>
-          <items.ExtraInstructionContainer>
-            <items.ExtraInstruction>월급 : 0원</items.ExtraInstruction>
-            <items.ExtraInstruction>최저 임금 : 10,030원</items.ExtraInstruction>
-          </items.ExtraInstructionContainer>
-        </items.InputContainer>
-        */}
-
         <items.Label>케어 필요 항목</items.Label>
 
         <items.InputContainer>
@@ -369,12 +500,12 @@ export default function SeniorRegistration() {
           </items.LabelContainer>
 
           <items.SelectGridContainer>
-            {mealSupportOptions.map((options) => (
+            {foodList.map(({code, value}) => (
               <SelectButton
-                key={options}
-                text={options}
-                selected={selectedOptions.includes(options)}
-                onClick={() => toggleSelectOptions(options)}
+                key={code}
+                text={value}
+                selected={selectedFood.includes(code)}
+                onClick={() => handleFoodChange(code)}
                 width="175px"
                 height="89px"
               />
@@ -389,12 +520,12 @@ export default function SeniorRegistration() {
           </items.LabelContainer>
 
           <items.SelectGridContainer>
-            {toiletSupportOptions.map((options) => (
+            {toiletList.map(({code, value}) => (
               <SelectButton
-                key={options}
-                text={options}
-                selected={selectedOptions.includes(options)}
-                onClick={() => toggleSelectOptions(options)}
+                key={code}
+                text={value}
+                selected={selectedToilet.includes(code)}
+                onClick={() => handleToiletChange(code)}
                 width="175px"
                 height="89px"
               />
@@ -409,12 +540,12 @@ export default function SeniorRegistration() {
           </items.LabelContainer>
 
           <items.SelectGridContainer>
-            {mobilitySupportOptions.map((options) => (
+            {moveList.map(({code, value}) => (
               <SelectButton
-                key={options}
-                text={options}
-                selected={selectedOptions.includes(options)}
-                onClick={() => toggleSelectOptions(options)}
+                key={code}
+                text={value}
+                selected={selectedMove.includes(code)}
+                onClick={() => handleMoveChange(code)}
                 width="175px"
                 height="89px"
               />
@@ -429,12 +560,12 @@ export default function SeniorRegistration() {
           </items.LabelContainer>
 
           <items.SelectGridContainer>
-            {dailyLivingSupportOptions.map((options) => (
+            {lifeList.map(({code, value}) => (
               <SelectButton
-                key={options}
-                text={options}
-                selected={selectedOptions.includes(options)}
-                onClick={() => toggleSelectOptions(options)}
+                key={code}
+                text={value}
+                selected={selectedLife.includes(code)}
+                onClick={() => handleLifeChange(code)}
                 width="175px"
                 height="89px"
               />
@@ -453,12 +584,12 @@ export default function SeniorRegistration() {
 
         <items.InputContainer>
           <items.SelectColumnContainer>
-            {CaregiverStyleOptions.map((options) => (
+            {caregiverStyles.map(({ code, value }) => (
               <SelectButton
-                key={options}
-                text={options}
-                selected={selectedOptions.includes(options)}
-                onClick={() => toggleSelectOptions(options)}
+                key={code}
+                text={value} 
+                selected={selectedCareStyle === code} 
+                onClick={() => handleCareStyleChange(code)}
                 width="361px"
                 height="64px"
               />
