@@ -56,8 +56,9 @@ export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 349px;
-  margin-bottom: 127px;
+  /* height: 349px; */
+  gap: 48px;
+  margin-bottom: 48px;
 `;
 
 export const LabelButtonWrapper = styled.div`
@@ -72,7 +73,7 @@ export const LabelUtilWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 361px;
-  height: 91px;
+  /* height: 91px; */
 `;
 
 export const LabelContainer = styled.div`
@@ -142,12 +143,6 @@ export const AddText = styled.div`
   ${tokens.typography.label_Sb_16};
   color: ${tokens.colors.gray[900]};
 `;
-
-// export const Body = styled.span`
-//   ${tokens.typography.body_M_16};
-//   color: ${tokens.colors.gray[500]};
-//   width: 361px;
-// `;
 
 export const InputContainer = styled.div`
   display: flex;

@@ -11,8 +11,11 @@ export default function Info() {
 
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [fixCertificateCode, setFixCertificateCode] = useState("");
-  const [optionCertificateCode, setOptionCertificateCode] = useState("");
+
+  // 자격증 리스트 상태
+  const [certificateList, setCertificateList] = useState([
+    { id: 1, type: "요양보호사", number: "", grade: "1급" }, // 기본 자격증
+  ]);
 
   // 주소 관련 상태
   const [cityOptions, setCityOptions] = useState([]); // 시 리스트
@@ -104,8 +107,10 @@ export default function Info() {
     const fetchCities = async () => {
       try {
         const response = await axios.get("https://api.ondue.store/map/city");
-        console.log('시 response', response);
-        setCityOptions(response.data.result.map((city) => ({ value: city, label: city })));
+        console.log("시 response", response);
+        setCityOptions(
+          response.data.result.map((city) => ({ value: city, label: city }))
+        );
       } catch (error) {
         console.error("시 목록 불러오기 실패:", error);
       }
@@ -122,9 +127,13 @@ export default function Info() {
     setDongOptions([]); // 기존 '동' 리스트 초기화
 
     try {
-      const response = await axios.get(`https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`);
-      console.log('구 response', response);
-      setGuOptions(response.data.result.map((gu) => ({ value: gu, label: gu })));
+      const response = await axios.get(
+        `https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`
+      );
+      console.log("구 response", response);
+      setGuOptions(
+        response.data.result.map((gu) => ({ value: gu, label: gu }))
+      );
     } catch (error) {
       console.error("구 목록 불러오기 실패:", error);
     }
@@ -137,9 +146,13 @@ export default function Info() {
     setDongOptions([]); // 기존 '동' 리스트 초기화
 
     try {
-      const response = await axios.get(`https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`);
-      console.log('동 response', response);
-      setDongOptions(response.data.result.map((dong) => ({ value: dong, label: dong })));
+      const response = await axios.get(
+        `https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`
+      );
+      console.log("동 response", response);
+      setDongOptions(
+        response.data.result.map((dong) => ({ value: dong, label: dong }))
+      );
     } catch (error) {
       console.error("동 목록 불러오기 실패:", error);
     }
@@ -151,69 +164,29 @@ export default function Info() {
     setSignupData((prev) => ({ ...prev, dong: value }));
   };
 
-  // 자격증 추가 버튼 클릭 시 실행되는 함수
+  // 자격증 추가 버튼 클릭 핸들러
   const handleAddCertificate = () => {
-    setSignupData((prev) => ({
+    setCertificateList((prev) => [
       ...prev,
-      certificate: [
-        ...prev.certificate,
-        { id: prev.certificate.length + 1, selectedValue: "", code: "" },
-      ],
-    }));
-  };
-
-  const handleFixCertificateCodeChange = (value) => {
-    setFixCertificateCode(value);
-    setSignupData((prev) => ({
-      ...prev,
-      certificate: [
-        ...prev.certificate,
-        { type: "요양보호사", number: value, grade: "1급" },
-      ],
-    }));
+      { id: prev.length + 1, type: "", number: "", grade: "" },
+    ]);
   };
 
   // 특정 자격증 데이터 변경
   const handleCertificateChange = (id, field, value) => {
-    setSignupData((prev) => {
-      const updatedCertificates = prev.certificate.map((cert) => {
-        if (cert.id === id) {
-          if (field === "code") {
-            return { ...cert, code: value }; // Update only the code for the specific certificate
-          } else if (field === "selectedValue") {
-            let type = "";
-            let grade = null;
+    setCertificateList((prev) =>
+      prev.map((cert) => (cert.id === id ? { ...cert, [field]: value } : cert))
+    );
+  };
 
-            if (value === "사회복지사 1급") {
-              type = "사회복지사";
-              grade = "1급";
-            } else if (value === "사회복지사 2급") {
-              type = "사회복지사";
-              grade = "2급";
-            } else if (value === "간호조무사") {
-              type = "간호조무사";
-              grade = null;
-            }
-
-            return { ...cert, selectedValue: value, type, grade };
-          }
-        }
-        return cert;
-      });
-
-      // If "요양보호사" certificate does not exist, add it as a fixed certificate
-      if (!prev.certificate.some((cert) => cert.type === "요양보호사")) {
-        updatedCertificates.unshift({
-          id: 1,
-          type: "요양보호사",
-          grade: "1급",
-          selectedValue: "요양보호사 1급", // Automatically set for the fixed certificate
-          code: "", // Initially blank
-        });
-      }
-
-      return { ...prev, certificate: updatedCertificates };
-    });
+  // 다음 버튼 클릭 시 signupData에 저장 (id 제거 후 저장)
+  const handleNext = () => {
+    // console.log("certificateList", certificateList);
+    const filteredCertificates = certificateList.map(({ id, ...rest }) => rest);
+    // console.log("filteredCertificates", filteredCertificates);
+    setSignupData((prev) => ({ ...prev, certificate: filteredCertificates }));
+    console.log("회원가입 데이터:", signupData);
+    navigate("/signup/form");
   };
 
   return (
@@ -296,47 +269,51 @@ export default function Info() {
 
         <items.DropInputContainer>
           <Label text="보유 자격증" star />
-          <items.DropdownContainer>
-            <items.FixCertificateText>요양보호사 1급</items.FixCertificateText>
-            <Input
-              type="text"
-              placeholder="자격증 번호 입력"
-              value={fixCertificateCode}
-              onChange={(e) => handleFixCertificateCodeChange(e.target.value)} // Using fixed certificate id = 1
-              width="140px"
-            />
-          </items.DropdownContainer>
-
-          {/* <items.DropdownContainer>
-            <Dropdown
-              options={[
-                { value: "사회복지사 1급", label: "사회복지사 1급" },
-                { value: "사회복지사 2급", label: "사회복지사 2급" },
-                { value: "간호조무사", label: "간호조무사" },
-              ]}
-              placeholder={"자격증 선택"}
-              // value={selectedValue}
-              // onChange={(e) =>
-              //   handleCertificateChange(
-              //     id,
-              //     "selectedValue",
-              //     e.target.value
-              //   )
-              // }
-              width="165px"
-            />
-            <Input
-              type="text"
-              placeholder="자격증 번호 입력"
-              // value={cert.code}
-              // onChange={(e) =>
-              //   handleCertificateChange(cert.id, "code", e.target.value)
-              // }
-              width="140px"
-            />
-          </items.DropdownContainer> */}
-
-          {/* 자격증 추가 버튼 */}
+          {certificateList.map((cert) => (
+            <items.DropdownContainer key={cert.id}>
+              {cert.type === "요양보호사" ? (
+                <items.FixCertificateText>
+                  요양보호사 1급
+                </items.FixCertificateText>
+              ) : (
+                <Dropdown
+                  options={[
+                    { value: "사회복지사 1급", label: "사회복지사 1급" },
+                    { value: "사회복지사 2급", label: "사회복지사 2급" },
+                    { value: "간호조무사", label: "간호조무사" },
+                  ]}
+                  width="165px"
+                  value={cert.type + (cert.grade ? " " + cert.grade : "")}
+                  onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    let type = "",
+                      grade = "";
+                    if (selectedValue === "사회복지사 1급") {
+                      type = "사회복지사";
+                      grade = "1급";
+                    } else if (selectedValue === "사회복지사 2급") {
+                      type = "사회복지사";
+                      grade = "2급";
+                    } else if (selectedValue === "간호조무사") {
+                      type = "간호조무사";
+                      grade = null;
+                    }
+                    handleCertificateChange(cert.id, "type", type);
+                    handleCertificateChange(cert.id, "grade", grade);
+                  }}
+                />
+              )}
+              <Input
+                type="text"
+                placeholder="자격증 번호 입력"
+                value={cert.number}
+                onChange={(e) =>
+                  handleCertificateChange(cert.id, "number", e.target.value)
+                }
+                width="140px"
+              />
+            </items.DropdownContainer>
+          ))}
           <items.AddButton onClick={handleAddCertificate}>
             <items.AddImg src="/img/add.svg" alt="추가하기" />
             <items.AddText>자격증 추가</items.AddText>
@@ -352,15 +329,7 @@ export default function Info() {
             onClick={() => navigate("/signup/type")}
             width="127px"
           />
-          <Button
-            text="다음"
-            primary
-            onClick={() => {
-              console.log("회원가입 데이터:", signupData); // 현재 상태 확인
-              navigate("/signup/form");
-            }}
-            width="228px"
-          />
+          <Button text="다음" primary onClick={handleNext} width="228px" />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
     </items.Container>
