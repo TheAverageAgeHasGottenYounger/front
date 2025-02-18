@@ -11,6 +11,7 @@ export default function Form() {
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   // 아이디 change event
   const handleId = (value) => {
@@ -21,6 +22,7 @@ export default function Form() {
   // 비밀번호 change event
   const handlePassword = (value) => {
     setPassword(value);
+    setIsPasswordValid(value.length >= 8);
     setSignupData((prev) => ({ ...prev, password: value }));
   };
 
@@ -78,7 +80,9 @@ export default function Form() {
             width="313px"
           />
         </items.InputContainer>
-        <items.ErrorMessage>8자리 이상 입력해주세요</items.ErrorMessage>
+        {!isPasswordValid && (
+          <items.ErrorMessage>8자리 이상 입력해주세요</items.ErrorMessage>
+        )}
       </items.InputWrapper>
 
       <items.ButtonContainer>
@@ -89,7 +93,13 @@ export default function Form() {
             onClick={() => navigate("/signup/info")}
             width="127px"
           />
-          <Button text="다음" primary onClick={handleNext} width="228px" />
+          <Button
+            text="다음"
+            primary
+            disabled={!isPasswordValid}
+            onClick={handleNext}
+            width="228px"
+          />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
     </items.Container>
