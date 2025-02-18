@@ -69,7 +69,6 @@ export default function SeniorRegistration() {
     signupData.careStyle || ""
   );
   
-
   const [timeSchedules, setTimeSchedules] = useState([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
@@ -124,20 +123,6 @@ export default function SeniorRegistration() {
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
-
-  const toggleSelectDay = (id, day) =>
-    setTimeSchedules((prev) =>
-      prev.map((schedule) =>
-        schedule.id === id
-          ? {
-              ...schedule,
-              selectedDays: schedule.selectedDays.includes(day)
-                ? schedule.selectedDays.filter((d) => d !== day)
-                : [...schedule.selectedDays, day],
-            }
-          : schedule
-      )
-    );
 
   const addSchedule = () => {
     setTimeSchedules((prev) => [
@@ -328,6 +313,37 @@ export default function SeniorRegistration() {
       ...prev,
       careStyle: selectedCode, // signupData에 code 값 저장
     }));
+  };
+
+
+  // 저장 버튼
+  const handleSubmit = async () => {
+    const requestBody = {
+      "profileUrl": profileUrl,
+      "name": name,
+      "birthday": "2025-02-18",
+      "sex": selectedGender === "남자" ? "남" : "여",
+      "address": "string",
+      "startTime": "12:00:00",
+      "endTime": "12:00:00",
+      "dayList": selectedDay,
+      "foodAssistList": selectedFood,
+      "toiletAssistList": selectedToilet,
+      "moveAssistList": selectedMove,
+      "lifeAssistList": selectedLife,
+      "careStyle": selectedCareStyle,
+    }
+
+    try {
+      const response = await request.post("/senior",requestBody);
+
+      if (response.isSuccess) {
+        console.log("어르신 등록 성공!");
+        // window.location.replace("/homeadmin");
+      }
+    } catch (error) {
+      console.error("어르신 등록 오류:", error);
+    }
   };
 
 
@@ -603,7 +619,7 @@ export default function SeniorRegistration() {
           <Button
             text="저장"
             primary
-            onClick={() => console.log("")}
+            onClick={() => handleSubmit()}
             width="361px"
           />
         </items.ButtoninnerContainer>
