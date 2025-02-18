@@ -18,8 +18,17 @@ import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.V
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
+import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
 
-import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+  SelectButton,
+  NavigationBar,
+} from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -129,16 +138,27 @@ function App() {
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
 
         {/* 구인 과정 */}
-        <Route path="/jobpost/caregiverdetails" element={<CaregiverDetails />} />
+        <Route
+          path="/jobpost/caregiverdetails"
+          element={<CaregiverDetails />}
+        />
         <Route path="/jobpost/matchingstatus" element={<MatchingStatus />} />
         <Route path="/jobpost/selectsenior" element={<SelectSenior />} />
         <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
-        <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
-        <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
+        <Route
+          path="/jobpost/seniorregistration"
+          element={<SeniorRegistration />}
+        />
+        <Route
+          path="/jobpost/viewmorecaregivers"
+          element={<ViewMoreCaregivers />}
+        />
 
         {/* 대시보드 */}
         <Route path="/dashboard" element={<DashBoard />} />
 
+        {/* 근무 조건 */}
+        <Route path="/jobrequirement" element={<JobRequirements />} />
       </Routes>
     </Root>
   );

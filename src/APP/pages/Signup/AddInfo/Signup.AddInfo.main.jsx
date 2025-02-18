@@ -197,6 +197,7 @@ export default function AddInfo() {
             ]}
             value={selectedCareerPeriod}
             onChange={(e) => handleCareerPeriodChange(e.target.value)}
+            placeholder={"경력 기간 선택"}
             width="171px"
           />
         </items.LabelUtilWrapper>

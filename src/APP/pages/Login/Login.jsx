@@ -45,7 +45,11 @@ export default function Login() {
 
   return (
     <items.Container>
-      <items.Logo src="/img/logo.svg" alt="로고이미지" />
+      <items.LogoContainer>
+        <items.Logo src="/img/logo.svg" alt="로고이미지" />
+        <items.LogoText src="/img/logo-text.svg" alt="로고이미지" />
+        <items.LogoPicture src="/img/logoPic.svg" alt="로고이미지" />
+      </items.LogoContainer>
 
       <items.InputWrapper>
         <items.InputContainer>
