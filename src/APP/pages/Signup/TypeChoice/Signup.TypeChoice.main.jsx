@@ -64,7 +64,7 @@ export default function TypeChoice() {
           <Button
             text="이전"
             outline
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             width="127px"
           />
           <Button

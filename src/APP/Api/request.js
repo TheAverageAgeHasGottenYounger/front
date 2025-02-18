@@ -4,7 +4,7 @@ export const ACCESS_TOKEN = "accessToken";
 
 // Axios 인스턴스 생성
 const request = axios.create({
-  baseURL: "hhttps://api.ondue.store", // 환경 변수로 API 주소 설정
+  baseURL: "https://api.ondue.store", // 환경 변수로 API 주소 설정
   headers: {
     withCredentials: true,
     Authorization: `Bearer ${window.localStorage.getItem(ACCESS_TOKEN)}`,
@@ -40,13 +40,13 @@ request.interceptors.response.use(
           break;
         case "TOKEN_EXPIRED":
           window.localStorage.clear();
-          window.location.href = "/login";
+          window.location.href = "/";
           break;
         default:
           console.error(`Unexpected error: ${message}`, error);
           if (message === "만료된 토큰입니다.") {
             window.localStorage.clear();
-            window.location.href = "/login";
+            window.location.href = "/";
           }
           break;
       }

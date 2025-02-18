@@ -297,13 +297,13 @@ export const NavigationBar = ({ dashboard }) => {
       id: "home",
       label: "홈",
       icon: "/img/navigation_home.svg",
-      route: "/home",
+      route: dashboard ? "/homeadmin" : "/home",
     },
     {
       id: "match",
       label: "매칭관리",
       icon: "/img/navigation_matching.svg",
-      route: "/matching",
+      route: dashboard ? "/admin/matchoverview" : "/matchoverview",
     },
     ...(dashboard
       ? [
@@ -319,7 +319,7 @@ export const NavigationBar = ({ dashboard }) => {
       id: "profile",
       label: "내 정보",
       icon: "/img/navigation_profile.svg",
-      route: "/profile",
+      route: dashboard ? "/admin/profile" : "/profile",
     },
   ];
   return (

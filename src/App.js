@@ -21,7 +21,15 @@ import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
 import Home from "./APP/pages/Home/Home.main";
 import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
 import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
-import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+  SelectButton,
+  NavigationBar,
+} from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -109,7 +117,7 @@ function App() {
 
       <Routes>
         {/* 로그인 */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
 
         {/* 회원가입 과정 */}
         <Route path="/signup/type" element={<TypeChoice />} />
@@ -153,7 +161,7 @@ function App() {
         {/* 홈 */}
         <Route path="/home" element={<Home />} />
         <Route path="/homeadmin" element={<HomeAdmin />} />
-        
+
         {/* 근무 조건 */}
         <Route path="/jobrequirement" element={<JobRequirements />} />
       </Routes>

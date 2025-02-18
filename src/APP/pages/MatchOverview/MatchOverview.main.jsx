@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/MatchOverview.main.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-} from "../../../APP/components/Components";
+import { Card, NavigationBar } from "../../../APP/components/Components";
 import { dummyItems } from "./dummy";
 
 export default function MatchOverview() {
@@ -26,9 +20,9 @@ export default function MatchOverview() {
 
   return (
     <items.Container>
-      <items.MatchOverviewContainer>
-        <items.Head>매칭 현황</items.Head>
-        <items.MatchOverviewBox>
+      {/* <items.MatchOverviewContainer> */}
+      <items.Head>매칭 관리</items.Head>
+      {/* <items.MatchOverviewBox>
           <items.MatchOverviewItem>
             <items.Label>전체 매칭</items.Label>
             <items.Value label="전체 매칭">{total}건</items.Value>
@@ -48,22 +42,12 @@ export default function MatchOverview() {
             <items.Label>거절</items.Label>
             <items.Value label="거절">{reject}건</items.Value>
           </items.MatchOverviewItem>
-        </items.MatchOverviewBox>
-      </items.MatchOverviewContainer>
+        </items.MatchOverviewBox> */}
+      {/* </items.MatchOverviewContainer> */}
 
       <items.MatchRequestListContainer>
         <items.HeaderContainer>
           <items.Head3>매칭 요청 목록</items.Head3>
-          <Dropdown
-            options={[
-              { value: "option1", label: "옵션 1" },
-              { value: "option2", label: "옵션 2" },
-              { value: "option3", label: "옵션 3" },
-            ]}
-            value={selectedValue}
-            onChange={(e) => setSelectedValue(e.target.value)}
-            width="115px"
-          />
         </items.HeaderContainer>
         <items.MatchRequestList>
           {dummyItems.map((item, index) => (
@@ -71,6 +55,7 @@ export default function MatchOverview() {
           ))}
         </items.MatchRequestList>
       </items.MatchRequestListContainer>
+      <NavigationBar dashboard={false} />
     </items.Container>
   );
 }

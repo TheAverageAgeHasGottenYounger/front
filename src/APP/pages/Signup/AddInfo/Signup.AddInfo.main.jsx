@@ -9,7 +9,6 @@ import {
   TextArea,
   SelectButton,
 } from "../../../components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
 import axios from "axios";
 import { useSignup } from "../../../common/SignupContext";
 
@@ -23,6 +22,11 @@ export default function AddInfo() {
   const [introduction, setIntroduction] = useState(
     signupData.introduction || ""
   );
+  // 경력
+  const [careerCompany, setCareerCompany] = useState("");
+  const [careerDescription, setCareerDescription] = useState("");
+  const [showCareerInput, setShowCareerInput] = useState(false);
+
   // 온기 스타일
   const [caregiverStyles, setCaregiverStyles] = useState([]); // API 데이터 저장
   const [selectedCareStyle, setSelectedCareStyle] = useState(
@@ -85,26 +89,37 @@ export default function AddInfo() {
     }));
   };
 
+  // 경력
+  const handleAddCareer = () => {
+    setShowCareerInput(true);
+  };
+
+  useEffect(() => {
+    if (careerCompany && careerDescription) {
+      const newCareer = `${careerCompany} : ${careerDescription}`;
+      setSignupData((prev) => ({ ...prev, career: newCareer }));
+    }
+  }, [careerCompany, careerDescription]);
+
   // 회원가입 버튼
   const handleSubmit = async () => {
+    console.log("signupData", signupData);
     const requestBody = {
-      profileImageFile: signupData.profileImageFile,
-      memberRequest: {
-        name: signupData.name,
-        phoneNumber: signupData.phoneNumber,
-        city: signupData.city,
-        gu: signupData.gu,
-        dong: signupData.dong,
-        id: signupData.id,
-        password: signupData.password,
-        dementiaEducationYn: signupData.dementiaEducationYn,
-        carYn: signupData.carYn,
-        certificate: signupData.certificate,
-        introduction: signupData.introduction,
-        career: signupData.career,
-        careerPeriod: signupData.careerPeriod,
-        careStyle: signupData.careStyle,
-      },
+      profileUrl: signupData.profileImageFile,
+      name: signupData.name,
+      phoneNumber: signupData.phoneNumber,
+      city: signupData.city,
+      gu: signupData.gu,
+      dong: signupData.dong,
+      id: signupData.id,
+      password: signupData.password,
+      dementiaEducationYn: signupData.dementiaEducationYn,
+      carYn: signupData.carYn,
+      certificate: signupData.certificate,
+      introduction: signupData.introduction,
+      career: signupData.career,
+      careerPeriod: signupData.careerPeriod,
+      careStyle: signupData.careStyle,
     };
 
     try {
@@ -118,7 +133,7 @@ export default function AddInfo() {
 
       if (response.data.isSuccess) {
         console.log("요양보호사 회원가입 성공!");
-        window.location.replace("/login");
+        // window.location.replace("/");
       }
     } catch (error) {
       console.error("요양보호사 회원가입 오류:", error);
@@ -204,10 +219,35 @@ export default function AddInfo() {
 
         <items.LabelUtilWrapper>
           <Label text="주요 경력 (선택)" />
-          <items.AddButton>
-            <items.AddImg src="/img/add.svg" alt="추가하기" />
-            <items.AddText>경력 추가</items.AddText>
-          </items.AddButton>
+          {!showCareerInput ? (
+            <items.AddButton onClick={handleAddCareer}>
+              <items.AddImg src="/img/add.svg" alt="추가하기" />
+              <items.AddText>경력 추가</items.AddText>
+            </items.AddButton>
+          ) : (
+            <>
+              <Input
+                type="text"
+                placeholder="회사명"
+                value={careerCompany}
+                onChange={(e) => {
+                  setCareerCompany(e.target.value);
+                }}
+                width="313px"
+              />
+              <items.LabelUtilWrapper>
+                <Label text="담당 업무" />
+                <TextArea
+                  placeholder="담당 업무를 입력해주세요"
+                  value={careerDescription}
+                  onChange={(e) => {
+                    setCareerDescription(e.target.value);
+                  }}
+                  maxLength={60}
+                />
+              </items.LabelUtilWrapper>
+            </>
+          )}
         </items.LabelUtilWrapper>
 
         <items.LabelUtilWrapper>
