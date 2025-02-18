@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.Form.main.styles";
 import { Button, Label, Input, Dropdown } from "../../../components/Components";
 import { useSignup } from "../../../common/SignupContext";
+import axios from "axios";
 
 export default function Form() {
   const { signupData, setSignupData } = useSignup();
@@ -21,6 +22,27 @@ export default function Form() {
   const handlePassword = (value) => {
     setPassword(value);
     setSignupData((prev) => ({ ...prev, password: value }));
+  };
+
+  // '다음' 버튼 클릭 시 아이디 중복 체크
+  const handleNext = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.ondue.store/member/duplication-id?memberId=${encodeURIComponent(
+          id
+        )}`
+      );
+      if (response.data.isSuccess) {
+        // 아이디가 중복되지 않으면 다음 단계로 이동
+        console.log("아이디 중복되지 않음", signupData);
+        navigate("/signup/add-info");
+      } else {
+        // 아이디가 중복되면 알림
+        alert("아이디가 중복됩니다");
+      }
+    } catch (error) {
+      console.error("아이디 중복 확인 중 오류 발생:", error);
+    }
   };
 
   return (
@@ -67,15 +89,7 @@ export default function Form() {
             onClick={() => navigate("/signup/info")}
             width="127px"
           />
-          <Button
-            text="다음"
-            primary
-            onClick={() => {
-              console.log("회원가입 데이터2:", signupData); // 현재 상태 확인
-              navigate("/signup/add-info");
-            }}
-            width="228px"
-          />
+          <Button text="다음" primary onClick={handleNext} width="228px" />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
     </items.Container>
