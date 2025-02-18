@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.AddInfo.main.styles";
 import {
@@ -7,6 +7,7 @@ import {
   Input,
   Dropdown,
   TextArea,
+  SelectButton,
 } from "../../../components/Components";
 // import { ACCESS_TOKEN } from '../../Api/request';
 import axios from "axios";
@@ -22,12 +23,34 @@ export default function AddInfo() {
   const [introduction, setIntroduction] = useState(
     signupData.introduction || ""
   );
-
+  // 온기 스타일
+  const [caregiverStyles, setCaregiverStyles] = useState([]); // API 데이터 저장
+  const [selectedCareStyle, setSelectedCareStyle] = useState(
+    signupData.careStyle || ""
+  );
   // 차량 보유 여부 및 치매 교육 여부 상태
   const [carYn, setCarYn] = useState(signupData.carYn || false);
   const [dementiaEducationYn, setDementiaEducationYn] = useState(
     signupData.dementiaEducationYn || false
   );
+
+  // 온기 스타일 목록 가져오기
+  useEffect(() => {
+    const fetchCaregiverStyles = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/care-style"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("온기 스타일response", response);
+        setCaregiverStyles(enumList); // 응답 데이터 상태 저장
+      } catch (error) {
+        console.error("온기 스타일 목록 불러오기 오류:", error);
+      }
+    };
+
+    fetchCaregiverStyles();
+  }, []);
 
   // 차량 보유 여부 설정
   const handleCarYn = (value) => {
@@ -53,6 +76,15 @@ export default function AddInfo() {
     setSignupData((prev) => ({ ...prev, introduction: value }));
   };
 
+  // 온기 스타일 선택
+  const handleCareStyleChange = (selectedCode) => {
+    setSelectedCareStyle(selectedCode);
+    setSignupData((prev) => ({
+      ...prev,
+      careStyle: selectedCode, // signupData에 code 값 저장
+    }));
+  };
+
   // 회원가입 버튼
   const handleSubmit = async () => {
     const requestBody = {
@@ -71,6 +103,7 @@ export default function AddInfo() {
         introduction: signupData.introduction,
         career: signupData.career,
         careerPeriod: signupData.careerPeriod,
+        careStyle: signupData.careStyle,
       },
     };
 
@@ -189,12 +222,29 @@ export default function AddInfo() {
         </items.LabelUtilWrapper>
       </items.BottomWrapper>
 
-      <items.Head3>
-        저는 이런 돌봄 스타일을
+      <items.Label>
+        저는 이런 온기 스타일을
         <br />
         가졌어요!
-      </items.Head3>
-      <items.Body>선택한 스타일에 따라 맞춤형 어르신이 추천돼요</items.Body>
+      </items.Label>
+      <items.ExtraLabel>
+        선택한 스타일에 따라 맞춤형 어르신이 추천돼요
+      </items.ExtraLabel>
+
+      <items.InputContainer>
+        <items.SelectColumnContainer>
+          {caregiverStyles.map(({ code, value }) => (
+            <SelectButton
+              key={code}
+              text={value} // 화면에는 value 값 표시
+              selected={selectedCareStyle === code} // 선택된 스타일이면 강조
+              onClick={() => handleCareStyleChange(code)} // 클릭 시 code 값 저장
+              width="361px"
+              height="64px"
+            />
+          ))}
+        </items.SelectColumnContainer>
+      </items.InputContainer>
 
       <items.ButtonContainer>
         <items.ButtoninnerContainer>
