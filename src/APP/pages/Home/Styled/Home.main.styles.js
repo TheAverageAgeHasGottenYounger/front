@@ -86,7 +86,7 @@ export const MatchOverviewBox = styled.div`
   border-radius: 22px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
-  padding: 20px 0;
+  padding: 24px 0;
   position: relative;
 `;
 

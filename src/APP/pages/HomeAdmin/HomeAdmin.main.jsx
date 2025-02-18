@@ -31,10 +31,10 @@ export default function Home() {
           <img src="/img/notification.svg" alt="알림"/>
         </items.NotificationBox>
         <items.ProfileBox>
-          <items.WhiteHead>{dummyItems2.name} 요양보호사</items.WhiteHead>
-          <items.WhiteLabel>{certification}</items.WhiteLabel>
+          <items.WhiteHead>{dummyItems2.name}</items.WhiteHead>
+          <items.WhiteLabel>등록된 어르신 : {total}명</items.WhiteLabel>
           <items.WhiteLabel>
-            내 정보 수정하기
+            센터 정보 수정하기
             <img src="/img/right_arrow_white.svg" alt="더보기" style={{
               width: "22px",
               height: "22px",
@@ -45,70 +45,42 @@ export default function Home() {
 
       <items.MatchOverviewContainer>
 
-        <items.MatchOverviewBox style={{
-          width: "361px",
-          height: "auto",
+        <items.SettingAndGuideBox style={{
           marginTop: "-48px",
-        }}>
-          <items.MyCalendarHeader>
-            <items.Head3>
-            <img src="/img/callender_orange.svg" width="30px" alt="일정"/>
-            나의 일정
-            </items.Head3>
-          <img src="/img/right_arrow.svg" width="30px" alt="더보기"/>
-          </items.MyCalendarHeader>
-          <items.MyCalendarContents>
-            <items.Label color="primary0">오늘 {today}/{total}</items.Label>
-          </items.MyCalendarContents>
-
-          <items.Divider /> 
-          <items.MatchOverviewItem>
-            {dummyItems3.map((item, index) => (
-            <items.ScheduleAndSenior key={index}>
-              <items.Label color="gray500">{item.time}</items.Label>
-              <items.Label color="gray900">{item.name} 어르신 방문</items.Label>
-            </items.ScheduleAndSenior>
-            ))}
-          </items.MatchOverviewItem>
-
-        </items.MatchOverviewBox>
-
-        <items.SettingAndGuideBox>
+          }}>
           
           <items.MatchOverviewBox style={{
             width: "175px",
-            height: "230px",
+            height: "170px",
           }}>
             <items.BottomCardHeader>
               <items.Head3>
-                근무 조건
+                어르신 정보
                 <br/>
-                설정하기
+                등록하기
               </items.Head3>
-              <items.BottomSubLabel color="gray500">원하는 지역 및 시급 설정</items.BottomSubLabel>
+              <items.BottomSubLabel color="gray500">기본정보 및 스타일 설정</items.BottomSubLabel>
               <items.BottomCardImgBox>
-                <img src="/img/home_card1.svg" width="46px"/>
+                <img src="/img/home_admin_card1.svg" width="45.61px"/>
               </items.BottomCardImgBox>
             </items.BottomCardHeader>
           </items.MatchOverviewBox>
           
           <items.MatchOverviewBox style={{
             width: "175px",
-            height: "230px",
+            height: "170px",
           }}>
             <items.BottomCardHeader>
               <items.Head3>
-                요양 필수
+                구인 공고
                 <br/>
-                가이드
+                등록하기
               </items.Head3>
               <items.BottomSubLabel color="gray500">
-                요양보호사에게
-                <br/>
-                필요한 정보
+                원하는 조건 설정
               </items.BottomSubLabel>
               <items.BottomCardImgBox>
-                <img src="/img/home_card2.svg" width="46px"/>
+                <img src="/img/home_admin_card2.svg" width="70.67px"/>
               </items.BottomCardImgBox>
             </items.BottomCardHeader>
           </items.MatchOverviewBox>
@@ -116,9 +88,63 @@ export default function Home() {
         </items.SettingAndGuideBox>
 
 
+        <items.MatchOverviewBox style={{
+          width: "361px",
+          height: "auto",
+        }}>
+          <items.MyCalendarHeader>
+            <items.Head3>
+            최근 매칭 정보
+            </items.Head3>
+          </items.MyCalendarHeader>
+          <items.MatchOverviewItem>
+            
+            {/* 조율요청 그룹 */}
+            {dummyItems3.some(item => item.progress === "조율요청") && (
+              <items.ScheduleAndSenior>
+                <items.Tag label="조율요청">조율요청</items.Tag>
+                <items.Label color="gray500">
+                  {dummyItems3
+                    .filter(item => item.progress === "조율요청")
+                    .map(item => `${item.name} 어르신`)
+                    .join(", ")}
+                </items.Label>
+              </items.ScheduleAndSenior>
+            )}
+
+            {/* 수락 그룹 */}
+            {dummyItems3.some(item => item.progress === "수락") && (
+              <items.ScheduleAndSenior>
+                <items.Tag label="수락">수락</items.Tag>
+                <items.Label color="gray500">
+                  {dummyItems3
+                    .filter(item => item.progress === "수락")
+                    .map(item => `${item.name} 어르신`)
+                    .join(", ")}
+                </items.Label>
+              </items.ScheduleAndSenior>
+            )}
+
+            {/* 거절 그룹 */}
+            {dummyItems3.some(item => item.progress === "거절") && (
+              <items.ScheduleAndSenior>
+                <items.Tag label="거절">거절</items.Tag>
+                <items.Label color="gray500">
+                  {dummyItems3
+                    .filter(item => item.progress === "거절")
+                    .map(item => `${item.name} 어르신`)
+                    .join(", ")}
+                </items.Label>
+              </items.ScheduleAndSenior>
+            )}
+
+          </items.MatchOverviewItem>
+
+        </items.MatchOverviewBox>
+
       </items.MatchOverviewContainer>
 
-      <NavigationBar dashboard={false} />
+      <NavigationBar dashboard={true} />
 
     </items.Container>
   );

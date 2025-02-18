@@ -85,8 +85,8 @@ export const MatchOverviewBox = styled.div`
   border: none;
   border-radius: 22px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-  padding: 20px 0;
+  margin-bottom: 0px;
+  padding: 24px 0;
   position: relative;
 `;
 
@@ -102,9 +102,9 @@ export const MatchOverviewItem = styled.div`
 export const ScheduleAndSenior = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   width: 324px;
+  gap: 16px;
 `;
 
 export const Divider = styled.div`
@@ -214,4 +214,28 @@ export const BottomCardImgBox = styled.div`
   position: absolute;
   bottom: 20px;
   right: 20px;
+`;
+
+export const getTagColor = (label) => {
+  switch (label) {
+    case "대기":
+      return "#5C5CEF"; // 파랑
+    case "거절":
+      return "#FF5E4C"; // 빨강
+    case "조율요청":
+      return tokens.colors.primary.darken[100]; // 주황
+    case "수락":
+      return "#3DC558"; // 초록
+    default:
+      return tokens.colors.gray[700]; // 기본값
+  }
+};
+
+export const Tag = styled.div`
+  display: inline-block;  padding: 5.5px 16px;
+  ${tokens.typography.label_Sb_16};
+  color: ${({ label }) => getTagColor(label)};
+  background-color: ${({ label }) => `${getTagColor(label)}20`};
+  border: 1px solid ${({ label }) => getTagColor(label)};
+  border-radius: 10px;
 `;

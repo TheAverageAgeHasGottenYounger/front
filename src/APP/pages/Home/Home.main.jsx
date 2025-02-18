@@ -77,7 +77,7 @@ export default function Home() {
           
           <items.MatchOverviewBox style={{
             width: "175px",
-            height: "230px",
+            height: "170px",
           }}>
             <items.BottomCardHeader>
               <items.Head3>
@@ -94,7 +94,7 @@ export default function Home() {
           
           <items.MatchOverviewBox style={{
             width: "175px",
-            height: "230px",
+            height: "170px",
           }}>
             <items.BottomCardHeader>
               <items.Head3>
