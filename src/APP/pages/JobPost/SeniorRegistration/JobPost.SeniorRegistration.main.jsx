@@ -33,6 +33,12 @@ export default function SeniorRegistration() {
   const [selectedPay, setSelectedPay] = useState("");
 
 
+  // 장기요양등급
+  const [careGradeList, setCareGradeList] = useState([]);
+  const [selectedCareGrade, setSelectedCareGrade] = useState(
+    signupData.careGrade || []
+  );
+
   // 요일
   const [dayList, setDayList] = useState([]);
   const [selectedDay, setSelectedDay] = useState(
@@ -82,6 +88,7 @@ export default function SeniorRegistration() {
     { value: "인지지원", label: "인지지원등급" },
   ];
 
+  // 생년월일
   const generateYearOptions = () => {
     const currentYear = new Date().getFullYear();
     const years = [];
@@ -105,6 +112,13 @@ export default function SeniorRegistration() {
     }));
   };
 
+  const getFormattedBirthday = () => {
+    if (!selectedYear || !selectedMonth || !selectedDay) return ""; // 값이 없을 때 빈 문자열 반환
+    const month = selectedMonth.toString().padStart(2, "0"); // 1~9월을 01~09 형식으로 변환
+    const day = selectedDay.toString().padStart(2, "0"); // 1~9일을 01~09 형식으로 변환
+    return `${selectedYear}-${month}-${day}`;
+  };
+
   const generateTimeOptions = () => {
     const times = [];
     for (let hour = 0; hour < 24; hour++) {
@@ -120,10 +134,12 @@ export default function SeniorRegistration() {
     return times;
   };
 
+  // 성별
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
 
+  // 희망 요일, 시간
   const addSchedule = () => {
     setTimeSchedules((prev) => [
       ...prev,
@@ -147,6 +163,34 @@ export default function SeniorRegistration() {
         schedule.id === id ? { ...schedule, [field]: value } : schedule
       )
     );
+    
+
+  // 장기요양등급 목록 가져오기
+  useEffect(() => {
+    const fetchCareGradeList = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.ondue.store/enum/careGrade"
+        );
+        const enumList = response.data.result.enumList;
+        console.log("장기요양등급 response", response);
+        setCareGradeList(enumList);
+      } catch (error) {
+        console.error("장기요양등급 목록 불러오기 오류:", error);
+      }
+    };
+    fetchCareGradeList();
+  }, []);
+
+  // 장기요양등급 선택
+  const handleCareGradeChange = (option) => {
+    setSelectedCareGrade((prev) =>
+      prev.includes(option)
+        ? prev.filter((o) => o !== option)
+        : [...prev, option]
+    );
+    console.log(selectedCareGrade);
+  };
 
 
   // 요일 목록 가져오기
@@ -321,7 +365,7 @@ export default function SeniorRegistration() {
     const requestBody = {
       "profileUrl": profileUrl,
       "name": name,
-      "birthday": "2025-02-18",
+      "birthday": getFormattedBirthday(),
       "sex": selectedGender === "남자" ? "남" : "여",
       "address": "string",
       "startTime": "12:00:00",
@@ -333,6 +377,8 @@ export default function SeniorRegistration() {
       "lifeAssistList": selectedLife,
       "careStyle": selectedCareStyle,
     }
+
+    console.log(requestBody);
 
     try {
       const response = await request.post("/senior",requestBody);
