@@ -41,3 +41,46 @@ export const dummyItems2 =
   };
   
 
+  export const dummyItems3 = 
+  [
+    {
+    name: "김철수",
+    profileUrl: "/img/profile-default.svg",
+    address: "서울특별시 강남구 강남동",
+    date: "주 2일 (월, 목)",
+    time: "오후 2시~6시",
+    request: "추가 요양 보호 가능 여부 문의",
+    content: "친근한 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+    salary: "100000 원",
+    careList: ["우와우", "와우와", "우와우"],
+    phoneNumber: "010-0000-1111",
+    addressDetail: "111동 1111호",
+    },
+    {
+      name: "김성수",
+      profileUrl: "/img/profile-default.svg",
+      address: "서울특별시 강남구 강남동",
+      date: "주 2일 (월, 목)",
+      time: "오후 21시~24시",
+      request: "추가 요양 보호 가능 여부 문의",
+      content: "친근한 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+      salary: "100000 원",
+      careList: ["우와우", "와우와", "우와우"],
+      phoneNumber: "010-0000-1111",
+      addressDetail: "111동 1111호",
+      },
+      {
+        name: "김민수",
+        profileUrl: "/img/profile-default.svg",
+        address: "서울특별시 강남구 강남동",
+        date: "주 2일 (월, 목)",
+        time: "오후 2시~6시",
+        request: "추가 요양 보호 가능 여부 문의",
+        content: "친근한 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+        salary: "100000 원",
+        careList: ["우와우", "와우와", "우와우"],
+        phoneNumber: "010-0000-1111",
+        addressDetail: "111동 1111호",
+        },
+  ];
+  

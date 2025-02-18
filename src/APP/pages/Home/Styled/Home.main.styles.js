@@ -78,7 +78,6 @@ export const Head = styled.div`
 export const MatchOverviewBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   background-color: white;
   width: 361px;
@@ -87,6 +86,8 @@ export const MatchOverviewBox = styled.div`
   border-radius: 22px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
   margin-bottom: 16px;
+  padding: 20px 0;
+  position: relative;
 `;
 
 export const MatchOverviewItem = styled.div`
@@ -94,8 +95,16 @@ export const MatchOverviewItem = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 67px;
-  height: 57px;
+  gap: 6px; 
+  margin-top: 14.5px;
+`;
+
+export const ScheduleAndSenior = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 324px;
 `;
 
 export const Divider = styled.div`
@@ -107,7 +116,18 @@ export const Divider = styled.div`
 
 export const Label = styled.div`
   ${tokens.typography.body_M_18};
-  color: ${tokens.colors.gray[900]};
+  color: ${({ color }) => {
+    switch (color) {
+      case "gray500":
+        return tokens.colors.gray[500]; 
+      case "gray900":
+        return tokens.colors.primary.darken[900]; 
+      case "primary0":
+        return tokens.colors.primary[0];
+      default:
+        return tokens.colors.gray[700];
+    }
+    }};
 `;
 
 export const Value = styled.div`
@@ -147,11 +167,51 @@ export const HeaderContainer = styled.div`
 `;
 
 export const Head3 = styled.div`
+  display: flex;
+  align-items: center;
   ${tokens.typography.h3};
   color: ${tokens.colors.gray[900]};
+  gap: 6px;
+  margin-bottom: 6px; 
+`;
+
+export const MyCalendarHeader = styled.div`
+  width: 324px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const MyCalendarContents = styled.div`
+  width: 324px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8.5px;
 `;
 
 export const MatchRequestList = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+export const BottomCardHeader = styled.div`
+  width: 137px;
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const BottomSubLabel = styled.div`
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 19.6px;
+  color: ${tokens.colors.gray[500]}
+`;
+
+export const BottomCardImgBox = styled.div`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 `;
