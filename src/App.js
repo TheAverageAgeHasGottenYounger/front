@@ -18,17 +18,10 @@ import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.V
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
+import Home from "./APP/pages/Home/Home.main";
+import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
 import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
-
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  TextArea,
-  SelectButton,
-  NavigationBar,
-} from "./APP/components/Components";
+import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -157,6 +150,10 @@ function App() {
         {/* 대시보드 */}
         <Route path="/dashboard" element={<DashBoard />} />
 
+        {/* 홈 */}
+        <Route path="/home" element={<Home />} />
+        <Route path="/homeadmin" element={<HomeAdmin />} />
+        
         {/* 근무 조건 */}
         <Route path="/jobrequirement" element={<JobRequirements />} />
       </Routes>
