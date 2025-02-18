@@ -20,6 +20,7 @@ export const SignupProvider = ({ children }) => {
     introduction: "",
     career: "",
     careerPeriod: "",
+    careStyle: "",
   });
 
   return (

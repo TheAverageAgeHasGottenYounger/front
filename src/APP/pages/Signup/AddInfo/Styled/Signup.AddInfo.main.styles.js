@@ -37,13 +37,12 @@ export const Head = styled.div`
   margin-bottom: 38px;
 `;
 
-
-export const Head3 = styled.div`
-  ${tokens.typography.h3};
-  color: ${tokens.colors.gray[900]};
-  width: 361px;
-  margin-bottom: 8px;
-`;
+// export const Head3 = styled.div`
+//   ${tokens.typography.h3};
+//   color: ${tokens.colors.gray[900]};
+//   width: 361px;
+//   margin-bottom: 8px;
+// `;
 
 export const TopWrapper = styled.div`
   display: flex;
@@ -86,6 +85,14 @@ export const Label = styled.div`
   ${tokens.typography.h3};
   color: ${tokens.colors.gray[900]};
   padding: 4px;
+  width: 361px;
+`;
+
+export const ExtraLabel = styled.div`
+  ${tokens.typography.body_M_18};
+  color: ${tokens.colors.gray[600]};
+  padding: 4px;
+  width: 361px;
 `;
 
 export const Star = styled.span`
@@ -136,10 +143,25 @@ export const AddText = styled.div`
   color: ${tokens.colors.gray[900]};
 `;
 
-export const Body = styled.span`
-  ${tokens.typography.body_M_16};
-  color: ${tokens.colors.gray[500]};
-  width: 361px;
+// export const Body = styled.span`
+//   ${tokens.typography.body_M_16};
+//   color: ${tokens.colors.gray[500]};
+//   width: 361px;
+// `;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 18px;
+  margin-bottom: 38px;
+`;
+
+export const SelectColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.5px;
+  margin-bottom: 18px;
 `;
 
 export const ButtonContainer = styled.div`
