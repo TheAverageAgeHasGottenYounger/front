@@ -127,7 +127,10 @@ export const Card = ({ contents, onClick, width = "100%" }) => {
             <styled.CardInfoIcon src="/img/clock.svg" alt="시계아이콘" />
             <styled.CardInfoText>{contents.time}</styled.CardInfoText>
           </styled.CardInfoBar>
-          <styled.CardRequestBar>{contents.request}</styled.CardRequestBar>
+          <styled.CardInfoBar>
+            <styled.CardInfoIcon src="/img/fire.svg" alt="불" />
+            <styled.CardRequestBar>{contents.request}</styled.CardRequestBar>
+          </styled.CardInfoBar>
         </styled.CardInfoBox>
       </styled.CardInfoContainer>
       <styled.CardCheckButtonBox>
@@ -149,20 +152,30 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
           <styled.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
           <styled.BigCardStyleText>온기 스타일</styled.BigCardStyleText>
         </styled.BigCardStyleBar>
-        <styled.BigCardStyleContent>{contents.content}</styled.BigCardStyleContent>
+        <styled.BigCardStyleContent>
+          {contents.content}
+        </styled.BigCardStyleContent>
       </styled.BigCardStyleBox>
       <styled.Hr />
       <styled.BigCardRequestBox>
         <styled.BigCardRequestBar>
           <styled.BigCardRequestIL>
-            <styled.BigCardRequestIcon src="/img/location.svg" alt="위치아이콘" />
+            <styled.BigCardRequestIcon
+              src="/img/location.svg"
+              alt="위치아이콘"
+            />
             <styled.BigCardRequestLabel>근무지역</styled.BigCardRequestLabel>
           </styled.BigCardRequestIL>
-          <styled.BigCardRequestText>{contents.address}</styled.BigCardRequestText>
+          <styled.BigCardRequestText>
+            {contents.address}
+          </styled.BigCardRequestText>
         </styled.BigCardRequestBar>
         <styled.BigCardRequestBar>
           <styled.BigCardRequestIL>
-            <styled.BigCardRequestIcon src="/img/callender.svg" alt="달력아이콘" />
+            <styled.BigCardRequestIcon
+              src="/img/callender.svg"
+              alt="달력아이콘"
+            />
             <styled.BigCardRequestLabel>근무일</styled.BigCardRequestLabel>
           </styled.BigCardRequestIL>
           <styled.BigCardRequestText>{contents.date}</styled.BigCardRequestText>
@@ -182,7 +195,9 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
             <styled.BigCardRequestIcon src="/img/salary.svg" alt="급여아이콘" />
             <styled.BigCardRequestLabel>희망급여</styled.BigCardRequestLabel>
           </styled.BigCardRequestIL>
-          <styled.BigCardRequestText>{contents.salary}</styled.BigCardRequestText>
+          <styled.BigCardRequestText>
+            {contents.salary}
+          </styled.BigCardRequestText>
         </styled.BigCardRequestBar>
         <styled.Blank />
         <styled.BigCardRequestBar>
@@ -192,7 +207,9 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
           </styled.BigCardRequestIL>
           <styled.BigCardRequestCareList>
             {contents.careList.map((item, index) => (
-              <styled.BigCardRequestCareListItem key={index}>{item}</styled.BigCardRequestCareListItem>
+              <styled.BigCardRequestCareListItem key={index}>
+                {item}
+              </styled.BigCardRequestCareListItem>
             ))}
           </styled.BigCardRequestCareList>
         </styled.BigCardRequestBar>
@@ -201,16 +218,20 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
       <styled.BigCardInfoBox>
         <styled.BigCardRequestBar>
           <styled.BigCardRequestLabel>연락처</styled.BigCardRequestLabel>
-          <styled.BigCardRequestText>{contents.phoneNumber}</styled.BigCardRequestText>
+          <styled.BigCardRequestText>
+            {contents.phoneNumber}
+          </styled.BigCardRequestText>
         </styled.BigCardRequestBar>
         <styled.Blank />
         <styled.BigCardRequestBar>
           <styled.BigCardRequestLabel>상세 주소</styled.BigCardRequestLabel>
-          <styled.BigCardRequestText>{contents.addressDetail}</styled.BigCardRequestText>
+          <styled.BigCardRequestText>
+            {contents.addressDetail}
+          </styled.BigCardRequestText>
         </styled.BigCardRequestBar>
         {/* 자물쇠 */}
         <styled.LockBox>
-          <styled.LockIcon src="/img/lock.svg" alt="자물쇠"/>
+          <styled.LockIcon src="/img/lock.svg" alt="자물쇠" />
           <styled.LockText>매칭 요청 후 확인 가능해요!</styled.LockText>
         </styled.LockBox>
       </styled.BigCardInfoBox>
@@ -228,19 +249,25 @@ export const DashBoardCard = ({ contents, onClick, width = "100%" }) => {
           <styled.DashBoardCardInfoHeader>
             <styled.CardName>{contents.name} 어르신</styled.CardName>
             <styled.DashBoardCardInfoBar>
-              <styled.DashBoardCardInfoIcon src="/img/callender.svg" alt="달력아이콘" />
-              <styled.DashBoardCardInfoText>{contents.date}</styled.DashBoardCardInfoText>
+              <styled.DashBoardCardInfoIcon
+                src="/img/callender.svg"
+                alt="달력아이콘"
+              />
+              <styled.DashBoardCardInfoText>
+                {contents.date}
+              </styled.DashBoardCardInfoText>
             </styled.DashBoardCardInfoBar>
           </styled.DashBoardCardInfoHeader>
 
           <styled.TagContainer>
             <styled.Tag label="대기">대기 {contents.wait}건</styled.Tag>
             <styled.Tag label="거절">거절 {contents.reject}건</styled.Tag>
-            <styled.Tag label="조율요청">조율요청 {contents.contact}건</styled.Tag>
+            <styled.Tag label="조율요청">
+              조율요청 {contents.contact}건
+            </styled.Tag>
             <styled.Tag label="수락">수락 {contents.apply}건</styled.Tag>
           </styled.TagContainer>
         </styled.DashBoardCardInfoBox>
-        
       </styled.CardInfoContainer>
     </styled.DashBoardCardContainer>
   );
@@ -250,9 +277,13 @@ export const PageHeader = ({ title }) => {
   const navigate = useNavigate();
   return (
     <styled.HeaderContainer>
-        <styled.BackButton>
-          <img src="/img/left_arrow.svg" alt="이전" onClick={() => navigate(-1)}/>
-        </styled.BackButton>
+      <styled.BackButton>
+        <img
+          src="/img/left_arrow.svg"
+          alt="이전"
+          onClick={() => navigate(-1)}
+        />
+      </styled.BackButton>
       <styled.Title>{title}</styled.Title>
     </styled.HeaderContainer>
   );
@@ -260,12 +291,36 @@ export const PageHeader = ({ title }) => {
 
 export const NavigationBar = ({ dashboard }) => {
   const navigate = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
   const menuItems = [
-    { id: "home", label: "홈", icon: "/img/navigation_home.svg", route: "/home" },
-    { id: "match", label: "매칭관리", icon: "/img/navigation_matching.svg", route: "/matching" },
-    ...(dashboard ? [{ id: "dashboard", label: "대시보드", icon: "/img/navigation_dashboard.svg", route: "/dashboard" }] : []),
-    { id: "profile", label: "내 정보", icon: "/img/navigation_profile.svg", route: "/profile" },
+    {
+      id: "home",
+      label: "홈",
+      icon: "/img/navigation_home.svg",
+      route: "/home",
+    },
+    {
+      id: "match",
+      label: "매칭관리",
+      icon: "/img/navigation_matching.svg",
+      route: "/matching",
+    },
+    ...(dashboard
+      ? [
+          {
+            id: "dashboard",
+            label: "대시보드",
+            icon: "/img/navigation_dashboard.svg",
+            route: "/dashboard",
+          },
+        ]
+      : []),
+    {
+      id: "profile",
+      label: "내 정보",
+      icon: "/img/navigation_profile.svg",
+      route: "/profile",
+    },
   ];
   return (
     <styled.NavContainer>
@@ -273,7 +328,11 @@ export const NavigationBar = ({ dashboard }) => {
         const isActive = location.pathname === item.route;
         return (
           <styled.NavItem key={item.id} onClick={() => navigate(item.route)}>
-            <styled.NavIcon src={item.icon} alt={item.label} active={isActive} />
+            <styled.NavIcon
+              src={item.icon}
+              alt={item.label}
+              active={isActive}
+            />
             <styled.NavLabel active={isActive}>{item.label}</styled.NavLabel>
           </styled.NavItem>
         );

@@ -26,17 +26,24 @@ export const TypeChoiceContainer = styled.div`
 export const TypeContainer = styled.div`
   width: 361px;
   height: 229px;
-  border: ${({ isSelected }) => isSelected ? `2px solid ${tokens.colors.primary.lighten[100]}` : 'none'}; // 선택된 항목에 테두리 추가
+  border: ${({ isSelected }) =>
+    isSelected
+      ? `2px solid ${tokens.colors.primary.lighten[100]}`
+      : "none"}; // 선택된 항목에 테두리 추가
   border-radius: 30px;
-  box-shadow: ${({ isSelected }) => isSelected ? '0px 0px 0px 0px rgba(0, 0, 0, 0)' : '0px 0px 10px 0px rgba(0, 0, 0, 0.14)'};
-  background-color: ${({ isSelected }) => isSelected ? `${tokens.colors.primary.lighten[400]}` : 'white'};
-  cursor: pointer;  // 클릭 가능한 스타일로 변경
+  box-shadow: ${({ isSelected }) =>
+    isSelected
+      ? "0px 0px 0px 0px rgba(0, 0, 0, 0)"
+      : "0px 0px 10px 0px rgba(0, 0, 0, 0.14)"};
+  background-color: ${({ isSelected }) =>
+    isSelected ? `${tokens.colors.primary.lighten[400]}` : "white"};
+  cursor: pointer; // 클릭 가능한 스타일로 변경
+  background-image: ${({ imgPath }) => (imgPath ? `url(${imgPath})` : "none")};
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
-  // &:hover {
-  //   background-color: ${({ isSelected }) => isSelected ? `${tokens.colors.primary.lighten[400]}` : `${tokens.colors.primary.lighten[100]}`};
-  //   box-shadow: ${({ isSelected }) => isSelected ? 'none' : '0px 0px 10px 0px rgba(0, 0, 0, 0.14)'};
-  // }
-  position: relative;
+  /* position: relative; */
 `;
 
 export const TypeTextBox = styled.div`
@@ -55,15 +62,15 @@ export const TypeExplanation = styled.div`
   color: ${tokens.colors.gray[600]};
 `;
 
-export const Graphic = styled.img`
-  position: absolute;
-  bottom: 10px; 
-  right: 10px;
-  width: 141px; 
-  height: 117px;
-  z-index: 1;
-  // opacity: 0.8;
-`;
+// export const Graphic = styled.img`
+//   position: absolute;
+//   bottom: 10px;
+//   right: 10px;
+//   width: 141px;
+//   height: 117px;
+//   z-index: 1;
+//   // opacity: 0.8;
+// `;
 
 export const ButtonContainer = styled.div`
   display: flex;
