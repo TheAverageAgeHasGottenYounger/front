@@ -170,7 +170,7 @@ export default function SeniorRegistration() {
     const fetchCareGradeList = async () => {
       try {
         const response = await axios.get(
-          "https://api.ondue.store/enum/careGrade"
+          "https://api.ondue.store/enum/care-grade"
         );
         const enumList = response.data.result.enumList;
         console.log("장기요양등급 response", response);
@@ -376,6 +376,7 @@ export default function SeniorRegistration() {
       "moveAssistList": selectedMove,
       "lifeAssistList": selectedLife,
       "careStyle": selectedCareStyle,
+      "careGrade": selectedCareGrade,
     }
 
     console.log(requestBody);
@@ -385,7 +386,7 @@ export default function SeniorRegistration() {
 
       if (response.isSuccess) {
         console.log("어르신 등록 성공!");
-        // window.location.replace("/homeadmin");
+        window.location.replace(-1);
       }
     } catch (error) {
       console.error("어르신 등록 오류:", error);
@@ -477,10 +478,10 @@ export default function SeniorRegistration() {
         <items.InputContainer>
           <Label text="장기요양등급" star />
           <Dropdown
-            options={longTermCareGrades}
+            options={careGradeList.map(({ code, value }) => ({ value: code, label: value }))}
             placeholder="등급 선택"
-            value={selectedGrade}
-            onChange={(e) => setSelectedGrade(e.target.value)}
+            value={selectedCareGrade}
+            onChange={(e) => handleCareGradeChange(e.target.value)}
             width="166px"
           />
         </items.InputContainer>
