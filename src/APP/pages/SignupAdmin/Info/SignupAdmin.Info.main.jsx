@@ -38,8 +38,10 @@ export default function InfoAdmin() {
     const fetchCities = async () => {
       try {
         const response = await axios.get("https://api.ondue.store/map/city");
-        console.log('시 response', response);
-        setCityOptions(response.data.result.map((city) => ({ value: city, label: city })));
+        console.log("시 response", response);
+        setCityOptions(
+          response.data.result.map((city) => ({ value: city, label: city }))
+        );
       } catch (error) {
         console.error("시 목록 불러오기 실패:", error);
       }
@@ -54,14 +56,18 @@ export default function InfoAdmin() {
     setAdminSignupData((prev) => ({
       ...prev,
       center: { ...prev.center, city: value, gu: "", dong: "" },
-    }))
+    }));
     setGuOptions([]); // 기존 '구' 리스트 초기화
     setDongOptions([]); // 기존 '동' 리스트 초기화
 
     try {
-      const response = await axios.get(`https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`);
-      console.log('구 response', response);
-      setGuOptions(response.data.result.map((gu) => ({ value: gu, label: gu })));
+      const response = await axios.get(
+        `https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`
+      );
+      console.log("구 response", response);
+      setGuOptions(
+        response.data.result.map((gu) => ({ value: gu, label: gu }))
+      );
     } catch (error) {
       console.error("구 목록 불러오기 실패:", error);
     }
@@ -73,13 +79,17 @@ export default function InfoAdmin() {
     setAdminSignupData((prev) => ({
       ...prev,
       center: { ...prev.center, gu: value, dong: "" },
-    }))
+    }));
     setDongOptions([]); // 기존 '동' 리스트 초기화
 
     try {
-      const response = await axios.get(`https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`);
-      console.log('동 response', response);
-      setDongOptions(response.data.result.map((dong) => ({ value: dong, label: dong })));
+      const response = await axios.get(
+        `https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`
+      );
+      console.log("동 response", response);
+      setDongOptions(
+        response.data.result.map((dong) => ({ value: dong, label: dong }))
+      );
     } catch (error) {
       console.error("동 목록 불러오기 실패:", error);
     }
@@ -91,27 +101,52 @@ export default function InfoAdmin() {
     setAdminSignupData((prev) => ({
       ...prev,
       center: { ...prev.center, dong: value },
-    }))
+    }));
   };
 
   // 검색 함수
   const handleSearch = async () => {
     try {
-      // API 요청 보내기
       const response = await axios.get(
         `https://api.ondue.store/center/is-registration?centerName=${encodeURIComponent(
           adminSignupData.center.name
         )}`
       );
-      console.log('검색 response', response);
+      console.log("검색 response", response);
 
       if (response.data.result.result === false) {
-        // 모달 열기
-        setIsModalOpen(true);
+        setIsModalOpen(true); // 센터가 등록되지 않은 경우 모달 열기
       } else {
-        // 이미 등록된 센터명이라면 다른 처리
-        console.log("센터가 이미 등록되어 있습니다.");
+        // 센터가 이미 등록된 경우
+        const centerDetailResponse = await axios.get(
+          `https://api.ondue.store/center/detail?centerName=${encodeURIComponent(
+            adminSignupData.center.name
+          )}`
+        );
+        console.log("센터 상세 정보:", centerDetailResponse);
+
+        const centerData = centerDetailResponse.data.result;
+
+        // 기존 adminSignupData에 response에서 받은 값을 넣음
+        setAdminSignupData((prev) => ({
+          ...prev,
+          center: {
+            ...prev.center,
+            id: centerData.id,
+            name: centerData.name,
+            bathCarYn: centerData.bathCarYn,
+            grade: centerData.grade,
+            operationPeriod: centerData.operationPeriod,
+            city: centerData.city,
+            gu: centerData.gu,
+            dong: centerData.dong,
+            introduction: centerData.introduction,
+          },
+        }));
+
+        // 기본 정보 폼을 보여주고 이동
         setShowBasicInfo(true);
+        navigate("/admin/signup/form");
       }
     } catch (error) {
       console.error("검색 중 오류 발생:", error);
@@ -127,7 +162,7 @@ export default function InfoAdmin() {
           adminSignupData.center.name
         )}`
       );
-      console.log('등록response', response);
+      console.log("등록response", response);
       if (response.data.isSuccess) {
         setAdminSignupData((prev) => ({
           ...prev,
@@ -144,7 +179,7 @@ export default function InfoAdmin() {
       console.error("검색 중 오류 발생:", error);
     }
   };
-  
+
   return (
     <items.Container>
       <items.StepContainer>

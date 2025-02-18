@@ -16,28 +16,23 @@ export default function AddInfoAdmin() {
 
   const [selectedCenterGrade, setSelectedCenterGrade] = useState("");
   const [selectedPeriod, setSelectedPeriod] = useState("");
-  const [text, setText] = useState("");
 
-  const [carYn, setCarYn] = useState(adminSignupData.carYn || false);
+  const [bathCarYn, setBathCarYn] = useState(
+    adminSignupData.bathCarYn || false
+  );
+  const [carClicked, setCarClicked] = useState(bathCarYn);
 
   const [introduction, setIntroduction] = useState(
     adminSignupData.introduction || ""
   );
 
-  // 센터 추가 정보
-  // const handleCenterNameChange = (value) => {
-  //   setAdminSignupData((prev) => ({
-  //     ...prev,
-  //     center: { ...prev.center, name: value },
-  //   }));
-  // };
-
   // 차량 보유 여부 설정
-  const handleCarYn = (value) => {
-    setCarYn(value);
+  const handleBathCarYn = (value) => {
+    setCarClicked(value);
+    setBathCarYn(value);
     setAdminSignupData((prev) => ({
       ...prev,
-      center: { ...prev.center, carYn: value },
+      center: { ...prev.center, bathCarYn: value },
     }));
   };
 
@@ -85,14 +80,16 @@ export default function AddInfoAdmin() {
         <items.ButtoninnerContainer>
           <Button
             text="네"
-            primary
-            onClick={() => handleCarYn(true)}
+            primary={carClicked === true}
+            onClick={() => handleBathCarYn(true)}
+            disabled={carClicked === true}
             width="174px"
           />
           <Button
             text="아니오"
-            disabled
-            onClick={() => handleCarYn(false)}
+            primary={carClicked === false}
+            onClick={() => handleBathCarYn(false)}
+            disabled={carClicked === false}
             width="174px"
           />
         </items.ButtoninnerContainer>
