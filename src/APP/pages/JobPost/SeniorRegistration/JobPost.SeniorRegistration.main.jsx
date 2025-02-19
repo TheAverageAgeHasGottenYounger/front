@@ -79,7 +79,26 @@ export default function SeniorRegistration() {
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
 
-  const [isAddressModalOpen, setIsAddressModalOpen] = useState(true);
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
+  const [poiResults, setPoiResults] = useState([          
+  {
+    "id": 9007199254740991,
+    "name": "string",
+    "noorLat": 0.1,
+    "noorLon": 0.1,
+    "upperAddrName": "string",
+    "middleAddrName": "string",
+    "lowerAddrName": "string"
+  },
+  {
+    "id": 9007199254740991,
+    "name": "string",
+    "noorLat": 0.1,
+    "noorLon": 0.1,
+    "upperAddrName": "string",
+    "middleAddrName": "string",
+    "lowerAddrName": "string"
+  }]);
 
 
   // 생년월일
@@ -385,6 +404,31 @@ export default function SeniorRegistration() {
   };
 
 
+  // 주소 입력 시 POI 검색 요청
+  useEffect(() => {
+    const fetchPOIResults = async () => {
+      if (isAddressModalOpen && address.trim()) {
+        try {
+          const response = await request.get(`/map/search`, {
+            params: { address },
+          });
+
+          if (response.isSuccess) {
+            setPoiResults(response.result.searchPoiInfo.pois.poi);
+          } else {
+            setPoiResults([]);
+          }
+        } catch (error) {
+          console.error("지도 검색 오류:", error);
+          setPoiResults([]);
+        }
+      }
+    };
+
+    fetchPOIResults();
+  }, [address, isAddressModalOpen]);
+
+
   return (
     <items.Container>
       <PageHeader title="어르신 정보 등록" />
@@ -484,10 +528,10 @@ export default function SeniorRegistration() {
               type="text"
               placeholder="주소를 입력해주세요."
               value={address}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               width="206px"
             />
-            <items.AddressSearchButton>검색</items.AddressSearchButton>
+            <items.AddressSearchButton onClick={() => setIsAddressModalOpen(true)}>검색</items.AddressSearchButton>
           </items.AddressContainer>
         </items.InputContainer>
 
@@ -671,18 +715,47 @@ export default function SeniorRegistration() {
               alt="창닫기"
               onClick={() => setIsAddressModalOpen(false)}
             />
-            <items.AddressLabel>주소를 검색해주세요</items.AddressLabel>
-            <items.ModalText>
-              구인 등록이 완료되었어요!
-              <br />
-              매칭을 시작할까요?
-            </items.ModalText>
-            <Button
-              text="매칭 시작하기"
-              primary
-              onClick={() => navigate(-1)}
-              width="275px"
+            <items.AddressLabel>주소를 검색해 주세요</items.AddressLabel>
+
+            <items.searchBoxContainer>
+            <items.searchBoxIcon
+              src="/img/search.svg"
+              alt="검색"
             />
+            <items.searchBoxInput
+              type="text"
+              placeholder="주소를 입력해주세요."
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              width="206px"
+              style={{ background: "transparent", border: "none", outline: "none" }}
+            />
+            </items.searchBoxContainer>
+
+            <items.POIList>
+              {poiResults.length > 0 ? (
+                poiResults.map((poi) => (
+                  <items.POIItem
+                    key={poi.id}
+                    onClick={() => {
+                      setAddress(`${poi.upperAddrName} ${poi.middleAddrName} ${poi.lowerAddrName}`);
+                      setIsAddressModalOpen(false);
+                    }}
+                  >
+                    <items.searchBoxIcon src="/img/location.svg" alt="위치" />
+                    <div>
+                      <items.AddressText>{poi.name}</items.AddressText>
+                      <items.SubAddressText>{`${poi.upperAddrName} ${poi.middleAddrName} ${poi.lowerAddrName}`}</items.SubAddressText>
+                    </div>
+                  </items.POIItem>
+                ))
+              ) : (
+                <items.AddressText style={{ textAlign: "center", padding: "10px"}}>
+                  검색 결과가 없습니다.
+                </items.AddressText>
+              )}
+            </items.POIList>
+
           </items.AddressModalContainer>
         </items.AddressModalOverlay>
       )}

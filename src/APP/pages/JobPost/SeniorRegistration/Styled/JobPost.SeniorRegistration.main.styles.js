@@ -265,3 +265,55 @@ export const AddressLabel = styled.div`
   color: ${tokens.colors.gray[900]};
   margin-top: 27px;
 `;
+
+export const searchBoxContainer = styled.div`
+  width: 358px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[400]};
+  background-color: #FAFAFA;
+  border-radius: 29px;
+  border: 2px solid #D4D4D8;
+  margin-top: 18px;
+`;
+
+export const searchBoxIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin: 0 16px;
+`;
+
+export const searchBoxInput = styled.input`
+  display: flex;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const POIList = styled.div`
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+`;
+
+export const POIItem = styled.div`
+  display: flex;
+  width: 358px;
+  padding: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+export const AddressText = styled.div`
+  ${tokens.typography.button_M_16};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const SubAddressText = styled.div`
+  ${tokens.typography.button_M_16};
+  color: ${tokens.colors.gray[400]};
+`;

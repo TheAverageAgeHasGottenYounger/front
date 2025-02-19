@@ -630,10 +630,10 @@ export default function SeniorRegistration() {
               type="text"
               placeholder="주소를 입력해주세요."
               value={address}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               width="206px"
             />
-            <items.AddressSearchButton>검색</items.AddressSearchButton>
+            <items.AddressSearchButton >검색</items.AddressSearchButton>
           </items.AddressContainer>
         </items.InputContainer>
 
