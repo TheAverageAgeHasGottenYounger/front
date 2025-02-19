@@ -16,18 +16,18 @@ import { useSignup } from "../../../common/SignupContext";
 
 
 export default function SeniorRegistration() {
+  const navigate = useNavigate();
   const { signupData, setSignupData } = useSignup();
 
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
 
   const [name, setName] = useState("");
 
-  const [selectedYear, setSelectedYear] = useState("");
-  const [selectedMonth, setSelectedMonth] = useState("");
+  const [selectedBirthYear, setSelectedBirthYear] = useState("");
+  const [selectedBirthMonth, setSelectedBirthMonth] = useState("");
+  const [selectedBirthDay, setSelectedBirthDay] = useState("");
 
   const [selectedGender, setSelectedGender] = useState("");
-
-  const [selectedGrade, setSelectedGrade] = useState("");
 
   const [selectedPayType, setSelectedPayType] = useState("");
   const [selectedPay, setSelectedPay] = useState("");
@@ -35,9 +35,7 @@ export default function SeniorRegistration() {
 
   // 장기요양등급
   const [careGradeList, setCareGradeList] = useState([]);
-  const [selectedCareGrade, setSelectedCareGrade] = useState(
-    signupData.careGrade || []
-  );
+  const [selectedCareGrade, setSelectedCareGrade] = useState("");
 
   // 요일
   const [dayList, setDayList] = useState([]);
@@ -113,10 +111,10 @@ export default function SeniorRegistration() {
   };
 
   const getFormattedBirthday = () => {
-    if (!selectedYear || !selectedMonth || !selectedDay) return ""; // 값이 없을 때 빈 문자열 반환
-    const month = selectedMonth.toString().padStart(2, "0"); // 1~9월을 01~09 형식으로 변환
-    const day = selectedDay.toString().padStart(2, "0"); // 1~9일을 01~09 형식으로 변환
-    return `${selectedYear}-${month}-${day}`;
+    if (!selectedBirthYear || !selectedBirthMonth || !selectedBirthDay) return ""; // 값이 없을 때 빈 문자열 반환
+    const month = selectedBirthMonth.toString().padStart(2, "0"); // 1~9월을 01~09 형식으로 변환
+    const day = selectedBirthDay.toString().padStart(2, "0"); // 1~9일을 01~09 형식으로 변환
+    return `${selectedBirthYear}-${month}-${day}`;
   };
 
   const generateTimeOptions = () => {
@@ -184,12 +182,7 @@ export default function SeniorRegistration() {
 
   // 장기요양등급 선택
   const handleCareGradeChange = (option) => {
-    setSelectedCareGrade((prev) =>
-      prev.includes(option)
-        ? prev.filter((o) => o !== option)
-        : [...prev, option]
-    );
-    console.log(selectedCareGrade);
+    setSelectedCareGrade(option);
   };
 
 
@@ -386,10 +379,12 @@ export default function SeniorRegistration() {
 
       if (response.isSuccess) {
         console.log("어르신 등록 성공!");
-        window.location.replace(-1);
+        alert("어르신이 성공적으로 등록되었습니다.");
+        navigate(-1); 
       }
     } catch (error) {
       console.error("어르신 등록 오류:", error);
+      alert("어르신 등록을 실패하였습니다.");
     }
   };
 
@@ -432,22 +427,22 @@ export default function SeniorRegistration() {
             <Dropdown
               options={generateYearOptions()}
               placeholder="년도"
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
+              value={selectedBirthYear}
+              onChange={(e) => setSelectedBirthYear(e.target.value)}
               width="115px"
             />
             <Dropdown
               options={generateMonthOptions()}
               placeholder="월"
-              value={selectedMonth}
-              onChange={(e) => setSelectedMonth(e.target.value)}
+              value={selectedBirthMonth}
+              onChange={(e) => setSelectedBirthMonth(e.target.value)}
               width="115px"
             />
             <Dropdown
               options={generateDayOptions()}
               placeholder="일"
-              value={selectedDay}
-              onChange={(e) => setSelectedDay(e.target.value)}
+              value={selectedBirthDay}
+              onChange={(e) => setSelectedBirthDay(e.target.value)}
               width="115px"
             />
           </items.DropdownContainer>
