@@ -184,7 +184,7 @@ export default function SeniorCheck() {
 
       <items.InputWrapper>
         <items.HeadContainer>
-          <items.Label>임시 문장 입니다.</items.Label>
+          <items.Label>어르신 선택</items.Label>
           <items.ExtraLabel>
             구인이 필요한 어르신을 선택해주세요
             <br />

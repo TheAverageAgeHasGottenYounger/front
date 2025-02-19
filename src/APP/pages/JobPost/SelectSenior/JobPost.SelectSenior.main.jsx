@@ -10,17 +10,6 @@ import request from '../../../Api/request';
 export default function SelectSenior() {
   const navigate = useNavigate();
 
-  /*
-  const seniors = [
-    { id: 1, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-    { id: 2, name: "이혜자", gender: "여", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-    { id: 3, name: "김재호", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-    { id: 4, name: "이영식", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-    { id: 5, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-    { id: 6, name: "박영철", gender: "남", birth: "66.10.18", address: "서울시 강서구 화곡동", image: "/img/senior.png" },
-  ];
-  */
-
   const [selectedSenior, setSelectedSenior] = useState(null);
   const [seniors, setSeniors] = useState([]);
 
@@ -46,6 +35,14 @@ export default function SelectSenior() {
   // 선택된 어르신 변경
   const handleSelectSenior = (id) => {
     setSelectedSenior(id);
+  };
+
+  const handleConfirm = () => {
+    if (!selectedSenior) {
+      alert("어르신을 선택해주세요.");
+      return;
+    }
+    navigate("/jobpost/SeniorCheck", { state: { seniorId: selectedSenior } });
   };
 
   return (
@@ -88,7 +85,7 @@ export default function SelectSenior() {
           <Button
               text="확인"
               primary
-              onClick={() => navigate("/jobpost/SeniorCheck")}
+              onClick={handleConfirm}
               width="361px"
             />
         </items.ButtoninnerContainer>
