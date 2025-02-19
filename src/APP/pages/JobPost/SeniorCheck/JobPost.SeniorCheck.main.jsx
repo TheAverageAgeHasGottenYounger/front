@@ -98,13 +98,8 @@ export default function SeniorRegistration() {
   const [selectedCareStyle, setSelectedCareStyle] = useState(
     signupData.careStyle || ""
   );
-  
-  const [timeSchedules, setTimeSchedules] = useState([
-    { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
-  ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
 
   // 생년월일 포맷 변환 함수
@@ -141,8 +136,8 @@ export default function SeniorRegistration() {
         setSelectedLife(senior.lifeAssistList || []);
 
         // 시간 변환
-        setStartTime(`${senior.startTime.hour}:${senior.startTime.minute}:${senior.startTime.second}`);
-        setEndTime(`${senior.endTime.hour}:${senior.endTime.minute}:${senior.endTime.second}`);
+        setStartTime(senior.startTime);
+        setEndTime(senior.endTime);
 
         // 생년월일 변환
         const { year, month, day } = formatBirthday(senior.birthday);
@@ -183,6 +178,7 @@ export default function SeniorRegistration() {
   // 어르신 선택 시 실행
   const handleSelectSenior = (seniorId) => {
     setSelectedSenior(seniorId);
+    handleSubmitTmp();
   };
 
 
@@ -236,32 +232,6 @@ export default function SeniorRegistration() {
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
-
-  // 희망 요일, 시간
-  const addSchedule = () => {
-    setTimeSchedules((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        selectedDays: [],
-        selectedStartTime: "",
-        selectedEndTime: "",
-      },
-    ]);
-  };
-
-  const removeSchedule = (id) =>
-    setTimeSchedules((prev) =>
-      prev.length > 1 ? prev.filter((schedule) => schedule.id !== id) : prev
-    );
-
-  const updateTime = (id, field, value) =>
-    setTimeSchedules((prev) =>
-      prev.map((schedule) =>
-        schedule.id === id ? { ...schedule, [field]: value } : schedule
-      )
-    );
-    
 
   const payType = [{ value: "시급", label: "시급" }];
 
@@ -490,6 +460,43 @@ export default function SeniorRegistration() {
       alert("어르신 등록을 실패하였습니다.");
     }
   };
+
+
+  // 저장 버튼 (어르신 간 이동 시)
+  const handleSubmitTmp = async () => {
+    const requestBody = {
+      "profileUrl": profileUrl,
+      "name": name,
+      "birthday": getFormattedBirthday(),
+      "sex": selectedGender === "남자" ? "남" : "여",
+      "address": address,
+      "startTime": startTime || "00:00:00", 
+      "endTime": endTime || "00:00:00",
+      "dayList": selectedDay,
+      "foodAssistList": selectedFood,
+      "toiletAssistList": selectedToilet,
+      "moveAssistList": selectedMove,
+      "lifeAssistList": selectedLife,
+      "careStyle": selectedCareStyle,
+      "careGrade": selectedCareGrade,
+      "salary": parseInt(selectedPay, 10),
+    }
+
+    console.log(requestBody);
+
+    try {
+      const response = await request.patch(`/senior/${seniorId}`,requestBody);
+
+      if (response.isSuccess) {
+        console.log("어르신 등록 성공!");
+        // setIsModalOpen(true);
+      }
+    } catch (error) {
+      console.error("어르신 수정 오류:", error);
+      alert("수정 사항이 반영되지 않았습니다.");
+    }
+  };
+
 
 
   // 주소 입력 시 POI 검색 요청
@@ -861,7 +868,7 @@ export default function SeniorRegistration() {
             <Button
               text="매칭 시작하기"
               primary
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("/jobpost/MatchLoading", { state: { seniors } })}
               width="275px"
             />
           </items.ModalContainer>
