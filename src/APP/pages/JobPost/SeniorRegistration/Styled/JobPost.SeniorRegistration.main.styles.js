@@ -77,7 +77,7 @@ export const TimeContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 18px;
-  margin-bottom: 18px;
+  margin-bottom: 48px;
 `;
 
 export const DropdownContainer = styled.div`

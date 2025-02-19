@@ -545,9 +545,11 @@ export default function SeniorRegistration() {
             </items.DropdownContainer>
           </items.TimeContainer>
         ))}
+        {/*
         <items.AddButton onClick={addSchedule}>
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
         </items.AddButton>
+        */}
 
         <items.Label>케어 필요 항목</items.Label>
 
