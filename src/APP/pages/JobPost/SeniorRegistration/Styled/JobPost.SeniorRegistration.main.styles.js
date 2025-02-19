@@ -203,3 +203,65 @@ export const SelectColumnContainer = styled.div`
   gap: 6.5px;
   margin-bottom: 18px;
 `;
+
+
+export const AddressModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); // 반투명 배경
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+`;
+
+export const AddressModalContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  width: 390px;
+  height: 792px;
+  border-radius: 26px 26px 0 0;
+`;
+
+export const ModalCloseButton = styled.img`
+  position: absolute;
+  top: 27px;
+  right: 27px;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+`;
+
+export const ModalText = styled.div`
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+  margin-top: 47px;
+  margin-bottom: 40px;
+  text-align: center;
+`;
+
+export const ModalButton = styled.button`
+  background: ${tokens.colors.gray[900]};
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+`;
+
+export const AddressLabel = styled.div`
+  display: flex;
+  align-items: center;
+  ${tokens.typography.button_Sb_18};
+  color: ${tokens.colors.gray[900]};
+  margin-top: 27px;
+`;

@@ -74,6 +74,9 @@ export default function SeniorRegistration() {
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
 
+  const [isAddressModalOpen, setIsAddressModalOpen] = useState(true);
+
+
   // 생년월일
   const generateYearOptions = () => {
     const currentYear = new Date().getFullYear();
@@ -656,6 +659,35 @@ export default function SeniorRegistration() {
           />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
+
+
+      {/* 주소 모달 컴포넌트 */}
+      {isAddressModalOpen && (
+        <items.AddressModalOverlay>
+          <items.AddressModalContainer>
+            <items.ModalCloseButton
+              src="/img/close.svg"
+              alt="창닫기"
+              onClick={() => setIsAddressModalOpen(false)}
+            />
+            <items.AddressLabel>주소를 검색해주세요</items.AddressLabel>
+            <items.ModalText>
+              구인 등록이 완료되었어요!
+              <br />
+              매칭을 시작할까요?
+            </items.ModalText>
+            <Button
+              text="매칭 시작하기"
+              primary
+              onClick={() => navigate(-1)}
+              width="275px"
+            />
+          </items.AddressModalContainer>
+        </items.AddressModalOverlay>
+      )}
+
+
+
     </items.Container>
   );
 }
