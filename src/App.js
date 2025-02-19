@@ -133,7 +133,7 @@ function App() {
 
         {/* 매칭 현황 */}
         <Route path="/matchoverview" element={<MatchOverview />} />
-        <Route path="/matchoverview/item" element={<MatchOverviewItem />} />
+        <Route path="/matchoverview/:id" element={<MatchOverviewItem />} />
 
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}

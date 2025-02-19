@@ -188,6 +188,23 @@ export const CardContainer = styled.div`
   padding: 12px;
   margin-bottom: 24px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+  position: relative;
+`;
+
+export const Fitness = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${tokens.colors.primary.lighten[400]};
+  ${tokens.typography.label_Sb_14};
+  color: ${tokens.colors.primary[0]};
+  width: 100px;
+  height: 27px;
+  border: 1.5px solid ${tokens.colors.primary.lighten[200]};
+  border-radius: 10px;
+  position: absolute;
+  top: 16px;
+  right: 12px;
 `;
 
 export const CardInfoContainer = styled.div`
@@ -239,7 +256,7 @@ export const CardInfoText = styled.div`
 export const CardRequestBar = styled.div`
   ${tokens.typography.label_Sb_14};
   color: #18181b;
-  width: 84px; // 초과시 줄바꿈
+  width: 200px; // 초과시 줄바꿈
 `;
 
 export const CardCheckButtonBox = styled.div`
@@ -330,7 +347,8 @@ export const getTagColor = (label) => {
 };
 
 export const Tag = styled.div`
-  display: inline-block;  padding: 5.5px 16px;
+  display: inline-block;
+  padding: 5.5px 16px;
   ${tokens.typography.label_Sb_16};
   color: ${({ label }) => getTagColor(label)};
   background-color: ${({ label }) => `${getTagColor(label)}20`};
@@ -348,16 +366,16 @@ export const BigCardContainer = styled.div`
   border-radius: 30px 30px 0 0;
   width: 377px;
   height: 708px;
-  padding-left: 16px; 
+  padding-left: 16px;
   margin-top: 141px;
   overflow-y: auto; /* 세로 스크롤 가능 */
-  -ms-overflow-style: none;  /* IE, Edge에서 스크롤바 숨기기 */
-  scrollbar-width: none;  /* Firefox에서 스크롤바 숨기기 */
+  -ms-overflow-style: none; /* IE, Edge에서 스크롤바 숨기기 */
+  scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
 
   &::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari에서 스크롤바 숨기기 */
+    display: none; /* Chrome, Safari에서 스크롤바 숨기기 */
   }
-  position: relative;  
+  position: relative;
 `;
 
 export const BigCardProfile = styled.img`
@@ -484,7 +502,7 @@ export const LockBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center; 
+  align-items: center;
   background-color: white;
   width: 268px;
   height: 108px;
@@ -496,9 +514,7 @@ export const LockBox = styled.div`
   right: 0px;
 `;
 
-export const LockIcon = styled.img`
-  
-`;
+export const LockIcon = styled.img``;
 
 export const LockText = styled.div`
   ${tokens.typography.body_M_18};
@@ -539,11 +555,15 @@ export const NavItem = styled.button`
 export const NavIcon = styled.img`
   width: 32px;
   height: 32px;
-  filter: ${(props) => (props.active ? "invert(38%) sepia(76%) saturate(683%) hue-rotate(340deg)" : "none")};
+  filter: ${(props) =>
+    props.active
+      ? "invert(38%) sepia(76%) saturate(683%) hue-rotate(340deg)"
+      : "none"};
 `;
 
 export const NavLabel = styled.div`
   ${tokens.typography.body_M_18};
-  color: ${(props) => (props.active ? tokens.colors.primary[0] : tokens.colors.gray[500])};
+  color: ${(props) =>
+    props.active ? tokens.colors.primary[0] : tokens.colors.gray[500]};
   margin-top: 6px;
 `;

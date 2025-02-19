@@ -111,25 +111,33 @@ export const SelectButton = ({
 export const Card = ({ contents, onClick, width = "100%" }) => {
   return (
     <styled.CardContainer>
+      <styled.Fitness>적합도 {contents.fitness}%</styled.Fitness>
       <styled.CardInfoContainer>
-        <styled.CardProfile src={contents.profileUrl} alt="프로필" />
+        <styled.CardProfile
+          src={contents.profileUrl || "/img/profile-default.svg"}
+          alt="프로필"
+        />
         <styled.CardInfoBox>
-          <styled.CardName>{contents.name}</styled.CardName>
+          <styled.CardName>{contents.seniorName}</styled.CardName>
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/location.svg" alt="위치아이콘" />
             <styled.CardInfoText>{contents.address}</styled.CardInfoText>
           </styled.CardInfoBar>
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/callender.svg" alt="달력아이콘" />
-            <styled.CardInfoText>{contents.date}</styled.CardInfoText>
+            <styled.CardInfoText>
+              주 {contents.seniorDay.length}일 ({contents.seniorDay.join(", ")})
+            </styled.CardInfoText>
           </styled.CardInfoBar>
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/clock.svg" alt="시계아이콘" />
-            <styled.CardInfoText>{contents.time}</styled.CardInfoText>
+            <styled.CardInfoText>
+              {contents.startTime}~{contents.endTime}
+            </styled.CardInfoText>
           </styled.CardInfoBar>
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/fire.svg" alt="불" />
-            <styled.CardRequestBar>{contents.request}</styled.CardRequestBar>
+            <styled.CardRequestBar>{contents.careStyle}</styled.CardRequestBar>
           </styled.CardInfoBar>
         </styled.CardInfoBox>
       </styled.CardInfoContainer>
