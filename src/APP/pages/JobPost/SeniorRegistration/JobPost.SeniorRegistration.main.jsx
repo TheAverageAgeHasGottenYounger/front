@@ -74,10 +74,6 @@ export default function SeniorRegistration() {
   const [selectedCareStyle, setSelectedCareStyle] = useState(
     signupData.careStyle || ""
   );
-  
-  const [timeSchedules, setTimeSchedules] = useState([
-    { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
-  ]);
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [poiResults, setPoiResults] = useState([]);
@@ -132,32 +128,6 @@ export default function SeniorRegistration() {
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
-
-  // 희망 요일, 시간
-  const addSchedule = () => {
-    setTimeSchedules((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        selectedDays: [],
-        selectedStartTime: "",
-        selectedEndTime: "",
-      },
-    ]);
-  };
-
-  const removeSchedule = (id) =>
-    setTimeSchedules((prev) =>
-      prev.length > 1 ? prev.filter((schedule) => schedule.id !== id) : prev
-    );
-
-  const updateTime = (id, field, value) =>
-    setTimeSchedules((prev) =>
-      prev.map((schedule) =>
-        schedule.id === id ? { ...schedule, [field]: value } : schedule
-      )
-    );
-    
 
   // 장기요양등급 목록 가져오기
   useEffect(() => {
@@ -515,20 +485,9 @@ export default function SeniorRegistration() {
           </items.AddressContainer>
         </items.InputContainer>
 
-        {timeSchedules.map((schedule, index) => (
-          <items.TimeContainer key={schedule.id}>
+          <items.TimeContainer>
             <items.Label>
-              희망 요일•시간 {index > 0 ? `${index + 1}` : ""}
-              {index > 0 && (
-                <img
-                  src="/img/delete.svg"
-                  alt="삭제"
-                  width="21"
-                  height="21"
-                  onClick={() => removeSchedule(schedule.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
+              희망 요일•시간
             </items.Label>
             <items.SelectContainer>
               {dayList.map(({code, value}) => (
@@ -560,7 +519,7 @@ export default function SeniorRegistration() {
                 />
             </items.DropdownContainer>
           </items.TimeContainer>
-        ))}
+        
         {/*
         <items.AddButton onClick={addSchedule}>
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
