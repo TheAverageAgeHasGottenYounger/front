@@ -80,26 +80,7 @@ export default function SeniorRegistration() {
   ]);
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
-  const [poiResults, setPoiResults] = useState([          
-  {
-    "id": 9007199254740991,
-    "name": "string",
-    "noorLat": 0.1,
-    "noorLon": 0.1,
-    "upperAddrName": "string",
-    "middleAddrName": "string",
-    "lowerAddrName": "string"
-  },
-  {
-    "id": 9007199254740991,
-    "name": "string",
-    "noorLat": 0.1,
-    "noorLon": 0.1,
-    "upperAddrName": "string",
-    "middleAddrName": "string",
-    "lowerAddrName": "string"
-  }]);
-
+  const [poiResults, setPoiResults] = useState([]);
 
   // 생년월일
   const generateYearOptions = () => {
@@ -529,7 +510,6 @@ export default function SeniorRegistration() {
               placeholder="주소를 입력해주세요."
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              width="206px"
             />
             <items.AddressSearchButton onClick={() => setIsAddressModalOpen(true)}>검색</items.AddressSearchButton>
           </items.AddressContainer>
@@ -738,15 +718,15 @@ export default function SeniorRegistration() {
                   <items.POIItem
                     key={poi.id}
                     onClick={() => {
-                      setAddress(`${poi.upperAddrName} ${poi.middleAddrName} ${poi.lowerAddrName}`);
+                      setAddress(`${poi.upperAddrName} ${poi.middleAddrName} ${poi.lowerAddrName} ${poi.name}`);
                       setIsAddressModalOpen(false);
                     }}
                   >
                     <items.searchBoxIcon src="/img/location.svg" alt="위치" />
-                    <div>
+                    <items.searchResultBox>
                       <items.AddressText>{poi.name}</items.AddressText>
                       <items.SubAddressText>{`${poi.upperAddrName} ${poi.middleAddrName} ${poi.lowerAddrName}`}</items.SubAddressText>
-                    </div>
+                    </items.searchResultBox>
                   </items.POIItem>
                 ))
               ) : (

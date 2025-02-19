@@ -204,7 +204,6 @@ export const SelectColumnContainer = styled.div`
   margin-bottom: 18px;
 `;
 
-
 export const AddressModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -282,18 +281,19 @@ export const searchBoxContainer = styled.div`
 export const searchBoxIcon = styled.img`
   width: 20px;
   height: 20px;
-  margin: 0 16px;
+  margin-left: 16px;
 `;
 
 export const searchBoxInput = styled.input`
   display: flex;
   ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[900]};
+  width: 100%;
+  padding: 16px;
 `;
 
 export const POIList = styled.div`
   margin-top: 10px;
-  max-height: 300px;
   overflow-y: auto;
 `;
 
@@ -306,6 +306,16 @@ export const POIItem = styled.div`
   &:hover {
     background-color: #f0f0f0;
   }
+`;
+
+export const searchResultBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[900]};
+  width: 100%;
+  height: auto;
+  margin-left: 16px;
 `;
 
 export const AddressText = styled.div`

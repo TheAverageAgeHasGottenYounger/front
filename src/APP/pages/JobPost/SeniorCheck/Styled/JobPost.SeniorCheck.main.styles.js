@@ -293,3 +293,99 @@ export const ModalButton = styled.button`
   font-size: 16px;
   font-weight: bold;
 `;
+
+export const AddressLabel = styled.div`
+  display: flex;
+  align-items: center;
+  ${tokens.typography.button_Sb_18};
+  color: ${tokens.colors.gray[900]};
+  margin-top: 27px;
+`;
+
+export const searchBoxContainer = styled.div`
+  width: 358px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[400]};
+  background-color: #FAFAFA;
+  border-radius: 29px;
+  border: 2px solid #D4D4D8;
+  margin-top: 18px;
+`;
+
+export const searchBoxIcon = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-left: 16px;
+`;
+
+export const searchBoxInput = styled.input`
+  display: flex;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[900]};
+  width: 100%;
+  padding: 16px;
+`;
+
+export const POIList = styled.div`
+  margin-top: 10px;
+  overflow-y: auto;
+`;
+
+export const POIItem = styled.div`
+  display: flex;
+  width: 358px;
+  padding: 12px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
+export const searchResultBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.gray[900]};
+  width: 100%;
+  height: auto;
+  margin-left: 16px;
+`;
+
+export const AddressText = styled.div`
+  ${tokens.typography.button_M_16};
+  color: ${tokens.colors.gray[900]};
+`;
+
+export const SubAddressText = styled.div`
+  ${tokens.typography.button_M_16};
+  color: ${tokens.colors.gray[400]};
+`;
+
+
+export const AddressModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); // 반투명 배경
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 200;
+`;
+
+export const AddressModalContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  width: 390px;
+  height: 792px;
+  border-radius: 26px 26px 0 0;
+`;
