@@ -160,14 +160,16 @@ export default function AddInfo() {
           <items.ButtoninnerContainer>
             <Button
               text="네"
-              primary
+              primary={carYn === true}
               onClick={() => handleCarYn(true)}
+              disabled={carYn === true}
               width="174px"
             />
             <Button
               text="아니오"
-              disabled
+              primary={carYn === false}
               onClick={() => handleCarYn(false)}
+              disabled={carYn === false}
               width="174px"
             />
           </items.ButtoninnerContainer>
@@ -181,14 +183,16 @@ export default function AddInfo() {
           <items.ButtoninnerContainer>
             <Button
               text="네"
-              primary
+              primary={dementiaEducationYn === true}
               onClick={() => handleDementiaEducationYn(true)}
+              disabled={dementiaEducationYn === true}
               width="174px"
             />
             <Button
               text="아니오"
-              disabled
+              primary={dementiaEducationYn === false}
               onClick={() => handleDementiaEducationYn(false)}
+              disabled={dementiaEducationYn === false}
               width="174px"
             />
           </items.ButtoninnerContainer>

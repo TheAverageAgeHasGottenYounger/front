@@ -28,10 +28,32 @@ export const BigCardContainer = styled.div`
   border-radius: 30px 30px 0 0;
   width: 377px;
   // max-height: 80vh;
-  padding-left: 16px;
+  /* padding-left: 16px; */
   margin-top: 141px;
   overflow-y: auto;
   margin-bottom: 107px;
+`;
+
+export const FitnessBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  align-items: center;
+  background-color: ${tokens.colors.primary.lighten[400]};
+  width: 361px;
+  padding: 14px 0;
+  border: none;
+  border-radius: 14px;
+`;
+
+export const Fitness = styled.div`
+  ${tokens.typography.body_M_16};
+  color: ${tokens.colors.primary[0]};
+`;
+
+export const FitnessText = styled.div`
+  ${tokens.typography.body_M_16};
+  color: #414141;
 `;
 
 export const BigCardProfile = styled.img`
@@ -59,29 +81,10 @@ export const BigCardStyleBox = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 361px;
+  word-wrap: break-word; /* 길이가 넘칠 경우 단어를 잘라서 줄 바꿈 */
+  overflow-wrap: break-word; /* 같은 효과를 주지만 더 보편적으로 사용됨 */
+  white-space: normal;
   margin-bottom: 32px;
-`;
-
-export const FitnessBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-around; */
-  align-items: center;
-  background-color: ${tokens.colors.primary.lighten[400]};
-  width: 361px;
-  padding: 14px 0;
-  border: none;
-  border-radius: 14px;
-`;
-
-export const Fitness = styled.div`
-  ${tokens.typography.body_M_16};
-  color: ${tokens.colors.primary[0]};
-`;
-
-export const FitnessText = styled.div`
-  ${tokens.typography.body_M_16};
-  color: #414141;
 `;
 
 export const BigCardStyleBar = styled.div`
@@ -116,7 +119,6 @@ export const BigCardRequestBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 361px;
   min-height: 103px;
 `;
 
@@ -125,7 +127,10 @@ export const BigCardRequestBar = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start; /* 상단 정렬 */
-  width: 100%;
+  width: 361px;
+  word-wrap: break-word; /* 길이가 넘칠 경우 단어를 잘라서 줄 바꿈 */
+  overflow-wrap: break-word; /* 같은 효과를 주지만 더 보편적으로 사용됨 */
+  white-space: normal;
 `;
 
 export const BigCardRequestIL = styled.div`
@@ -137,7 +142,7 @@ export const BigCardRequestIL = styled.div`
 `;
 
 export const BigCardRequestIcon = styled.img`
-  width: 15px;
+  width: 18px;
   height: 18px;
   margin-right: 11px;
 `;
@@ -151,6 +156,7 @@ export const BigCardRequestLabel = styled.div`
 export const BigCardRequestText = styled.div`
   ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[900]};
+  width: 213px;
 `;
 
 export const BigCardConditionBox = styled.div`
@@ -243,9 +249,9 @@ export const ButtoninnerContainer = styled.div`
 export const Button = styled.button`
   ${tokens.typography.button_Sb_18};
   color: white;
-  width: 116px;
+  width: 361px;
   height: 58px;
   border: none;
   border-radius: 34px;
-  background-color: ${({ bgColor }) => bgColor || "#ccc"};
+  background-color: ${tokens.colors.primary[0]};
 `;

@@ -14,6 +14,8 @@ import SeniorCheck from "./APP/pages/JobPost/SeniorCheck/JobPost.SeniorCheck.mai
 import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.SeniorRegistration.main";
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
+import MatchOverviewAdmin from "./APP/pages/MatchOverviewAdmin/MatchOverviewAdmin.main";
+import MatchOverviewItemAdmin from "./APP/pages/MatchOverviewAdmin/MatchOverviewAdmin.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
 import Home from "./APP/pages/Home/Home.main";
 import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
@@ -132,7 +134,14 @@ function App() {
 
         {/* 매칭 현황 */}
         <Route path="/matchoverview" element={<MatchOverview />} />
-        <Route path="/matchoverview/item" element={<MatchOverviewItem />} />
+        <Route path="/matchoverview/:id" element={<MatchOverviewItem />} />
+
+        {/* 관리자 매칭 현황 */}
+        <Route path="/admin/matchoverview" element={<MatchOverviewAdmin />} />
+        <Route
+          path="/admin/matchoverview/:id"
+          element={<MatchOverviewItemAdmin />}
+        />
 
         {/* 잘못된 경로는 로그인 페이지로 리다이렉트 */}
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}

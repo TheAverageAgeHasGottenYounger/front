@@ -1,21 +1,44 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/MatchOverview.main.styles";
 import { Card, NavigationBar } from "../../../APP/components/Components";
 import { dummyItems } from "./dummy";
+import request from "../../Api/request";
 
 export default function MatchOverview() {
   const navigate = useNavigate();
 
-  const [total, setTotal] = useState(10); // 전체 매칭
-  const [request, setRequest] = useState(3); // 조율 요청
-  const [accept, setAccept] = useState(4); // 수락
-  const [reject, setReject] = useState(3); // 거절
+  const [matchRequests, setMatchRequests] = useState([]);
 
-  const [selectedValue, setSelectedValue] = useState(3); // 거절
+  // const [total, setTotal] = useState(10); // 전체 매칭
+  // const [request, setRequest] = useState(3); // 조율 요청
+  // const [accept, setAccept] = useState(4); // 수락
+  // const [reject, setReject] = useState(3); // 거절
 
-  const onHandle = () => {
-    navigate("/matchoverview/item");
+  // const [selectedValue, setSelectedValue] = useState(3); // 거절
+
+  useEffect(() => {
+    const fetchMatchRequests = async () => {
+      try {
+        const response = await request.get("/matching/request/senior/list");
+        console.log(response);
+        if (response.isSuccess) {
+          setMatchRequests(response.result);
+        } else {
+          console.error(
+            "데이터를 가져오는 데 실패했습니다:",
+            response.data.message
+          );
+        }
+      } catch (error) {
+        console.error("매칭 요청 목록을 가져오는 중 오류 발생:", error);
+      }
+    };
+    fetchMatchRequests();
+  }, []);
+
+  const onHandle = (id) => {
+    navigate(`/matchoverview/${id}`);
   };
 
   return (
@@ -50,8 +73,12 @@ export default function MatchOverview() {
           <items.Head3>매칭 요청 목록</items.Head3>
         </items.HeaderContainer>
         <items.MatchRequestList>
-          {dummyItems.map((item, index) => (
-            <Card key={index} contents={item} onClick={onHandle} />
+          {matchRequests.map((item, index) => (
+            <Card
+              key={index}
+              contents={item}
+              onClick={() => onHandle(item.seniorId)}
+            />
           ))}
         </items.MatchRequestList>
       </items.MatchRequestListContainer>

@@ -11,6 +11,7 @@ export default function FormAdmin() {
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   // 프로필 이미지
   const fileInputRef = useRef(null);
@@ -134,6 +135,7 @@ export default function FormAdmin() {
 
   // 비밀번호 change event
   const handlePassword = (value) => {
+    setIsPasswordValid(value.length >= 8);
     setPassword(value);
     setAdminSignupData((prev) => ({ ...prev, password: value }));
   };
@@ -186,7 +188,9 @@ export default function FormAdmin() {
             width="313px"
           />
         </items.InputContainer>
-        <items.ErrorMessage>8자리 이상 입력해주세요</items.ErrorMessage>
+        {!isPasswordValid && (
+          <items.ErrorMessage>8자리 이상 입력해주세요</items.ErrorMessage>
+        )}
       </items.InputWrapper>
 
       <items.ButtonContainer>
@@ -200,6 +204,7 @@ export default function FormAdmin() {
           <Button
             text="회원가입 완료"
             primary
+            disabled={!isPasswordValid}
             onClick={handleSubmit}
             width="228px"
           />
