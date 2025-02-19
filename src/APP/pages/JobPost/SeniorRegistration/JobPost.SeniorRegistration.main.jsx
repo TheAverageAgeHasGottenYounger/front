@@ -29,9 +29,6 @@ export default function SeniorRegistration() {
 
   const [selectedGender, setSelectedGender] = useState("");
 
-  const [selectedPayType, setSelectedPayType] = useState("");
-  const [selectedPay, setSelectedPay] = useState("");
-
 
   // 장기요양등급
   const [careGradeList, setCareGradeList] = useState([]);
@@ -76,15 +73,6 @@ export default function SeniorRegistration() {
   const [timeSchedules, setTimeSchedules] = useState([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
-
-  const longTermCareGrades = [
-    { value: "1", label: "1등급" },
-    { value: "2", label: "2등급" },
-    { value: "3", label: "3등급" },
-    { value: "4", label: "4등급" },
-    { value: "5", label: "5등급" },
-    { value: "인지지원", label: "인지지원등급" },
-  ];
 
   // 생년월일
   const generateYearOptions = () => {
