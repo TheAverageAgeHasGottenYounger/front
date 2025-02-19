@@ -64,7 +64,7 @@ export default function SeniorRegistration() {
   );
 
   const [startTime, setStartTime] = useState("");
-  const [EndTime, setEndTime] = useState("");
+  const [endTime, setEndTime] = useState("");
 
 
   // 배변 보조
@@ -461,8 +461,8 @@ export default function SeniorRegistration() {
       "birthday": getFormattedBirthday(),
       "sex": selectedGender === "남자" ? "남" : "여",
       "address": address,
-      "startTime": "12:00:00",
-      "endTime": "12:00:00",
+      "startTime": startTime || "00:00:00", 
+      "endTime": endTime || "00:00:00",
       "dayList": selectedDay,
       "foodAssistList": selectedFood,
       "toiletAssistList": selectedToilet,
@@ -637,20 +637,9 @@ export default function SeniorRegistration() {
           </items.AddressContainer>
         </items.InputContainer>
 
-        {timeSchedules.map((schedule, index) => (
-          <items.TimeContainer key={schedule.id}>
+          <items.TimeContainer>
             <items.Label>
-              희망 요일•시간 {index > 0 ? `${index + 1}` : ""}
-              {index > 0 && (
-                <img
-                  src="/img/delete.svg"
-                  alt="삭제"
-                  width="21"
-                  height="21"
-                  onClick={() => removeSchedule(schedule.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
+              희망 요일•시간
             </items.Label>
             <items.SelectContainer>
               {dayList.map(({code, value}) => (
@@ -668,25 +657,20 @@ export default function SeniorRegistration() {
               <Dropdown
                 options={generateTimeOptions()}
                 placeholder="시작 시간"
-                value={schedule.selectedStartTime}
-                onChange={(e) =>
-                  updateTime(schedule.id, "selectedStartTime", e.target.value)
-                }
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
                 width="166px"
               />
               <Label text="~"></Label>
               <Dropdown
                 options={generateTimeOptions()}
                 placeholder="종료 시간"
-                value={schedule.selectedEndTime}
-                onChange={(e) =>
-                  updateTime(schedule.id, "selectedEndTime", e.target.value)
-                }
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
                 width="166px"
               />
             </items.DropdownContainer>
           </items.TimeContainer>
-        ))}
         {/*
         <items.AddButton onClick={addSchedule}>
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
