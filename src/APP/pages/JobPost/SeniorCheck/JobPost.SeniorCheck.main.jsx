@@ -101,8 +101,11 @@ export default function SeniorRegistration() {
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-// 생년월일 포맷 변환 함수
+
+
+  // 생년월일 포맷 변환 함수
   const formatBirthday = (birthday) => {
     if (!birthday) return { year: "", month: "", day: "" };
 
@@ -113,8 +116,6 @@ export default function SeniorRegistration() {
       day: parseInt(day, 10)
     };
   };
-
-
   
 
   // 어르신 정보 불러오기
@@ -469,21 +470,22 @@ export default function SeniorRegistration() {
       "lifeAssistList": selectedLife,
       "careStyle": selectedCareStyle,
       "careGrade": selectedCareGrade,
+      "salary": parseInt(selectedPay, 10),
     }
 
     console.log(requestBody);
 
     try {
-      const response = await request.post("/senior",requestBody);
+      const response = await request.patch(`/senior/${seniorId}`,requestBody);
 
       if (response.isSuccess) {
         console.log("어르신 등록 성공!");
-        alert("어르신이 성공적으로 등록되었습니다.");
-        navigate(-1); 
+        setIsModalOpen(true);
       }
     } catch (error) {
-      console.error("어르신 등록 오류:", error);
+      console.error("어르신 수정 오류:", error);
       alert("어르신 등록을 실패하였습니다.");
+      setIsModalOpen(true)
     }
   };
 
@@ -697,14 +699,14 @@ export default function SeniorRegistration() {
             <Dropdown
               options={payType}
               placeholder="시급"
-              value={selectedPay}
+              value={selectedPayType}
               onChange={(e) => setSelectedPayType(e.target.value)}
               width="135px"
             />
             <Input
               type="number"
               placeholder="금액을 입력해주세요."
-              value={name}
+              value={selectedPay}
               onChange={(e) => setSelectedPay(e.target.value)}
               width="170px"
             />
@@ -829,6 +831,33 @@ export default function SeniorRegistration() {
           />
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
+
+
+      {/* 모달 컴포넌트 */}
+      {isModalOpen && (
+        <items.ModalOverlay>
+          <items.ModalContainer>
+            <items.ModalCloseButton
+              src="/img/close.svg"
+              alt="창닫기"
+              onClick={() => setIsModalOpen(false)}
+            />
+            <items.ModalText>
+              구인 등록이 완료되었어요!
+              <br />
+              매칭을 시작할까요?
+            </items.ModalText>
+            <Button
+              text="매칭 시작하기"
+              primary
+              onClick={() => navigate(-1)}
+              width="275px"
+            />
+          </items.ModalContainer>
+        </items.ModalOverlay>
+      )}
+
+
     </items.Container>
   );
 }
