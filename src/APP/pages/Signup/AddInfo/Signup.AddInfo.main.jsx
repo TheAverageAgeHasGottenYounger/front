@@ -132,8 +132,8 @@ export default function AddInfo() {
       );
 
       if (response.data.isSuccess) {
-        console.log("요양보호사 회원가입 성공!");
-        // window.location.replace("/");
+        alert("요양보호사 회원가입 성공!");
+        window.location.replace("/");
       }
     } catch (error) {
       console.error("요양보호사 회원가입 오류:", error);

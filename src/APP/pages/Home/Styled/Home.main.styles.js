@@ -17,7 +17,7 @@ export const OrangeContainer = styled.div`
 
   width: 393px;
   height: 278px;
-  background-image: url("/img/home_background.png");
+  background-image: url("/img/homelogo-user.jpeg");
   background-size: cover;
 `;
 
@@ -95,7 +95,7 @@ export const MatchOverviewItem = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 6px; 
+  gap: 6px;
   margin-top: 14.5px;
 `;
 
@@ -119,15 +119,15 @@ export const Label = styled.div`
   color: ${({ color }) => {
     switch (color) {
       case "gray500":
-        return tokens.colors.gray[500]; 
+        return tokens.colors.gray[500];
       case "gray900":
-        return tokens.colors.primary.darken[900]; 
+        return tokens.colors.primary.darken[900];
       case "primary0":
         return tokens.colors.primary[0];
       default:
         return tokens.colors.gray[700];
     }
-    }};
+  }};
 `;
 
 export const Value = styled.div`
@@ -172,7 +172,7 @@ export const Head3 = styled.div`
   ${tokens.typography.h3};
   color: ${tokens.colors.gray[900]};
   gap: 6px;
-  margin-bottom: 6px; 
+  margin-bottom: 6px;
 `;
 
 export const MyCalendarHeader = styled.div`
@@ -207,7 +207,7 @@ export const BottomSubLabel = styled.div`
   font-size: 14px;
   font-weight: normal;
   line-height: 19.6px;
-  color: ${tokens.colors.gray[500]}
+  color: ${tokens.colors.gray[500]};
 `;
 
 export const BottomCardImgBox = styled.div`

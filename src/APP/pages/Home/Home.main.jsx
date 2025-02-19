@@ -11,16 +11,43 @@ import {
   NavigationBar,
 } from "../../components/Components";
 import { dummyItems2, dummyItems3 } from "./dummy";
+import request from "../../Api/request";
 
 export default function Home() {
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
   const [certification, setCertification] = useState("요양보호사 1급");
 
   const [total, setTotal] = useState(10); // 전체 매칭
-  const [request, setRequest] = useState(3); // 신규 매칭
+  // const [request, setRequest] = useState(3); // 신규 매칭
   const [today, setToday] = useState(2); // 전체 매칭
+
+  const [name, setName] = useState(""); // 요양보호사 이름 상태 추가
+
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      try {
+        const response = await request.get("/member/current");
+
+        if (response.isSuccess) {
+          const memberId = response.result.memberId;
+          const centerResponse = await request.get(`/member/${memberId}`);
+
+          if (centerResponse.isSuccess) {
+            setName(centerResponse.result.name);
+          } else {
+            console.error("회원 정보 가져오기 실패:", centerResponse.message);
+          }
+        } else {
+          console.error("회원 정보 가져오기 실패:", response.message);
+        }
+      } catch (error) {
+        console.error("API 요청 중 오류 발생:", error);
+      }
+    };
+
+    fetchMemberData();
+  }, [name]);
 
   return (
     <items.Container>
@@ -30,7 +57,7 @@ export default function Home() {
           <img src="/img/notification.svg" alt="알림" />
         </items.NotificationBox>
         <items.ProfileBox>
-          <items.WhiteHead>{dummyItems2.name} 요양보호사</items.WhiteHead>
+          <items.WhiteHead>{name} 요양보호사</items.WhiteHead>
           <items.WhiteLabel>{certification}</items.WhiteLabel>
           <items.WhiteLabel>
             내 정보 수정하기
