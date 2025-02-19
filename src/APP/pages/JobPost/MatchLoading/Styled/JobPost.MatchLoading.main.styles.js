@@ -1,5 +1,6 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import * as tokens from "../../../../../tokens";
+
 
 export const Container = styled.div`
   display: flex;
@@ -40,4 +41,19 @@ export const ProgressText = styled.div`
   text-align: center;
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};
+`;
+
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+export const LoadingSpinner = styled.div`
+  width: 50px;
+  height: 50px;
+  border: 5px solid ${tokens.colors.gray[100]};
+  border-top: 5px solid ${tokens.colors.primary[0]};
+  border-radius: 50%;
+  animation: ${spin} 1s linear infinite;
+  margin: 70px auto;
 `;
