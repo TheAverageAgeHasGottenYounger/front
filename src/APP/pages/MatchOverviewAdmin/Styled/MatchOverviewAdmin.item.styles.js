@@ -59,29 +59,6 @@ export const BigCardStyleBox = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   width: 361px;
-  margin-bottom: 32px;
-`;
-
-export const FitnessBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* justify-content: space-around; */
-  align-items: center;
-  background-color: ${tokens.colors.primary.lighten[400]};
-  width: 361px;
-  padding: 14px 0;
-  border: none;
-  border-radius: 14px;
-`;
-
-export const Fitness = styled.div`
-  ${tokens.typography.body_M_16};
-  color: ${tokens.colors.primary[0]};
-`;
-
-export const FitnessText = styled.div`
-  ${tokens.typography.body_M_16};
-  color: #414141;
 `;
 
 export const BigCardStyleBar = styled.div`
@@ -116,7 +93,6 @@ export const BigCardRequestBox = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 361px;
   min-height: 103px;
 `;
 
@@ -137,12 +113,12 @@ export const BigCardRequestIL = styled.div`
 `;
 
 export const BigCardRequestIcon = styled.img`
-  width: 15px;
+  width: 18px;
   height: 18px;
   margin-right: 11px;
 `;
 
-export const BigCardRequestLabel = styled.div`
+export const BigCardRequestLabel = styled.div`  
   ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[600]};
   width: 150px;
@@ -191,7 +167,7 @@ export const LockBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; 
   background-color: white;
   width: 268px;
   height: 108px;
@@ -203,7 +179,9 @@ export const LockBox = styled.div`
   right: 0px;
 `;
 
-export const LockIcon = styled.img``;
+export const LockIcon = styled.img`
+  
+`;
 
 export const LockText = styled.div`
   ${tokens.typography.body_M_18};
@@ -249,3 +227,5 @@ export const Button = styled.button`
   border-radius: 34px;
   background-color: ${({ bgColor }) => bgColor || "#ccc"};
 `;
+
+

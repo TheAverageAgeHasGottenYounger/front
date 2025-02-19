@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
-import * as items from "./Styled/MatchOverview.item.styles";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import * as items from "./Styled/MatchOverviewAdmin.item.styles";
 import {
   Button,
   Label,
@@ -8,83 +8,36 @@ import {
   Dropdown,
   Card,
   BigCard,
-} from "../../../APP/components/Components";
-import request from "../../Api/request";
+} from "../../components/Components";
+import { dummyItems, dummyItems2 } from "./dummy";
 
-export default function MatchOverviewItem() {
+export default function MatchOverviewItemAdmin() {
   const navigate = useNavigate();
-  const { id } = useParams(); // URL에서 id 가져오기
 
-  const [seniorData, setSeniorData] = useState(null);
-  const [isAccepted, setIsAccepted] = useState(false);
-  const [region, setRegion] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
+  // const [total, setTotal] = useState(10); // 전체 매칭
+  // const [request, setRequest] = useState(3); // 조율 요청
+  // const [accept, setAccept] = useState(4); // 수락
+  // const [reject, setReject] = useState(3); // 거절
 
-  useEffect(() => {
-    const fetchSeniorData = async () => {
-      try {
-        const response = await request.get(`/matching/${id}`);
-        console.log("매칭 데이터:", response);
-        if (response.isSuccess) {
-          setSeniorData(response.result);
-          const [regionPart, detailPart] = splitAddress(
-            response.result.address
-          );
-          setRegion(regionPart);
-          setDetailAddress(detailPart);
-        } else {
-          console.error("데이터를 가져오는 데 실패했습니다:", response.message);
-        }
-      } catch (error) {
-        console.error("API 요청 중 오류 발생:", error);
-      }
-    };
+  const [selectedValue, setSelectedValue] = useState(3); // 거절
 
-    fetchSeniorData();
-  }, [id]);
-
-  // 주소 분리 로직 추가
-  const splitAddress = (fullAddress) => {
-    if (!fullAddress) return ["", ""];
-
-    const parts = fullAddress.split(" ");
-    if (parts.length < 3) return [fullAddress, ""];
-
-    const region = parts.slice(0, 2).join(" "); // 서울특별시 동작구
-    const detail = parts.slice(2).join(" "); // 흑석로 100 101호
-    return [region, detail];
-  };
-
-  if (!seniorData) return <div>Loading...</div>; // 데이터가 없으면 로딩 표시
+  const [isAccepted, setIsAccepted] = useState(false); // 수락 여부 상태
 
   return (
     <items.Container>
-      <items.Prev src="/img/prev.svg" alt="이전" onClick={() => navigate(-1)} />
+      <items.Prev src="/img/prev.svg" alt="이전" />
       <items.BigCardContainer>
-        <items.BigCardProfile
-          src={
-            seniorData.profileUrl === ""
-              ? "/img/profile-default.svg"
-              : seniorData.profileUrl
-          }
-          alt="프로필"
-        />
-        <items.BigCardName>{seniorData.name} 어르신</items.BigCardName>
+        <items.BigCardProfile src={dummyItems2.profileUrl} alt="프로필" />
+        <items.BigCardName>{dummyItems2.name} 어르신</items.BigCardName>
         <items.BigCardStyleBox>
           <items.BigCardStyleBar>
             <items.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
             <items.BigCardStyleText>온기 스타일</items.BigCardStyleText>
           </items.BigCardStyleBar>
           <items.BigCardStyleContent>
-            {seniorData.careStyle}
+            {dummyItems2.careStyle}
           </items.BigCardStyleContent>
         </items.BigCardStyleBox>
-        <items.FitnessBox>
-          <items.Fitness>매칭 적합도 {seniorData.fitness}%</items.Fitness>
-          <items.FitnessText>
-            돌봄스타일과 근무조건이 잘맞아요!
-          </items.FitnessText>
-        </items.FitnessBox>
         <items.Hr />
         <items.BigCardRequestBox>
           <items.BigCardRequestBar>
@@ -95,7 +48,9 @@ export default function MatchOverviewItem() {
               />
               <items.BigCardRequestLabel>근무지역</items.BigCardRequestLabel>
             </items.BigCardRequestIL>
-            <items.BigCardRequestText>{region}</items.BigCardRequestText>
+            <items.BigCardRequestText>
+              {dummyItems2.address}
+            </items.BigCardRequestText>
           </items.BigCardRequestBar>
           <items.BigCardRequestBar>
             <items.BigCardRequestIL>
@@ -106,7 +61,8 @@ export default function MatchOverviewItem() {
               <items.BigCardRequestLabel>근무일</items.BigCardRequestLabel>
             </items.BigCardRequestIL>
             <items.BigCardRequestText>
-              주 {seniorData.dayList.length}일 ({seniorData.dayList.join(", ")})
+              주 {dummyItems2.dayList.length}일 (
+              {dummyItems2.dayList.join(", ")})
             </items.BigCardRequestText>
           </items.BigCardRequestBar>
           <items.BigCardRequestBar>
@@ -115,7 +71,7 @@ export default function MatchOverviewItem() {
               <items.BigCardRequestLabel>가능시간</items.BigCardRequestLabel>
             </items.BigCardRequestIL>
             <items.BigCardRequestText>
-              {seniorData.startTime} ~ {seniorData.endTime}
+              {dummyItems2.startTime}~{dummyItems2.endTime}
             </items.BigCardRequestText>
           </items.BigCardRequestBar>
         </items.BigCardRequestBox>
@@ -130,7 +86,7 @@ export default function MatchOverviewItem() {
               <items.BigCardRequestLabel>희망급여</items.BigCardRequestLabel>
             </items.BigCardRequestIL>
             <items.BigCardRequestText>
-              {seniorData.salary.toLocaleString()} 원
+              {dummyItems2.salary}
             </items.BigCardRequestText>
           </items.BigCardRequestBar>
           <items.Blank />
@@ -140,7 +96,7 @@ export default function MatchOverviewItem() {
               <items.BigCardRequestLabel>케어항목</items.BigCardRequestLabel>
             </items.BigCardRequestIL>
             <items.BigCardRequestCareList>
-              {seniorData.careList.map((item, index) => (
+              {dummyItems2.careList.map((item, index) => (
                 <items.BigCardRequestCareListItem key={index}>
                   {item}
                 </items.BigCardRequestCareListItem>
@@ -153,14 +109,14 @@ export default function MatchOverviewItem() {
           <items.BigCardRequestBar>
             <items.BigCardRequestLabel>연락처</items.BigCardRequestLabel>
             <items.BigCardRequestText>
-              {seniorData.phoneNumber ? seniorData.phoneNumber : "비공개"}
+              {dummyItems2.phoneNumber}
             </items.BigCardRequestText>
           </items.BigCardRequestBar>
           <items.Blank />
           <items.BigCardRequestBar>
             <items.BigCardRequestLabel>상세 주소</items.BigCardRequestLabel>
             <items.BigCardRequestText>
-              {detailAddress || "비공개"}
+              {dummyItems2.addressDetail}
             </items.BigCardRequestText>
           </items.BigCardRequestBar>
           {/* 자물쇠 */}
