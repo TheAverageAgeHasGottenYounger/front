@@ -119,7 +119,7 @@ export default function FormAdmin() {
       );
 
       if (response.data.isSuccess) {
-        console.log("관리자 회원가입 성공!");
+        alert("관리자 회원가입 성공!");
         window.location.replace("/");
       }
     } catch (error) {
@@ -181,7 +181,7 @@ export default function FormAdmin() {
         <items.InputContainer>
           <Label text="비밀번호" star />
           <Input
-            type="text"
+            type="password"
             placeholder="비밀번호를 입력해주새요"
             value={password}
             onChange={(e) => handlePassword(e.target.value)}

@@ -10,6 +10,7 @@ import {
   SelectButton,
 } from "../../components/Components";
 import axios from "axios";
+import request from "../../Api/request";
 
 export default function JobRequirements() {
   const navigate = useNavigate();
@@ -34,6 +35,63 @@ export default function JobRequirements() {
   ]);
 
   const payType = [{ value: "시급", label: "시급" }];
+
+  const [memberId, setMemberId] = useState(null);
+
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      try {
+        const response = await request.get("/member/current");
+        if (response.isSuccess) {
+          const id = response.result.memberId;
+          setMemberId(id);
+        } else {
+          console.error("회원 정보 가져오기 실패:", response.message);
+        }
+      } catch (error) {
+        console.error("API 요청 중 오류 발생:", error);
+      }
+    };
+
+    fetchMemberData();
+  }, []);
+
+  const handleSaveJobSearch = async () => {
+    if (!memberId) {
+      alert("회원 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    try {
+      const requestBody = {
+        memberId,
+        startTime: timeSchedules[0].selectedStartTime,
+        endTime: timeSchedules[0].selectedEndTime,
+        salary: Number(selectedPay),
+        jobSearchAreas: locateList.map(({ city, gu, dong }) => ({
+          address: { city, district: gu, dong, detail: "" },
+        })),
+        dayList: timeSchedules[0].selectedDays,
+      };
+
+      console.log("requestBody", requestBody);
+
+      const response = await axios.post(
+        "https://api.ondue.store/job-search",
+        requestBody
+      );
+
+      if (response.data.isSuccess) {
+        setIsModalOpen(true);
+      } else {
+        console.error("요청 실패:", response.data.message);
+        alert("저장 중 오류가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error("API 요청 중 오류 발생:", error);
+      alert("서버와의 통신 중 오류가 발생했습니다.");
+    }
+  };
 
   const generateTimeOptions = () => {
     const times = [];
@@ -266,9 +324,9 @@ export default function JobRequirements() {
             </items.DropdownContainer>
           </items.TimeContainer>
         ))}
-        <items.AddButton onClick={addSchedule}>
+        {/* <items.AddButton onClick={addSchedule}>
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
-        </items.AddButton>
+        </items.AddButton> */}
 
         <items.InputContainer>
           <items.Label>희망 급여</items.Label>
@@ -323,9 +381,9 @@ export default function JobRequirements() {
               매칭을 시작할까요?
             </items.ModalText>
             <Button
-              text="매칭 시작하기"
+              text="확인"
               primary
-              onClick={() => console.log("매칭 시작하기")}
+              onClick={handleSaveJobSearch}
               width="275px"
             />
           </items.ModalContainer>
