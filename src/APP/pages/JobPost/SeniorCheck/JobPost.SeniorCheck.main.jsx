@@ -488,7 +488,6 @@ export default function SeniorRegistration() {
     } catch (error) {
       console.error("어르신 수정 오류:", error);
       alert("어르신 등록을 실패하였습니다.");
-      setIsModalOpen(true)
     }
   };
 
