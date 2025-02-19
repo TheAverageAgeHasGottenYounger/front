@@ -460,7 +460,7 @@ export default function SeniorRegistration() {
       "name": name,
       "birthday": getFormattedBirthday(),
       "sex": selectedGender === "남자" ? "남" : "여",
-      "address": "string",
+      "address": address,
       "startTime": "12:00:00",
       "endTime": "12:00:00",
       "dayList": selectedDay,
@@ -629,7 +629,7 @@ export default function SeniorRegistration() {
             <Input
               type="text"
               placeholder="주소를 입력해주세요."
-              value={name}
+              value={address}
               onChange={(e) => setName(e.target.value)}
               width="206px"
             />
