@@ -19,7 +19,15 @@ export default function SeniorRegistration() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [seniors, setSeniors] = useState([]);
+  const [seniors, setSeniors] = useState(() => {
+    const storedSeniors = sessionStorage.getItem("seniors");
+    return storedSeniors ? JSON.parse(storedSeniors) : [];
+  });
+
+  useEffect(() => {
+    sessionStorage.setItem("seniors", JSON.stringify(seniors));
+  }, [seniors]);
+  
   const [selectedSenior, setSelectedSenior] = useState(location.state?.seniorId || null);
 
   console.log("불러온 어르신 :", seniors);
@@ -30,6 +38,7 @@ export default function SeniorRegistration() {
 
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
 
+  const [seniorId, setSeniorId] = useState("");
   const [name, setName] = useState("");
 
   const [selectedBirthYear, setSelectedBirthYear] = useState("");
@@ -105,55 +114,72 @@ export default function SeniorRegistration() {
     };
   };
 
+
+  
+
   // 어르신 정보 불러오기
-  useEffect(() => {
-    const fetchSenior = async () => {
-      try {
-        const response = await request.get(`/senior/${selectedSenior}`);
-        if (response.isSuccess) {
-          const senior = response.result;
-          setProfileUrl(senior.profileUrl || "/img/profile-default.svg");
-          setName(senior.name);
-          setSelectedGender(senior.sex === "남" ? "남자" : "여자");
-          // setSelectedCareGrade(senior.careGrade || []);
-          setAddress(senior.address);
-          setSelectedPay(senior.salary || "");
-          setSelectedDay(senior.dayList || []);
-          setSelectedFood(senior.foodAssistList || []);
-          setSelectedToilet(senior.toiletAssistList || []);
-          setSelectedMove(senior.moveAssistList || []);
-          setSelectedLife(senior.lifeAssistList || []);
+  const fetchSenior = async (seniorId) => {
+    try {
+      const response = await request.get(`/senior/${seniorId}`);
+      if (response.isSuccess) {
+        const senior = response.result;
 
-          console.log(selectedFood);
-          console.log(selectedToilet);
+        setSeniorId(senior.seniorId);
+        setProfileUrl(senior.profileUrl || "/img/profile-default.svg");
+        setName(senior.name);
+        setSelectedGender(senior.sex === "남" ? "남자" : "여자");
+        setAddress(senior.address);
+        setSelectedPay(senior.salary || "");
+        setSelectedDay(senior.dayList || []);
+        setSelectedFood(senior.foodAssistList || []);
+        setSelectedToilet(senior.toiletAssistList || []);
+        setSelectedMove(senior.moveAssistList || []);
+        setSelectedLife(senior.lifeAssistList || []);
 
-          console.log(selectedMove);
+        // 시간 변환
+        setStartTime(`${senior.startTime.hour}:${senior.startTime.minute}:${senior.startTime.second}`);
+        setEndTime(`${senior.endTime.hour}:${senior.endTime.minute}:${senior.endTime.second}`);
 
-          console.log(selectedLife);
+        // 생년월일 변환
+        const { year, month, day } = formatBirthday(senior.birthday);
+        setSelectedBirthYear(year);
+        setSelectedBirthMonth(month);
+        setSelectedBirthDay(day);
 
-          // 시간 변환
-          setStartTime(`${senior.startTime.hour}:${senior.startTime.minute}:${senior.startTime.second}`);
-          setEndTime(`${senior.endTime.hour}:${senior.endTime.minute}:${senior.endTime.second}`);
+        console.log("선택한 어르신 데이터:", senior);
 
-          // 생년월일 변환
-          const { year, month, day } = formatBirthday(senior.birthday);
-          setSelectedBirthYear(year);
-          setSelectedBirthMonth(month);
-          setSelectedBirthDay(day);
-          console.log(month,"ekfekefalksjdfasdfasfasf;lakf");
-
-          console.log(selectedBirthMonth,"ekfekefalksjdf;lakf");
-
-          console.log("어르신 데이터:", senior);
-        }
-      } catch (error) {
-        console.error("어르신 불러오기 오류", error);
+        // seniors 상태 업데이트
+        setSeniors((prevSeniors) => {
+          const exists = prevSeniors.some((s) => s.seniorId === senior.seniorId);
+          if (!exists) {
+            return [
+              ...prevSeniors,
+              {
+                seniorId: senior.seniorId,
+                profileUrl: senior.profileUrl || "/img/profile-default.svg",
+                name: senior.name || "이름 없음",
+              },
+            ];
+          }
+          return prevSeniors; // 기존 데이터 유지
+        });
       }
-    };
-    fetchSenior();
-  }, []);
+    } catch (error) {
+      console.error("어르신 불러오기 오류", error);
+    }
+  };
 
+  // selectedSenior 변경 시 자동 실행
+  useEffect(() => {
+    if (selectedSenior) {
+      fetchSenior(selectedSenior);
+    }
+  }, [selectedSenior]);
 
+  // 어르신 선택 시 실행
+  const handleSelectSenior = (seniorId) => {
+    setSelectedSenior(seniorId);
+  };
 
 
   // 생년월일
@@ -476,6 +502,28 @@ export default function SeniorRegistration() {
           </items.ExtraLabel>
         </items.HeadContainer>
 
+        {/* 어르신 프로필 리스트 */}
+        <items.ProfileWrapper>
+        <items.ProfileContainer>
+            {seniors.map((senior) => (
+              <items.ProfileBox
+                key={senior.seniorId}
+                onClick={() => handleSelectSenior(senior.seniorId)}
+              >
+                <img
+                  src={senior.profileUrl || "/img/profile-default.svg"}
+                  width="96px"
+                  height="96px"
+                  alt="프로필"
+                />
+                {selectedSenior === senior.seniorId && (
+                  <items.SelectedIcon src="/img/check_circle.svg" alt="선택됨" />
+                )}
+                <items.ProfileLabel>{senior.name}</items.ProfileLabel>
+              </items.ProfileBox>
+            ))}
+        </items.ProfileContainer>
+
         <items.ProfileContainer>
           <items.ProfileBox onClick={() => navigate("/jobpost/SelectSenior")}>
             <img
@@ -497,6 +545,8 @@ export default function SeniorRegistration() {
             <items.ProfileLabel>새로 등록</items.ProfileLabel>
           </items.ProfileBox>
         </items.ProfileContainer>
+
+        </items.ProfileWrapper>
 
         <items.Label>기본 정보</items.Label>
 

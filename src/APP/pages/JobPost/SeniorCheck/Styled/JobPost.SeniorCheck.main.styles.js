@@ -22,15 +22,27 @@ export const Logo = styled.div`
   margin-bottom: 28px;
 `;
 
+export const ProfileWrapper = styled.div`
+  margin-bottom: 48px;
+`;
+
 export const ProfileContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 12px;
-  margin-bottom: 70px;
+  margin-bottom: 22px;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  max-width: 361px;
+    &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ProfileBox = styled.div`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -46,6 +58,16 @@ export const Profile = styled.img`
   width: 96px;
   height: 96px;
   margin-bottom: 28px;
+`;
+
+export const SelectedIcon = styled.img`
+  background-color: white;
+  border-radius: 50%;  
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
 `;
 
 export const ProfileLabel = styled.div`
