@@ -49,7 +49,7 @@ export default function Form() {
         <items.InputContainer>
           <Label text="비밀번호" star />
           <Input
-            type="text"
+            type="password"
             placeholder="비밀번호를 입력해주새요"
             value={password}
             onChange={(e) => handlePassword(e.target.value)}

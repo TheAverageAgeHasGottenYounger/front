@@ -20,9 +20,16 @@ import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
 import Home from "./APP/pages/Home/Home.main";
 import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
-
-
-import { Button, Label, Input, Dropdown, TextArea, SelectButton, NavigationBar } from "./APP/components/Components";
+import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
+import {
+  Button,
+  Label,
+  Input,
+  Dropdown,
+  TextArea,
+  SelectButton,
+  NavigationBar,
+} from "./APP/components/Components";
 
 const Root = styled.div`
   position: absolute;
@@ -110,7 +117,7 @@ function App() {
 
       <Routes>
         {/* 로그인 */}
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
 
         {/* 회원가입 과정 */}
         <Route path="/signup/type" element={<TypeChoice />} />
@@ -132,12 +139,21 @@ function App() {
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
 
         {/* 구인 과정 */}
-        <Route path="/jobpost/caregiverdetails" element={<CaregiverDetails />} />
+        <Route
+          path="/jobpost/caregiverdetails"
+          element={<CaregiverDetails />}
+        />
         <Route path="/jobpost/matchingstatus" element={<MatchingStatus />} />
         <Route path="/jobpost/selectsenior" element={<SelectSenior />} />
         <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
-        <Route path="/jobpost/seniorregistration" element={<SeniorRegistration />} />
-        <Route path="/jobpost/viewmorecaregivers" element={<ViewMoreCaregivers />} />
+        <Route
+          path="/jobpost/seniorregistration"
+          element={<SeniorRegistration />}
+        />
+        <Route
+          path="/jobpost/viewmorecaregivers"
+          element={<ViewMoreCaregivers />}
+        />
 
         {/* 대시보드 */}
         <Route path="/dashboard" element={<DashBoard />} />
@@ -146,7 +162,8 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/homeadmin" element={<HomeAdmin />} />
 
-
+        {/* 근무 조건 */}
+        <Route path="/jobrequirement" element={<JobRequirements />} />
       </Routes>
     </Root>
   );

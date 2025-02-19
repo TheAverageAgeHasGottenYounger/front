@@ -119,7 +119,7 @@ export default function FormAdmin() {
 
       if (response.data.isSuccess) {
         console.log("관리자 회원가입 성공!");
-        window.location.replace("/login");
+        window.location.replace("/");
       }
     } catch (error) {
       console.error("관리자 회원가입 오류:", error);

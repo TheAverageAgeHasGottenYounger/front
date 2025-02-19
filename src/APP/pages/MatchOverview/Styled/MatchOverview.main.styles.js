@@ -7,7 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 90px 0;
+  padding: 14px 0 100px 0;
 `;
 
 export const MatchOverviewContainer = styled.div`
@@ -19,7 +19,8 @@ export const MatchOverviewContainer = styled.div`
 export const Head = styled.div`
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};
-  margin-bottom: 14px;
+  margin-bottom: 24px;
+  width: 361px;
 `;
 
 export const MatchOverviewBox = styled.div`
@@ -82,7 +83,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 361px;
-  margin-top: 26px;
+  /* margin-top: 26px; */
   margin-bottom: 22px;
 `;
 

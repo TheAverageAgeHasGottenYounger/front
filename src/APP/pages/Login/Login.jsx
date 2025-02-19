@@ -29,14 +29,18 @@ export default function Login() {
       );
       console.log(response);
       const accessToken = response.data.result.accessToken; // 응답에서 Access Token 추출
+      // const memberId = response.data.result.memberId;
+      const role = response.data.result.role;
       console.log(accessToken);
       if (accessToken) {
-        console.log("z");
         localStorage.setItem(ACCESS_TOKEN, accessToken);
+        // localStorage.setItem("memberId", memberId);
+        localStorage.setItem("role", role);
       }
 
       if (response.data["isSuccess"]) {
         console.log("로그인 성공!");
+        navigate(role === "WORKER" ? "/home" : "/homeadmin");
       }
     } catch (error) {
       console.error("로그인 오류:", error);
@@ -45,7 +49,11 @@ export default function Login() {
 
   return (
     <items.Container>
-      <items.Logo src="/img/logo.svg" alt="로고이미지" />
+      <items.LogoContainer>
+        <items.Logo src="/img/logo.svg" alt="로고이미지" />
+        <items.LogoText src="/img/logo-text.svg" alt="로고이미지" />
+        <items.LogoPicture src="/img/logopic.svg" alt="로고이미지" />
+      </items.LogoContainer>
 
       <items.InputWrapper>
         <items.InputContainer>
