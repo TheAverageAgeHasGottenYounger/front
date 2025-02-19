@@ -131,6 +131,7 @@ export default function SeniorRegistration() {
         setProfileUrl(senior.profileUrl || "/img/profile-default.svg");
         setName(senior.name);
         setSelectedGender(senior.sex === "남" ? "남자" : "여자");
+        setSelectedCareGrade(senior.careGrade);
         setAddress(senior.address);
         setSelectedPay(senior.salary || "");
         setSelectedDay(senior.dayList || []);
