@@ -548,9 +548,14 @@ export default function SeniorRegistration() {
               >
                 <img
                   src={senior.profileUrl || "/img/profile-default.svg"}
-                  width="96px"
-                  height="96px"
                   alt="프로필"
+
+                  style={{
+                    borderRadius: "50%", // 원형으로 만들기
+                    objectFit: "cover", // 이미지가 찌그러지지 않도록 유지
+                    width: "96px",
+                    height: "96px",
+                  }}
                 />
                 {selectedSenior === senior.seniorId && (
                   <items.SelectedIcon src="/img/check_circle.svg" alt="선택됨" />

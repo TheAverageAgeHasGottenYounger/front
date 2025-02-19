@@ -54,7 +54,16 @@ export default function SelectSenior() {
       {seniors.map((senior) => (
           <items.SeniorItem key={senior.seniorId}>
             <items.ProfileContainer>
-              <items.ProfileImage src={senior.profileUrl} alt={senior.name} />
+              <items.ProfileImage
+              src={senior.profileUrl}
+              alt={senior.name}
+              style={{
+                borderRadius: "50%",
+                objectFit: "cover",
+                width: "86px",
+                height: "86px",
+              }}
+              />
               {selectedSenior === senior.seniorId && <items.SelectedIcon src="/img/check_circle.svg" alt="선택됨" />}
             </items.ProfileContainer>
 
