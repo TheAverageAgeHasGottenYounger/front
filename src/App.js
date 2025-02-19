@@ -9,18 +9,17 @@ import AddInfo from "./APP/pages/Signup/AddInfo/Signup.AddInfo.main";
 import InfoAdmin from "./APP/pages/SignupAdmin/Info/SignupAdmin.Info.main";
 import FormAdmin from "./APP/pages/SignupAdmin/Form/SignupAdmin.Form.main";
 import AddInfoAdmin from "./APP/pages/SignupAdmin/AddInfo/SignupAdmin.AddInfo.main";
-import CaregiverDetails from "./APP/pages/JobPost/CaregiverDetails/JobPost.CaregiverDetails.main";
-import MatchingStatus from "./APP/pages/JobPost/MatchingStatus/JobPost.MatchingStatus.main";
 import SelectSenior from "./APP/pages/JobPost/SelectSenior/JobPost.SelectSenior.main";
 import SeniorCheck from "./APP/pages/JobPost/SeniorCheck/JobPost.SeniorCheck.main";
 import SeniorRegistration from "./APP/pages/JobPost/SeniorRegistration/JobPost.SeniorRegistration.main";
-import ViewMoreCaregivers from "./APP/pages/JobPost/ViewMoreCaregivers/JobPost.ViewMoreCaregivers.main";
 import MatchOverview from "./APP/pages/MatchOverview/MatchOverview.main";
 import MatchOverviewItem from "./APP/pages/MatchOverview/MatchOverview.item";
 import DashBoard from "./APP/pages/DashBoard/DashBoard.main";
 import Home from "./APP/pages/Home/Home.main";
 import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
 import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
+import MatchLoading from "./APP/pages/JobPost/MatchLoading/JobPost.MatchLoading.main";
+
 import {
   Button,
   Label,
@@ -139,21 +138,13 @@ function App() {
         {/* <Route path="*" element={<Navigate to="/login" />} /> */}
 
         {/* 구인 과정 */}
-        <Route
-          path="/jobpost/caregiverdetails"
-          element={<CaregiverDetails />}
-        />
-        <Route path="/jobpost/matchingstatus" element={<MatchingStatus />} />
         <Route path="/jobpost/selectsenior" element={<SelectSenior />} />
         <Route path="/jobpost/seniorcheck" element={<SeniorCheck />} />
         <Route
           path="/jobpost/seniorregistration"
           element={<SeniorRegistration />}
         />
-        <Route
-          path="/jobpost/viewmorecaregivers"
-          element={<ViewMoreCaregivers />}
-        />
+        <Route path="/jobpost/matchloading" element={<MatchLoading />} />
 
         {/* 대시보드 */}
         <Route path="/dashboard" element={<DashBoard />} />
