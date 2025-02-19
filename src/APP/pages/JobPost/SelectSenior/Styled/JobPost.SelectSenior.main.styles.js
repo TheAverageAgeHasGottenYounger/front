@@ -47,6 +47,7 @@ export const SelectedIcon = styled.img`
 `;
 
 export const InfoContainer = styled.div`
+  width: 150px;
   flex-grow: 1;
   margin-left: 22px;
   margin-right: 30px;

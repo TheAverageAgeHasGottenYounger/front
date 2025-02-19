@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/JobPost.SeniorRegistration.main.styles";
 import {
@@ -19,7 +19,12 @@ export default function SeniorRegistration() {
   const navigate = useNavigate();
   const { signupData, setSignupData } = useSignup();
 
-  const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg");
+  // 프로필 이미지
+  const fileInputRef = useRef(null);
+  const [file, setFile] = useState(null);
+  const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg"); // 렌더링용
+  const [profile, setProfile] = useState(null); // api용
+  const [previousProfileUrl, setPreviousProfileUrl] = useState(null);
 
   const [name, setName] = useState("");
 
@@ -74,13 +79,72 @@ export default function SeniorRegistration() {
   const [selectedCareStyle, setSelectedCareStyle] = useState(
     signupData.careStyle || ""
   );
-  
-  const [timeSchedules, setTimeSchedules] = useState([
-    { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
-  ]);
 
   const [isAddressModalOpen, setIsAddressModalOpen] = useState(false);
   const [poiResults, setPoiResults] = useState([]);
+
+  // 프로필 이미지 파일 업로드
+  const handleFileChange = async (event) => {
+    // console.log('previousProfileUrl',previousProfileUrl);
+    const selectedFile = event.target.files[0];
+    if (selectedFile) {
+      setFile(selectedFile);
+
+      if (previousProfileUrl) {
+        await handleFileDelete(profileUrl);
+      }
+      await handleFileUpload(selectedFile);
+    }
+  };
+
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await axios.post("https://api.ondue.store/s3", formData);
+      console.log(response);
+      if (response.data.isSuccess) {
+        const newProfileUrl = response.data.result.fileUrl;
+        console.log("파일 업로드 성공:", newProfileUrl);
+        // console.log('이전:', profileUrl);
+        setPreviousProfileUrl(profileUrl);
+        setProfileUrl(newProfileUrl);
+        setProfile(newProfileUrl);
+        setSignupData((prev) => ({ ...prev, profileImageFile: newProfileUrl }));
+      } else {
+        console.error("파일 업로드 실패:", response.data);
+      }
+    } catch (error) {
+      console.error("파일 업로드 에러:", error);
+    }
+  };
+
+  const handleFileDelete = async (fileUrl) => {
+    try {
+      const url = `https://api.ondue.store/s3`;
+
+      const response = await axios.delete(url, {
+        params: { fileUrl }, // ✅ params는 설정 객체 안에 직접 넣기
+        headers: {
+          "Content-Type": "application/json", // 서버에서 필요하면 유지
+        },
+      });
+
+      if (response.data.isSuccess) {
+        console.log("파일 삭제 성공:", fileUrl);
+      } else {
+        console.error("파일 삭제 실패:", response.data);
+      }
+    } catch (error) {
+      console.error("파일 삭제 에러:", error);
+    }
+  };
+
 
   // 생년월일
   const generateYearOptions = () => {
@@ -132,32 +196,6 @@ export default function SeniorRegistration() {
   const toggleSelectGender = (gender) => {
     setSelectedGender(gender);
   };
-
-  // 희망 요일, 시간
-  const addSchedule = () => {
-    setTimeSchedules((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        selectedDays: [],
-        selectedStartTime: "",
-        selectedEndTime: "",
-      },
-    ]);
-  };
-
-  const removeSchedule = (id) =>
-    setTimeSchedules((prev) =>
-      prev.length > 1 ? prev.filter((schedule) => schedule.id !== id) : prev
-    );
-
-  const updateTime = (id, field, value) =>
-    setTimeSchedules((prev) =>
-      prev.map((schedule) =>
-        schedule.id === id ? { ...schedule, [field]: value } : schedule
-      )
-    );
-    
 
   // 장기요양등급 목록 가져오기
   useEffect(() => {
@@ -418,13 +456,13 @@ export default function SeniorRegistration() {
       <items.ProfileContainer>
         <items.ProfileBox>
           <items.Profile src={profileUrl} alt="프로필이미지" />
-          <items.Upload>사진 등록하기</items.Upload>
+          <items.Upload onClick={handleClick}>사진 등록하기</items.Upload>
         </items.ProfileBox>
         <items.HiddenFileInput
           type="file"
           accept=".gif, .jpg, .png, .jpeg, .svg"
-          // ref={fileInputRef}
-          // onChange={handleFileChange}
+          ref={fileInputRef}
+          onChange={handleFileChange}
         />
       </items.ProfileContainer>
 
@@ -515,20 +553,9 @@ export default function SeniorRegistration() {
           </items.AddressContainer>
         </items.InputContainer>
 
-        {timeSchedules.map((schedule, index) => (
-          <items.TimeContainer key={schedule.id}>
+          <items.TimeContainer>
             <items.Label>
-              희망 요일•시간 {index > 0 ? `${index + 1}` : ""}
-              {index > 0 && (
-                <img
-                  src="/img/delete.svg"
-                  alt="삭제"
-                  width="21"
-                  height="21"
-                  onClick={() => removeSchedule(schedule.id)}
-                  style={{ cursor: "pointer" }}
-                />
-              )}
+              희망 요일•시간
             </items.Label>
             <items.SelectContainer>
               {dayList.map(({code, value}) => (
@@ -560,7 +587,7 @@ export default function SeniorRegistration() {
                 />
             </items.DropdownContainer>
           </items.TimeContainer>
-        ))}
+        
         {/*
         <items.AddButton onClick={addSchedule}>
           <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
