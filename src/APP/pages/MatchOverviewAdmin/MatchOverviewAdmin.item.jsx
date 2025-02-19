@@ -44,6 +44,7 @@ export default function MatchOverviewItemAdmin() {
 
       if (response.isSuccess) {
         setIsAccepted(true);
+        alert("매칭 요청이 완료되었습니다.");
       } else {
         console.error("매칭 요청 실패:", response.message);
       }
