@@ -114,11 +114,17 @@ export const Card = ({ contents, onClick, width = "100%" }) => {
       <styled.Fitness>적합도 {contents.fitness}%</styled.Fitness>
       <styled.CardInfoContainer>
         <styled.CardProfile
-          src={contents.profileUrl || "/img/profile-default.svg"}
+          src={
+            contents.profileUrl === ""
+              ? "/img/profile-default.svg"
+              : contents.profileUrl
+          }
           alt="프로필"
         />
         <styled.CardInfoBox>
-          <styled.CardName>{contents.seniorName}</styled.CardName>
+          <styled.CardName>
+            {contents.seniorName || contents.name}
+          </styled.CardName>
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/location.svg" alt="위치아이콘" />
             <styled.CardInfoText>{contents.address}</styled.CardInfoText>
@@ -126,7 +132,8 @@ export const Card = ({ contents, onClick, width = "100%" }) => {
           <styled.CardInfoBar>
             <styled.CardInfoIcon src="/img/callender.svg" alt="달력아이콘" />
             <styled.CardInfoText>
-              주 {contents.seniorDay.length}일 ({contents.seniorDay.join(", ")})
+              주 {contents.seniorDay?.length || contents.dayList?.length || 0}일
+              ({(contents.seniorDay || contents.dayList || []).join(", ")})
             </styled.CardInfoText>
           </styled.CardInfoBar>
           <styled.CardInfoBar>

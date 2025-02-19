@@ -1,140 +1,217 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import * as items from "./Styled/MatchOverviewAdmin.item.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-  BigCard,
-} from "../../components/Components";
-import { dummyItems, dummyItems2 } from "./dummy";
+import request from "../../Api/request";
 
 export default function MatchOverviewItemAdmin() {
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // const [total, setTotal] = useState(10); // 전체 매칭
-  // const [request, setRequest] = useState(3); // 조율 요청
-  // const [accept, setAccept] = useState(4); // 수락
-  // const [reject, setReject] = useState(3); // 거절
+  // URL에서 id 가져오기
+  const pathSegments = location.pathname.split("/");
+  const workerId = pathSegments[pathSegments.length - 1]; // WORKER001
 
-  const [selectedValue, setSelectedValue] = useState(3); // 거절
+  // `state`에서 seniorId 가져오기
+  const seniorId = location.state?.seniorId || 1; // 기본값 1 설정
 
+  const [jobSearchData, setJobSearchData] = useState(null);
   const [isAccepted, setIsAccepted] = useState(false); // 수락 여부 상태
+
+  useEffect(() => {
+    const fetchJobSearchData = async () => {
+      try {
+        const response = await request.get(
+          `/job-search/${workerId}/${seniorId}`
+        );
+        if (response.isSuccess) {
+          setJobSearchData(response.result);
+        } else {
+          console.error("데이터를 가져오는 데 실패했습니다:", response.message);
+        }
+      } catch (error) {
+        console.error("API 요청 중 오류 발생:", error);
+      }
+    };
+
+    fetchJobSearchData();
+  }, [workerId, seniorId]);
+
+  const handleMatchRequest = async () => {
+    try {
+      const response = await request.post(
+        `/matching/request/${workerId}/${seniorId}`
+      );
+
+      if (response.isSuccess) {
+        setIsAccepted(true);
+      } else {
+        console.error("매칭 요청 실패:", response.message);
+      }
+    } catch (error) {
+      console.error("매칭 요청 중 오류 발생:", error);
+    }
+  };
 
   return (
     <items.Container>
-      <items.Prev src="/img/prev.svg" alt="이전" />
+      <items.Prev src="/img/prev.svg" alt="이전" onClick={() => navigate(-1)} />
       <items.BigCardContainer>
-        <items.BigCardProfile src={dummyItems2.profileUrl} alt="프로필" />
-        <items.BigCardName>{dummyItems2.name} 어르신</items.BigCardName>
-        <items.BigCardStyleBox>
-          <items.BigCardStyleBar>
-            <items.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
-            <items.BigCardStyleText>온기 스타일</items.BigCardStyleText>
-          </items.BigCardStyleBar>
-          <items.BigCardStyleContent>
-            {dummyItems2.careStyle}
-          </items.BigCardStyleContent>
-        </items.BigCardStyleBox>
-        <items.Hr />
-        <items.BigCardRequestBox>
-          <items.BigCardRequestBar>
-            <items.BigCardRequestIL>
-              <items.BigCardRequestIcon
-                src="/img/location.svg"
-                alt="위치아이콘"
-              />
-              <items.BigCardRequestLabel>근무지역</items.BigCardRequestLabel>
-            </items.BigCardRequestIL>
-            <items.BigCardRequestText>
-              {dummyItems2.address}
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-          <items.BigCardRequestBar>
-            <items.BigCardRequestIL>
-              <items.BigCardRequestIcon
-                src="/img/callender.svg"
-                alt="달력아이콘"
-              />
-              <items.BigCardRequestLabel>근무일</items.BigCardRequestLabel>
-            </items.BigCardRequestIL>
-            <items.BigCardRequestText>
-              주 {dummyItems2.dayList.length}일 (
-              {dummyItems2.dayList.join(", ")})
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-          <items.BigCardRequestBar>
-            <items.BigCardRequestIL>
-              <items.BigCardRequestIcon src="/img/clock.svg" alt="시계아이콘" />
-              <items.BigCardRequestLabel>가능시간</items.BigCardRequestLabel>
-            </items.BigCardRequestIL>
-            <items.BigCardRequestText>
-              {dummyItems2.startTime}~{dummyItems2.endTime}
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-        </items.BigCardRequestBox>
-        <items.Hr />
-        <items.BigCardConditionBox>
-          <items.BigCardRequestBar>
-            <items.BigCardRequestIL>
-              <items.BigCardRequestIcon
-                src="/img/salary.svg"
-                alt="급여아이콘"
-              />
-              <items.BigCardRequestLabel>희망급여</items.BigCardRequestLabel>
-            </items.BigCardRequestIL>
-            <items.BigCardRequestText>
-              {dummyItems2.salary}
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-          <items.Blank />
-          <items.BigCardRequestBar>
-            <items.BigCardRequestIL>
-              <items.BigCardRequestIcon src="/img/care.svg" alt="케어아이콘" />
-              <items.BigCardRequestLabel>케어항목</items.BigCardRequestLabel>
-            </items.BigCardRequestIL>
-            <items.BigCardRequestCareList>
-              {dummyItems2.careList.map((item, index) => (
-                <items.BigCardRequestCareListItem key={index}>
-                  {item}
-                </items.BigCardRequestCareListItem>
-              ))}
-            </items.BigCardRequestCareList>
-          </items.BigCardRequestBar>
-        </items.BigCardConditionBox>
-        <items.Hr />
-        <items.BigCardInfoBox>
-          <items.BigCardRequestBar>
-            <items.BigCardRequestLabel>연락처</items.BigCardRequestLabel>
-            <items.BigCardRequestText>
-              {dummyItems2.phoneNumber}
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-          <items.Blank />
-          <items.BigCardRequestBar>
-            <items.BigCardRequestLabel>상세 주소</items.BigCardRequestLabel>
-            <items.BigCardRequestText>
-              {dummyItems2.addressDetail}
-            </items.BigCardRequestText>
-          </items.BigCardRequestBar>
-          {/* 자물쇠 */}
-          <items.LockBox style={{ display: isAccepted ? "none" : "flex" }}>
-            <items.LockIcon src="/img/lock.svg" alt="자물쇠" />
-            <items.LockText>요청 수락 후 확인 가능해요!</items.LockText>
-          </items.LockBox>
-        </items.BigCardInfoBox>
+        {jobSearchData ? (
+          <>
+            <items.BigCardProfile src="/img/profile-default.svg" alt="프로필" />
+            <items.BigCardName>
+              {jobSearchData.name} 요양보호사
+            </items.BigCardName>
+
+            <items.BigCardStyleBox>
+              <items.BigCardStyleBar>
+                <items.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
+                <items.BigCardStyleText>온기 스타일</items.BigCardStyleText>
+              </items.BigCardStyleBar>
+              <items.BigCardStyleContent>
+                {jobSearchData.careStyle}
+              </items.BigCardStyleContent>
+            </items.BigCardStyleBox>
+            <items.FitnessBox>
+              <items.Fitness>
+                매칭 적합도 {jobSearchData.fitness}%
+              </items.Fitness>
+              <items.FitnessText>
+                돌봄스타일과 근무조건이 잘맞아요!
+              </items.FitnessText>
+            </items.FitnessBox>
+            <items.Hr />
+
+            <items.BigCardRequestBox>
+              <items.BigCardRequestBar>
+                <items.BigCardRequestIL>
+                  <items.BigCardRequestIcon
+                    src="/img/location.svg"
+                    alt="위치아이콘"
+                  />
+                  <items.BigCardRequestLabel>
+                    근무지역
+                  </items.BigCardRequestLabel>
+                </items.BigCardRequestIL>
+                <items.BigCardRequestText>
+                  {jobSearchData.jobSearchAreas
+                    .map(
+                      (area) =>
+                        `${area.address.city} ${area.address.district} ${area.address.dong}`
+                    )
+                    .join(", ")}
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+              <items.BigCardRequestBar>
+                <items.BigCardRequestIL>
+                  <items.BigCardRequestIcon
+                    src="/img/callender.svg"
+                    alt="달력아이콘"
+                  />
+                  <items.BigCardRequestLabel>근무일</items.BigCardRequestLabel>
+                </items.BigCardRequestIL>
+                <items.BigCardRequestText>
+                  주 {jobSearchData.dayList.length}일 (
+                  {jobSearchData.dayList.join(", ")})
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+              <items.BigCardRequestBar>
+                <items.BigCardRequestIL>
+                  <items.BigCardRequestIcon
+                    src="/img/clock.svg"
+                    alt="시계아이콘"
+                  />
+                  <items.BigCardRequestLabel>
+                    가능시간
+                  </items.BigCardRequestLabel>
+                </items.BigCardRequestIL>
+                <items.BigCardRequestText>
+                  {jobSearchData.startTime}~{jobSearchData.endTime}
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+            </items.BigCardRequestBox>
+
+            <items.Hr />
+            <items.BigCardConditionBox>
+              <items.BigCardRequestBar>
+                <items.BigCardRequestIL>
+                  <items.BigCardRequestIcon
+                    src="/img/salary.svg"
+                    alt="급여아이콘"
+                  />
+                  <items.BigCardRequestLabel>
+                    희망급여
+                  </items.BigCardRequestLabel>
+                </items.BigCardRequestIL>
+                <items.BigCardRequestText>
+                  {jobSearchData.salary}원
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+              <items.Blank />
+              <items.BigCardRequestBar>
+                <items.BigCardRequestIL>
+                  <items.BigCardRequestIcon
+                    src="/img/care.svg"
+                    alt="케어아이콘"
+                  />
+                  <items.BigCardRequestLabel>
+                    보유 자격증
+                  </items.BigCardRequestLabel>
+                </items.BigCardRequestIL>
+                <items.BigCardRequestCareList>
+                  {jobSearchData.certificateList.map((cert, index) => (
+                    <items.BigCardRequestCareListItem key={index}>
+                      {cert.type} {cert.grade ? `(${cert.grade})` : ""}
+                    </items.BigCardRequestCareListItem>
+                  ))}
+                </items.BigCardRequestCareList>
+              </items.BigCardRequestBar>
+            </items.BigCardConditionBox>
+
+            <items.Hr />
+            <items.BigCardInfoBox>
+              <items.BigCardRequestBar>
+                <items.BigCardRequestLabel>경력 기간</items.BigCardRequestLabel>
+                <items.BigCardRequestText>
+                  {isAccepted ? jobSearchData.careerPeriod : "비공개"}
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+              <items.Blank />
+              <items.BigCardRequestBar>
+                <items.BigCardRequestLabel>주요 경력</items.BigCardRequestLabel>
+                <items.BigCardRequestText>
+                  {isAccepted ? jobSearchData.career : "비공개"}
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+              <items.Blank />
+              <items.BigCardRequestBar>
+                <items.BigCardRequestLabel>한줄 소개</items.BigCardRequestLabel>
+                <items.BigCardRequestText>
+                  {isAccepted ? jobSearchData.introduction : "비공개"}
+                </items.BigCardRequestText>
+              </items.BigCardRequestBar>
+
+              {/* 자물쇠 */}
+              {!isAccepted && (
+                <items.LockBox>
+                  <items.LockIcon src="/img/lock.svg" alt="자물쇠" />
+                  <items.LockText>매칭 요청 후 확인 가능해요!</items.LockText>
+                </items.LockBox>
+              )}
+            </items.BigCardInfoBox>
+
+            <items.ButtonContainer>
+              <items.ButtoninnerContainer>
+                <items.Button onClick={handleMatchRequest}>
+                  매칭 요청하기
+                </items.Button>
+              </items.ButtoninnerContainer>
+            </items.ButtonContainer>
+          </>
+        ) : (
+          <p>데이터를 불러오는 중...</p>
+        )}
       </items.BigCardContainer>
-      <items.ButtonContainer>
-        <items.ButtoninnerContainer>
-          <items.Button bgColor="#3DC558" onClick={() => setIsAccepted(true)}>
-            수락
-          </items.Button>
-          <items.Button bgColor="#C1C1C1">거절</items.Button>
-          <items.Button bgColor="#FF8D3C">조율요청</items.Button>
-        </items.ButtoninnerContainer>
-      </items.ButtonContainer>
     </items.Container>
   );
 }

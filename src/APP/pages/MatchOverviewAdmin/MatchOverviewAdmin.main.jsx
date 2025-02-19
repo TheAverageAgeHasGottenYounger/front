@@ -66,7 +66,9 @@ export default function MatchOverviewAdmin() {
   };
 
   const onHandle = (id) => {
-    navigate(`/admin/matchoverview/${id}`);
+    navigate(`/admin/matchoverview/${id}`, {
+      state: { seniorId: seniorInfo?.seniorId },
+    });
   };
 
   return (
@@ -110,7 +112,7 @@ export default function MatchOverviewAdmin() {
       )}
 
       {/* 매칭 추천 리스트 (Dropdown 선택 후에만 렌더링) */}
-      {/* {selectedSenior && (
+      {selectedSenior && (
         <items.MatchRequestListContainer>
           <items.HeaderContainer>
             <items.Head3>매칭 추천 리스트</items.Head3>
@@ -120,12 +122,12 @@ export default function MatchOverviewAdmin() {
               <Card
                 key={index}
                 contents={item}
-                onClick={() => onHandle(item.seniorId)}
+                onClick={() => onHandle(item.memberId)}
               />
             ))}
           </items.MatchRequestList>
         </items.MatchRequestListContainer>
-      )} */}
+      )}
 
       <NavigationBar dashboard={true} />
     </items.Container>
