@@ -532,12 +532,11 @@ export const NavContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100%;
+  justify-content: center;
+  width: 392px;
   height: 103px;
   position: fixed;
   bottom: 0;
-  left: 0;
-  right: 0;
   background-color: white;
 `;
 
