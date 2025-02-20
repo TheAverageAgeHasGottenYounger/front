@@ -80,7 +80,7 @@ export default function Home() {
               height: "170px",
             }}
           >
-            <items.BottomCardHeader>
+            <items.BottomCardHeader onClick={() => navigate("/jobpost/seniorRegistration")}>
               <items.Head3>
                 어르신 정보
                 <br />
@@ -101,7 +101,7 @@ export default function Home() {
               height: "170px",
             }}
           >
-            <items.BottomCardHeader>
+            <items.BottomCardHeader onClick={() => navigate("/jobpost/seniorCheck")}>
               <items.Head3>
                 구인 공고
                 <br />
