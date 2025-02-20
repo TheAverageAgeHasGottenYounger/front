@@ -96,3 +96,19 @@ export const MatchRequestList = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const EmptyMessage = styled.div`
+  ${tokens.typography.h3};
+  color: ${tokens.colors.gray[900]};
+  width: 361px;
+  height: 233px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 22px;
+  background-color: white;
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+
+`;

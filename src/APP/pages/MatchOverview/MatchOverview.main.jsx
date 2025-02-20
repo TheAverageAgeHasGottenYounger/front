@@ -72,15 +72,15 @@ export default function MatchOverview() {
         <items.HeaderContainer>
           <items.Head3>매칭 요청 목록</items.Head3>
         </items.HeaderContainer>
-        <items.MatchRequestList>
-          {matchRequests.map((item, index) => (
-            <Card
-              key={index}
-              contents={item}
-              onClick={() => onHandle(item.seniorId)}
-            />
-          ))}
-        </items.MatchRequestList>
+        {matchRequests.length > 0 ? (
+          <items.MatchRequestList>
+            {matchRequests.map((item, index) => (
+              <Card key={index} contents={item} onClick={() => onHandle(item.seniorId)} />
+            ))}
+          </items.MatchRequestList>
+        ) : (
+          <items.EmptyMessage>아직 요청 온 매칭이 없어요!</items.EmptyMessage>
+        )}
       </items.MatchRequestListContainer>
       <NavigationBar dashboard={false} />
     </items.Container>
