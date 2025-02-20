@@ -223,6 +223,14 @@ export const Hr = styled.div`
   margin: 40px 0;
 `;
 
+export const Hr2 = styled.div`
+  width: 361px;
+  height: 0px;
+  border: 1px solid ${tokens.colors.gray[200]};
+  margin-top: 80px;
+  margin-bottom: 40px;
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;

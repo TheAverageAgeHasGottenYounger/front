@@ -132,7 +132,7 @@ export default function MatchOverviewItemAdmin() {
               </items.BigCardRequestBar>
             </items.BigCardRequestBox>
 
-            <items.Hr />
+            <items.Hr2 />
             <items.BigCardConditionBox>
               <items.BigCardRequestBar>
                 <items.BigCardRequestIL>
