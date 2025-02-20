@@ -149,14 +149,13 @@ export const SelectButton = styled.button`
 
 export const HeaderContainer = styled.div`
   display: flex;
-  width: 100%;
+  width: 393px;
   align-items: center;
   justify-content: center;
   height: 59px;
   background-color: white;
   position: fixed;
   top: 0;
-  right: 0;
   background-color: white;
   z-index: 100;
 `;
