@@ -38,7 +38,11 @@ export default function TypeChoice() {
               <br />
               구직 정보를 찾고 있어요
             </items.TypeExplanation>
-          </items.TypeTextBox>
+              <items.CardImg
+              src="/img/signup_card_img2.png"
+              alt="요양보호사"
+              />
+            </items.TypeTextBox>
           {/* <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지"/> */}
         </items.TypeContainer>
 
@@ -54,6 +58,10 @@ export default function TypeChoice() {
               <br />
               요양보호사를 찾고 있어요
             </items.TypeExplanation>
+              <items.CardImg
+                src="/img/signup_card_img1.png"
+                alt="관리자"
+                />
           </items.TypeTextBox>
           {/* <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지" /> */}
         </items.TypeContainer>

@@ -23,6 +23,7 @@ export const TypeChoiceContainer = styled.div`
   justify-content: space-between;
   height: 478px;
 `;
+
 export const TypeContainer = styled.div`
   width: 361px;
   height: 229px;
@@ -50,6 +51,7 @@ export const TypeTextBox = styled.div`
   display: flex;
   flex-direction: column;
   margin: 28px 0 0 28px;
+  position: relative;
 `;
 
 export const TypeName = styled.div`
@@ -93,4 +95,11 @@ export const ButtoninnerContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 361px;
+`;
+
+export const CardImg = styled.img`
+  position: absolute;
+  bottom: -120px;
+  right: 20px;
+  height: 160px;
 `;
