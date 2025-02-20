@@ -32,7 +32,6 @@ export default function Home() {
         if (response.isSuccess) {
           const memberId = response.result.memberId;
           const centerResponse = await request.get(`/member/${memberId}`);
-
           if (centerResponse.isSuccess) {
             setName(centerResponse.result.name);
           } else {

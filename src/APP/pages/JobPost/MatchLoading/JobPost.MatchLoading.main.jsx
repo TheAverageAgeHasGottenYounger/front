@@ -52,7 +52,7 @@ export default function SelectSenior() {
 
 
   const handleConfirm = () => {
-    navigate("/homeAdmin", { state: { seniors } });
+    navigate("/admin/matchoverview", { state: { seniors } });
   };
 
   return (

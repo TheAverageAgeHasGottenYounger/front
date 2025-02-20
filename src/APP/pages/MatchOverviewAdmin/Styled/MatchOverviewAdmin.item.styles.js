@@ -71,7 +71,7 @@ export const BigCardName = styled.div`
   ${tokens.typography.h2};
   color: ${tokens.colors.gray[900]};
   width: 361px;
-  margin-top: 66px;
+  margin-top: 100px;
   margin-bottom: 8px;
 `;
 
