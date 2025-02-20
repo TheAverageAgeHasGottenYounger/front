@@ -55,6 +55,30 @@ export default function MatchOverviewItem() {
     return [region, detail];
   };
 
+  const handleStatusUpdate = async (status) => {
+    try {
+      const response = await request.patch("/matching/status/update", {
+        seniorId: id, // URL에서 가져온 id 사용
+        status: status,
+      });
+
+      if (response.isSuccess) {
+        if (status === "ACCEPTED") {
+          setIsAccepted(true);
+          alert("요청을 수락하였습니다.");
+        } else if (status === "REJECTED") {
+          alert("요청을 거절하였습니다.");
+        } else if (status === "TUNE_REQUESTED") {
+          alert("조율 요청하였습니다.");
+        }
+      } else {
+        console.error("상태 변경 실패:", response.message);
+      }
+    } catch (error) {
+      console.error("API 요청 중 오류 발생:", error);
+    }
+  };
+
   if (!seniorData) return <div>Loading...</div>; // 데이터가 없으면 로딩 표시
 
   return (
@@ -172,11 +196,24 @@ export default function MatchOverviewItem() {
       </items.BigCardContainer>
       <items.ButtonContainer>
         <items.ButtoninnerContainer>
-          <items.Button bgColor="#3DC558" onClick={() => setIsAccepted(true)}>
+          <items.Button
+            bgColor="#3DC558"
+            onClick={() => handleStatusUpdate("ACCEPTED")}
+          >
             수락
           </items.Button>
-          <items.Button bgColor="#C1C1C1">거절</items.Button>
-          <items.Button bgColor="#FF8D3C">조율요청</items.Button>
+          <items.Button
+            bgColor="#C1C1C1"
+            onClick={() => handleStatusUpdate("REJECTED")}
+          >
+            거절
+          </items.Button>
+          <items.Button
+            bgColor="#FF8D3C"
+            onClick={() => handleStatusUpdate("TUNE_REQUESTED")}
+          >
+            조율요청
+          </items.Button>
         </items.ButtoninnerContainer>
       </items.ButtonContainer>
     </items.Container>

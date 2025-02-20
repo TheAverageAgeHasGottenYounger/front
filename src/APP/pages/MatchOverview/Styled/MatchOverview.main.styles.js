@@ -5,8 +5,9 @@ export const Container = styled.div`
   background-color: ${tokens.colors.gray[50]};
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  min-height: 782px;
   padding: 14px 0 100px 0;
 `;
 
