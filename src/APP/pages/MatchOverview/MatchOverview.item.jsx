@@ -72,7 +72,7 @@ export default function MatchOverviewItem() {
         <items.BigCardName>{seniorData.name} 어르신</items.BigCardName>
         <items.BigCardStyleBox>
           <items.BigCardStyleBar>
-            <items.BigCardStyleIcon src="/img/temp.svg" alt="온도아이콘" />
+            <items.BigCardStyleIcon src="/img/fire.svg" alt="온도아이콘" />
             <items.BigCardStyleText>온기 스타일</items.BigCardStyleText>
           </items.BigCardStyleBar>
           <items.BigCardStyleContent>
