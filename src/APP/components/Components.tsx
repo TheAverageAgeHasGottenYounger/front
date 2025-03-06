@@ -2,7 +2,134 @@ import React from "react";
 import * as styled from "./Components.styles";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export const Button = ({
+// Button Props 타입 정의
+interface ButtonProps {
+  text: string;
+  primary?: boolean;
+  outline?: boolean;
+  disabled?: boolean;
+  onClick?: () => void;
+  width?: string;
+}
+
+// Label Props 타입 정의
+interface LabelProps {
+  text: string;
+  star?: boolean;
+}
+
+// Input Props 타입 정의
+interface InputProps {
+  placeholder?: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  width?: string;
+}
+
+// Dropdown Props 타입 정의
+interface DropdownOption {
+  value: string;
+  label: string;
+}
+
+interface DropdownProps {
+  options: DropdownOption[];
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  placeholder?: string;
+  width?: string;
+}
+
+// TextArea Props 타입 정의
+interface TextAreaProps {
+  placeholder?: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  maxLength: number;
+}
+
+// SelectButton Props 타입 정의
+interface SelectButtonProps {
+  text?: string;
+  selected?: boolean;
+  onClick: () => void;
+  placeholder?: string;
+  borderRadius?: string;
+  width?: string;
+  height?: string;
+}
+
+// Card Props 타입 정의
+interface CardProps {
+  contents: {
+    fitness: number;
+    profileUrl: string;
+    seniorName: string | null;
+    name: string;
+    address: string;
+    seniorDay?: string[];
+    dayList?: string[];
+    startTime: string;
+    endTime: string;
+    careStyle: string;
+  };
+  onClick: () => void;
+  width?: string; // 기본값이 "100%"로 설정되므로 선택적 속성
+}
+
+// BigCard Props 타입 정의
+interface BigCardProps {
+  contents: {
+    profileUrl: string;
+    name: string;
+    content: string;
+    address: string;
+    date: string;
+    time: string;
+    salary: string;
+    careList: string[];
+    phoneNumber: string;
+    addressDetail: string;
+  };
+  width?: string;
+}
+
+// DashBoardCard Props 타입 정의
+interface DashBoardCardProps {
+  contents: {
+    profileImageUrl: string;
+    seniorName: string;
+    seniorDay: string[];
+    startTime: string;
+    atmosphere: number;
+    refusal: number;
+    tuning: number;
+    acceptance: number;
+  };
+  onClick: () => void;
+  width?: string;
+}
+
+// Header Props 타입 정의
+interface PageHeaderProps {
+  title: string;
+}
+
+// Navi Menu 타입 정의
+interface MenuItem {
+  id: string;
+  label: string;
+  icon: string;
+  route: string;
+}
+
+// Navigation Props 타입 정의
+interface NavigationBarProps {
+  dashboard: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
   text,
   primary,
   outline,
@@ -23,7 +150,7 @@ export const Button = ({
   );
 };
 
-export const Label = ({ text, star }) => {
+export const Label: React.FC<LabelProps> = ({ text, star }) => {
   return (
     <styled.LabelContainer>
       <styled.Label>{text}</styled.Label>
@@ -32,7 +159,7 @@ export const Label = ({ text, star }) => {
   );
 };
 
-export const Input = ({
+export const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   onChange,
@@ -50,7 +177,7 @@ export const Input = ({
   );
 };
 
-export const Dropdown = ({
+export const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
   onChange,
@@ -71,7 +198,12 @@ export const Dropdown = ({
   );
 };
 
-export const TextArea = ({ placeholder, value, onChange, maxLength }) => {
+export const TextArea: React.FC<TextAreaProps> = ({
+  placeholder,
+  value,
+  onChange,
+  maxLength,
+}) => {
   return (
     <styled.TextAreaContainer>
       <styled.TextAreaField
@@ -87,7 +219,7 @@ export const TextArea = ({ placeholder, value, onChange, maxLength }) => {
   );
 };
 
-export const SelectButton = ({
+export const SelectButton: React.FC<SelectButtonProps> = ({
   text,
   selected,
   onClick,
@@ -108,7 +240,11 @@ export const SelectButton = ({
   );
 };
 
-export const Card = ({ contents, onClick, width = "100%" }) => {
+export const Card: React.FC<CardProps> = ({
+  contents,
+  onClick,
+  width = "100%",
+}) => {
   return (
     <styled.CardContainer>
       <styled.Fitness>적합도 {contents.fitness}%</styled.Fitness>
@@ -157,7 +293,10 @@ export const Card = ({ contents, onClick, width = "100%" }) => {
   );
 };
 
-export const BigCard = ({ contents, type, width = "100%" }) => {
+export const BigCard: React.FC<BigCardProps> = ({
+  contents,
+  width = "100%",
+}) => {
   return (
     <styled.BigCardContainer>
       <styled.BigCardProfile src={contents.profileUrl} alt="프로필" />
@@ -254,7 +393,11 @@ export const BigCard = ({ contents, type, width = "100%" }) => {
   );
 };
 
-export const DashBoardCard = ({ contents, onClick, width = "100%" }) => {
+export const DashBoardCard: React.FC<DashBoardCardProps> = ({
+  contents,
+  onClick,
+  width = "100%",
+}) => {
   return (
     <styled.DashBoardCardContainer style={{ width }}>
       <styled.CardInfoContainer>
@@ -288,7 +431,7 @@ export const DashBoardCard = ({ contents, onClick, width = "100%" }) => {
   );
 };
 
-export const PageHeader = ({ title }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
   const navigate = useNavigate();
   return (
     <styled.HeaderContainer>
@@ -304,7 +447,7 @@ export const PageHeader = ({ title }) => {
   );
 };
 
-export const NavigationBar = ({ dashboard }) => {
+export const NavigationBar: React.FC<NavigationBarProps> = ({ dashboard }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuItems = [

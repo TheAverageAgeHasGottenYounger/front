@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.TypeChoice.main.styles";
-import { Button, Label, Input } from "../../../../APP/components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
+import { Button } from "../../../components/Components";
 
 export default function TypeChoice() {
   const navigate = useNavigate();
@@ -38,11 +36,8 @@ export default function TypeChoice() {
               <br />
               구직 정보를 찾고 있어요
             </items.TypeExplanation>
-              <items.CardImg
-              src="/img/signup_card_img2.png"
-              alt="요양보호사"
-              />
-            </items.TypeTextBox>
+            <items.CardImg src="/img/signup_card_img2.png" alt="요양보호사" />
+          </items.TypeTextBox>
           {/* <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지"/> */}
         </items.TypeContainer>
 
@@ -58,10 +53,7 @@ export default function TypeChoice() {
               <br />
               요양보호사를 찾고 있어요
             </items.TypeExplanation>
-              <items.CardImg
-                src="/img/signup_card_img1.png"
-                alt="관리자"
-                />
+            <items.CardImg src="/img/signup_card_img1.png" alt="관리자" />
           </items.TypeTextBox>
           {/* <items.Graphic src="/img/profile-default.svg" alt="그래픽이미지" /> */}
         </items.TypeContainer>

@@ -1,7 +1,30 @@
 import styled from "styled-components";
 import * as tokens from "../../tokens";
 
-export const Button = styled.button`
+// 버튼 관련
+interface ButtonProps {
+  primary?: boolean;
+  outline?: boolean;
+  disabled?: boolean;
+}
+
+// 선택 버튼 관련
+interface SelectButtonProps {
+  selected?: boolean;
+  borderRadius?: string;
+}
+
+// 네비게이션 관련
+interface NavProps {
+  active?: boolean;
+}
+
+// 태그 관련
+interface TagProps {
+  label: string;
+}
+
+export const Button = styled.button<ButtonProps>`
   width: 100%;
   max-width: 361px;
   height: 58px;
@@ -131,7 +154,7 @@ export const TextAreaCounter = styled.div`
   margin-top: 4px;
 `;
 
-export const SelectButton = styled.button`
+export const SelectButton = styled.button<SelectButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -330,7 +353,7 @@ export const TagContainer = styled.div`
   gap: 8px;
 `;
 
-export const getTagColor = (label) => {
+export const getTagColor = (label: string) => {
   switch (label) {
     case "대기":
       return "#5C5CEF"; // 파랑
@@ -345,7 +368,7 @@ export const getTagColor = (label) => {
   }
 };
 
-export const Tag = styled.div`
+export const Tag = styled.div<TagProps>`
   display: inline-block;
   padding: 5.5px 16px;
   ${tokens.typography.label_Sb_16};
@@ -550,7 +573,7 @@ export const NavItem = styled.button`
   width: 25%;
 `;
 
-export const NavIcon = styled.img`
+export const NavIcon = styled.img<NavProps>`
   width: 32px;
   height: 32px;
   filter: ${(props) =>
@@ -559,7 +582,7 @@ export const NavIcon = styled.img`
       : "none"};
 `;
 
-export const NavLabel = styled.div`
+export const NavLabel = styled.div<NavProps>`
   ${tokens.typography.body_M_18};
   color: ${(props) =>
     props.active ? tokens.colors.primary[0] : tokens.colors.gray[500]};
