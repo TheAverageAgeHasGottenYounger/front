@@ -22,16 +22,6 @@ import HomeAdmin from "./APP/pages/HomeAdmin/HomeAdmin.main";
 import JobRequirements from "./APP/pages/jobRequirements/jobRequirements.main";
 import MatchLoading from "./APP/pages/JobPost/MatchLoading/JobPost.MatchLoading.main";
 
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  TextArea,
-  SelectButton,
-  NavigationBar,
-} from "./APP/components/Components";
-
 const Root = styled.div`
   position: absolute;
   top: 0;
@@ -47,75 +37,8 @@ const Container = styled.div`
 `;
 
 function App() {
-  // const [inputValue, setInputValue] = useState("");
-  // const [selectedValue, setSelectedValue] = useState("");
-  // const [text, setText] = useState(""); // TextArea 값을 저장할 state 추가
-  // const [selectedDays, setSelectedDays] = useState([]); // 여러 개 선택 가능
-
-  // const handleChange = (e) => {
-  //   setText(e.target.value);
-  // };
-
-  // const toggleSelect = (day) => {
-  //   setSelectedDays((prev) =>
-  //     prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-  //   );
-  // };
-
   return (
     <Root>
-      {/*
-      <Label text = "asldfjalsd"/>
-        <Label text = "asldfjalsd" star/>
-        <Input 
-          placeholder="asdlfja;lsfkd"
-          value={inputValue} 
-          onChange={(e) => setInputValue(e.target.value)} 
-        />
-        <Button 
-          text="확인" 
-          primary 
-          onClick={() => alert(`입력된 값: ${inputValue}`)} 
-        />
-        <Button 
-          text="취소" 
-          outline 
-          onClick={() => setInputValue("")} 
-        />
-        <Button 
-          text="확인" 
-          disabled 
-          onClick={() => setInputValue("")} 
-        />
-        <Dropdown 
-          options={[
-            { value: "option1", label: "옵션 1ㅁㄴㅇㄹㅁㄴㄹㄴㅁㄹ ㄹㅁㄴㄹㄴㄹㅁ ㄴㄷㄹ ㅁㄴㄹ ㅁㄴㄹㄷㅁ ㄹㄷㅁㄴㄷㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹ" },
-            { value: "option2", label: "옵션 2" },
-            { value: "option3", label: "옵션 3" }
-          ]}
-          placeholder="선택해주세요"
-          value={selectedValue}
-          onChange={(e) => setSelectedValue(e.target.value)}
-        />
-
-        <Container>
-              {["월", "화", "수", "목", "금", "토", "일"].map((day) => (
-                <SelectButton
-                  key={day}
-                  text={day}
-                  selected={selectedDays.includes(day)}
-                  onClick={() => toggleSelect(day)}
-                />
-            ))}
-        </Container>
-        <TextArea placeholder="한줄 소개를 입력해주세요" value={text} onChange={handleChange} maxLength={60} /> }
-        
-        
-        <NavigationBar dashboard={true} />
-      
-      
-      */}
-
       <Routes>
         {/* 로그인 */}
         <Route path="/" element={<Login />} />
