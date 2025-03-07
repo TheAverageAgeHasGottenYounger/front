@@ -1,6 +1,13 @@
 import styled from "styled-components";
 import * as tokens from "../../../../../tokens";
 
+interface TypeContainerProps {
+  onClick: () => void;
+  isSelected: boolean;
+  imgPath: string;
+  children?: React.ReactNode; // ✅ children 속성 추가
+}
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,7 +31,7 @@ export const TypeChoiceContainer = styled.div`
   height: 478px;
 `;
 
-export const TypeContainer = styled.div`
+export const TypeContainer: React.FC<TypeContainerProps> = styled.div`
   width: 361px;
   height: 229px;
   border: ${({ isSelected }) =>
@@ -63,16 +70,6 @@ export const TypeName = styled.div`
 export const TypeExplanation = styled.div`
   color: ${tokens.colors.gray[600]};
 `;
-
-// export const Graphic = styled.img`
-//   position: absolute;
-//   bottom: 10px;
-//   right: 10px;
-//   width: 141px;
-//   height: 117px;
-//   z-index: 1;
-//   // opacity: 0.8;
-// `;
 
 export const ButtonContainer = styled.div`
   display: flex;

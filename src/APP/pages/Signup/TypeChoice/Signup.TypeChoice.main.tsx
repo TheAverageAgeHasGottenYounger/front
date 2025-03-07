@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Signup.TypeChoice.main.styles";
 import { Button } from "../../../components/Components";
 
-export default function TypeChoice() {
+type UserType = "caregiver" | "admin" | null;
+
+const TypeChoice: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState<UserType>(null);
 
   const handleNextClick = () => {
     if (selectedType === "caregiver") {
@@ -78,4 +80,6 @@ export default function TypeChoice() {
       </items.ButtonContainer>
     </items.Container>
   );
-}
+};
+
+export default TypeChoice;
