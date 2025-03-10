@@ -14,13 +14,13 @@ export default function Form() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   // 아이디 change event
-  const handleId = (value) => {
+  const handleId = (value: string) => {
     setId(value);
     setSignupData((prev) => ({ ...prev, id: value }));
   };
 
   // 비밀번호 change event
-  const handlePassword = (value) => {
+  const handlePassword = (value: string) => {
     setPassword(value);
     setIsPasswordValid(value.length >= 8);
     setSignupData((prev) => ({ ...prev, password: value }));
