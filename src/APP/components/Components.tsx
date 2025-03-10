@@ -39,6 +39,7 @@ interface DropdownProps {
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: string;
   width?: string;
+  disabled?: boolean;
 }
 
 // TextArea Props 타입 정의

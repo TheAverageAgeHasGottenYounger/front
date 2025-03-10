@@ -5,6 +5,20 @@ import { Button, Label, Input, Dropdown } from "../../../components/Components";
 import axios from "axios";
 import { useSignup } from "../../../common/SignupContext";
 
+// 자격증 타입 정의
+interface Certificate {
+  id: number;
+  type: string;
+  number: string;
+  grade: string | null;
+}
+
+// 드롭다운 옵션 타입
+interface Option {
+  value: string;
+  label: string;
+}
+
 export default function Info() {
   const { signupData, setSignupData } = useSignup();
   const navigate = useNavigate();
@@ -13,29 +27,28 @@ export default function Info() {
   const [phoneNumber, setPhoneNumber] = useState("");
 
   // 자격증 리스트 상태
-  const [certificateList, setCertificateList] = useState([
+  const [certificateList, setCertificateList] = useState<Certificate[]>([
     { id: 1, type: "요양보호사", number: "", grade: "1급" }, // 기본 자격증
   ]);
 
   // 주소 관련 상태
-  const [cityOptions, setCityOptions] = useState([]); // 시 리스트
-  const [guOptions, setGuOptions] = useState([]); // 구 리스트
-  const [dongOptions, setDongOptions] = useState([]); // 동 리스트
+  const [cityOptions, setCityOptions] = useState<Option[]>([]); // 시 리스트
+  const [guOptions, setGuOptions] = useState<Option[]>([]); // 구 리스트
+  const [dongOptions, setDongOptions] = useState<Option[]>([]); // 동 리스트
 
   // 프로필 이미지
-  const fileInputRef = useRef(null);
-  const [file, setFile] = useState(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg"); // 렌더링용
-  const [profile, setProfile] = useState(null); // api용
-  const [previousProfileUrl, setPreviousProfileUrl] = useState(null);
+  const [previousProfileUrl, setPreviousProfileUrl] = useState<string | null>(
+    null
+  );
 
   // 프로필 이미지 파일 업로드
-  const handleFileChange = async (event) => {
-    // console.log('previousProfileUrl',previousProfileUrl);
-    const selectedFile = event.target.files[0];
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
-
       if (previousProfileUrl) {
         await handleFileDelete(profileUrl);
       }
@@ -44,10 +57,10 @@ export default function Info() {
   };
 
   const handleClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
-  const handleFileUpload = async (file) => {
+  const handleFileUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
 
@@ -60,7 +73,6 @@ export default function Info() {
         // console.log('이전:', profileUrl);
         setPreviousProfileUrl(profileUrl);
         setProfileUrl(newProfileUrl);
-        setProfile(newProfileUrl);
         setSignupData((prev) => ({ ...prev, profileImageFile: newProfileUrl }));
       } else {
         console.error("파일 업로드 실패:", response.data);
@@ -69,7 +81,7 @@ export default function Info() {
       console.error("파일 업로드 에러:", error);
     }
   };
-  const handleFileDelete = async (fileUrl) => {
+  const handleFileDelete = async (fileUrl: string) => {
     try {
       const url = `https://api.ondue.store/s3`;
 
@@ -91,13 +103,13 @@ export default function Info() {
   };
 
   // 이름 change event
-  const handleName = (value) => {
+  const handleName = (value: string) => {
     setName(value);
     setSignupData((prev) => ({ ...prev, name: value }));
   };
 
   // 연락처 change event
-  const handlePhoneNumber = (value) => {
+  const handlePhoneNumber = (value: string) => {
     setPhoneNumber(value);
     setSignupData((prev) => ({ ...prev, phoneNumber: value }));
   };
@@ -109,7 +121,10 @@ export default function Info() {
         const response = await axios.get("https://api.ondue.store/map/city");
         console.log("시 response", response);
         setCityOptions(
-          response.data.result.map((city) => ({ value: city, label: city }))
+          response.data.result.map((city: string) => ({
+            value: city,
+            label: city,
+          }))
         );
       } catch (error) {
         console.error("시 목록 불러오기 실패:", error);
@@ -120,7 +135,7 @@ export default function Info() {
   }, []);
 
   // '시' 선택 핸들러 -> '구' 목록 요청
-  const handleCityChange = async (value) => {
+  const handleCityChange = async (value: string) => {
     // setSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
     setSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
     setGuOptions([]); // 기존 '구' 리스트 초기화
@@ -132,7 +147,7 @@ export default function Info() {
       );
       console.log("구 response", response);
       setGuOptions(
-        response.data.result.map((gu) => ({ value: gu, label: gu }))
+        response.data.result.map((gu: string) => ({ value: gu, label: gu }))
       );
     } catch (error) {
       console.error("구 목록 불러오기 실패:", error);
@@ -140,7 +155,7 @@ export default function Info() {
   };
 
   // '구' 선택 핸들러 -> '동' 목록 요청
-  const handleGuChange = async (value) => {
+  const handleGuChange = async (value: string) => {
     // setSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
     setSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
     setDongOptions([]); // 기존 '동' 리스트 초기화
@@ -151,7 +166,10 @@ export default function Info() {
       );
       console.log("동 response", response);
       setDongOptions(
-        response.data.result.map((dong) => ({ value: dong, label: dong }))
+        response.data.result.map((dong: string) => ({
+          value: dong,
+          label: dong,
+        }))
       );
     } catch (error) {
       console.error("동 목록 불러오기 실패:", error);
@@ -159,7 +177,7 @@ export default function Info() {
   };
 
   // '동' 선택 핸들러
-  const handleDongChange = (value) => {
+  const handleDongChange = (value: string) => {
     // setSignupData((prev) => ({ ...prev, dong: value }));
     setSignupData((prev) => ({ ...prev, dong: value }));
   };
@@ -173,7 +191,11 @@ export default function Info() {
   };
 
   // 특정 자격증 데이터 변경
-  const handleCertificateChange = (id, field, value) => {
+  const handleCertificateChange = (
+    id: number,
+    field: keyof Certificate,
+    value: string | null
+  ) => {
     setCertificateList((prev) =>
       prev.map((cert) => (cert.id === id ? { ...cert, [field]: value } : cert))
     );
@@ -286,8 +308,8 @@ export default function Info() {
                   value={cert.type + (cert.grade ? " " + cert.grade : "")}
                   onChange={(e) => {
                     const selectedValue = e.target.value;
-                    let type = "",
-                      grade = "";
+                    let type: string = "",
+                      grade: string | null = "";
                     if (selectedValue === "사회복지사 1급") {
                       type = "사회복지사";
                       grade = "1급";
