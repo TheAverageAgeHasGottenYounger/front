@@ -57,31 +57,31 @@ export default function AddInfo() {
   }, []);
 
   // 차량 보유 여부 설정
-  const handleCarYn = (value) => {
+  const handleCarYn = (value: boolean) => {
     setCarYn(value);
     setSignupData((prev) => ({ ...prev, carYn: value }));
   };
 
   // 치매 교육 이수 여부 설정
-  const handleDementiaEducationYn = (value) => {
+  const handleDementiaEducationYn = (value: boolean) => {
     setDementiaEducationYn(value);
     setSignupData((prev) => ({ ...prev, dementiaEducationYn: value }));
   };
 
   // 경력 기간 선택
-  const handleCareerPeriodChange = (value) => {
+  const handleCareerPeriodChange = (value: string) => {
     setSelectedCareerPeriod(value);
     setSignupData((prev) => ({ ...prev, careerPeriod: value }));
   };
 
   // 한줄 소개 입력
-  const handleIntroductionChange = (value) => {
+  const handleIntroductionChange = (value: string) => {
     setIntroduction(value);
     setSignupData((prev) => ({ ...prev, introduction: value }));
   };
 
   // 온기 스타일 선택
-  const handleCareStyleChange = (selectedCode) => {
+  const handleCareStyleChange = (selectedCode: string) => {
     setSelectedCareStyle(selectedCode);
     setSignupData((prev) => ({
       ...prev,
