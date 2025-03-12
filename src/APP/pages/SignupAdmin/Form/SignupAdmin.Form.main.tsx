@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.Form.main.styles";
-import { Button, Label, Input, Dropdown } from "../../../components/Components";
+import { Button, Label, Input } from "../../../components/Components";
 import axios from "axios";
 import { useAdminSignup } from "../../../common/SignupContext";
 
@@ -14,19 +14,17 @@ export default function FormAdmin() {
   const [isPasswordValid, setIsPasswordValid] = useState(true);
 
   // 프로필 이미지
-  const fileInputRef = useRef(null);
-  const [file, setFile] = useState(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [profileUrl, setProfileUrl] = useState("/img/profile-default.svg"); // 렌더링용
-  const [profile, setProfile] = useState(null); // api용
-  const [previousProfileUrl, setPreviousProfileUrl] = useState(null);
+  const [previousProfileUrl, setPreviousProfileUrl] = useState<string | null>(
+    null
+  );
 
   // 프로필 이미지 파일 업로드
-  const handleFileChange = async (event) => {
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
     // console.log('previousProfileUrl',previousProfileUrl);
-    const selectedFile = event.target.files[0];
+    const selectedFile = event.target.files?.[0];
     if (selectedFile) {
-      setFile(selectedFile);
-
       if (previousProfileUrl) {
         await handleFileDelete(profileUrl);
       }
@@ -35,10 +33,10 @@ export default function FormAdmin() {
   };
 
   const handleClick = () => {
-    fileInputRef.current.click();
+    fileInputRef.current?.click();
   };
 
-  const handleFileUpload = async (file) => {
+  const handleFileUpload = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
 
@@ -51,7 +49,6 @@ export default function FormAdmin() {
         // console.log('이전:', profileUrl);
         setPreviousProfileUrl(profileUrl);
         setProfileUrl(newProfileUrl);
-        setProfile(newProfileUrl);
         setAdminSignupData((prev) => ({
           ...prev,
           profileImageFile: newProfileUrl,
@@ -63,7 +60,7 @@ export default function FormAdmin() {
       console.error("파일 업로드 에러:", error);
     }
   };
-  const handleFileDelete = async (fileUrl) => {
+  const handleFileDelete = async (fileUrl: string) => {
     try {
       const url = `https://api.ondue.store/s3`;
 
@@ -128,13 +125,13 @@ export default function FormAdmin() {
   };
 
   // 아이디 change event
-  const handleId = (value) => {
+  const handleId = (value: string) => {
     setId(value);
     setAdminSignupData((prev) => ({ ...prev, id: value }));
   };
 
   // 비밀번호 change event
-  const handlePassword = (value) => {
+  const handlePassword = (value: string) => {
     setIsPasswordValid(value.length >= 8);
     setPassword(value);
     setAdminSignupData((prev) => ({ ...prev, password: value }));

@@ -20,7 +20,7 @@ export default function InfoAdmin() {
   const [dongOptions, setDongOptions] = useState([]); // 동 리스트
 
   // 센터명 change event
-  const handleCenterNameChange = (value) => {
+  const handleCenterNameChange = (value: string) => {
     setAdminSignupData((prev) => ({
       ...prev,
       center: { ...prev.center, name: value },
@@ -28,7 +28,7 @@ export default function InfoAdmin() {
   };
 
   // 연락처 change event
-  const handlePhoneNumber = (value) => {
+  const handlePhoneNumber = (value: string) => {
     setPhoneNumber(value);
     setAdminSignupData((prev) => ({ ...prev, phoneNumber: value }));
   };
@@ -40,7 +40,10 @@ export default function InfoAdmin() {
         const response = await axios.get("https://api.ondue.store/map/city");
         console.log("시 response", response);
         setCityOptions(
-          response.data.result.map((city) => ({ value: city, label: city }))
+          response.data.result.map((city: string) => ({
+            value: city,
+            label: city,
+          }))
         );
       } catch (error) {
         console.error("시 목록 불러오기 실패:", error);
@@ -51,7 +54,7 @@ export default function InfoAdmin() {
   }, []);
 
   // '시' 선택 핸들러 -> '구' 목록 요청
-  const handleCityChange = async (value) => {
+  const handleCityChange = async (value: string) => {
     // setAdminSignupData((prev) => ({ ...prev, city: value, gu: "", dong: "" }));
     setAdminSignupData((prev) => ({
       ...prev,
@@ -66,7 +69,7 @@ export default function InfoAdmin() {
       );
       console.log("구 response", response);
       setGuOptions(
-        response.data.result.map((gu) => ({ value: gu, label: gu }))
+        response.data.result.map((gu: string) => ({ value: gu, label: gu }))
       );
     } catch (error) {
       console.error("구 목록 불러오기 실패:", error);
@@ -74,7 +77,7 @@ export default function InfoAdmin() {
   };
 
   // '구' 선택 핸들러 -> '동' 목록 요청
-  const handleGuChange = async (value) => {
+  const handleGuChange = async (value: string) => {
     // setAdminSignupData((prev) => ({ ...prev, gu: value, dong: "" }));
     setAdminSignupData((prev) => ({
       ...prev,
@@ -88,7 +91,10 @@ export default function InfoAdmin() {
       );
       console.log("동 response", response);
       setDongOptions(
-        response.data.result.map((dong) => ({ value: dong, label: dong }))
+        response.data.result.map((dong: string) => ({
+          value: dong,
+          label: dong,
+        }))
       );
     } catch (error) {
       console.error("동 목록 불러오기 실패:", error);
@@ -96,7 +102,7 @@ export default function InfoAdmin() {
   };
 
   // '동' 선택 핸들러
-  const handleDongChange = (value) => {
+  const handleDongChange = (value: string) => {
     // setAdminSignupData((prev) => ({ ...prev, dong: value }));
     setAdminSignupData((prev) => ({
       ...prev,
@@ -239,7 +245,7 @@ export default function InfoAdmin() {
                   placeholder={"OO구"}
                   onChange={(e) => handleGuChange(e.target.value)}
                   width="115px"
-                  disabled={!adminSignupData.city} // '시' 선택 전 비활성화
+                  disabled={!adminSignupData.center.city} // '시' 선택 전 비활성화
                 />
                 <Dropdown
                   options={dongOptions}
@@ -247,7 +253,7 @@ export default function InfoAdmin() {
                   placeholder={"OO동"}
                   onChange={(e) => handleDongChange(e.target.value)}
                   width="115px"
-                  disabled={!adminSignupData.gu} // '구' 선택 전 비활성화
+                  disabled={!adminSignupData.center.gu} // '구' 선택 전 비활성화
                 />
               </items.DropdownContainer>
             </items.InputContainer>

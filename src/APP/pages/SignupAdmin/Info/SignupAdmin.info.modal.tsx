@@ -1,10 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import * as items from "./Styled/SignupAdmin.info.modal.styles";
 import { Button, Label, Input, Dropdown } from "../../../components/Components";
-// import { ACCESS_TOKEN } from '../../Api/request';
-// import axios from 'axios';
-export default function Modal({ onClose, onClick, centerName }) {
+
+// Props 타입 정의
+interface ModalProps {
+  onClose: () => void;
+  onClick: () => void;
+  centerName: string;
+}
+
+export default function Modal({ onClose, onClick, centerName }: ModalProps) {
   return (
     <items.ModalOverlay>
       <items.ModalContainer>

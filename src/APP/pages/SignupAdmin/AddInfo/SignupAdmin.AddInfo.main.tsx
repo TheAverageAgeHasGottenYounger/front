@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/SignupAdmin.AddInfo.main.styles";
 import {
   Button,
   Label,
-  Input,
   Dropdown,
   TextArea,
 } from "../../../components/Components";
@@ -18,16 +17,16 @@ export default function AddInfoAdmin() {
   const [selectedPeriod, setSelectedPeriod] = useState("");
 
   const [bathCarYn, setBathCarYn] = useState(
-    adminSignupData.bathCarYn || false
+    adminSignupData.center.bathCarYn || false
   );
   const [carClicked, setCarClicked] = useState(bathCarYn);
 
   const [introduction, setIntroduction] = useState(
-    adminSignupData.introduction || ""
+    adminSignupData.center.introduction || ""
   );
 
   // 차량 보유 여부 설정
-  const handleBathCarYn = (value) => {
+  const handleBathCarYn = (value: boolean) => {
     setCarClicked(value);
     setBathCarYn(value);
     setAdminSignupData((prev) => ({
@@ -37,7 +36,7 @@ export default function AddInfoAdmin() {
   };
 
   // 한줄 소개 입력
-  const handleIntroductionChange = (value) => {
+  const handleIntroductionChange = (value: string) => {
     setIntroduction(value);
     setAdminSignupData((prev) => ({
       ...prev,
@@ -45,7 +44,7 @@ export default function AddInfoAdmin() {
     }));
   };
 
-  const handleCenterGrade = (value) => {
+  const handleCenterGrade = (value: string) => {
     setSelectedCenterGrade(value);
     setAdminSignupData((prev) => ({
       ...prev,
@@ -53,7 +52,7 @@ export default function AddInfoAdmin() {
     }));
   };
 
-  const handlePeriod = (value) => {
+  const handlePeriod = (value: string) => {
     setSelectedPeriod(value);
     setAdminSignupData((prev) => ({
       ...prev,
