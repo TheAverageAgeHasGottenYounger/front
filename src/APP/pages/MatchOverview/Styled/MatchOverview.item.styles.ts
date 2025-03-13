@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import * as tokens from "../../../../tokens";
 
+// 배경색 관련
+interface BackgroundProps {
+  bgColor?: string;
+}
+
 export const Container = styled.div`
   background-color: #f2f2f2;
   display: flex;
@@ -240,7 +245,7 @@ export const ButtoninnerContainer = styled.div`
   width: 361px;
 `;
 
-export const Button = styled.button`
+export const Button = styled.button<BackgroundProps>`
   ${tokens.typography.button_Sb_18};
   color: white;
   width: 116px;

@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // useParams 추가
 import * as items from "./Styled/MatchOverview.item.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-  BigCard,
-} from "../../../APP/components/Components";
 import request from "../../Api/request";
+
+interface SeniorData {
+  seniorId: number;
+  name: string;
+  profileUrl: string;
+  careStyle: string;
+  fitness: number;
+  address: string;
+  dayList: string[];
+  startTime: string;
+  endTime: string;
+  salary: number;
+  careList: string[];
+  phoneNumber?: string;
+}
+
+interface MatchResponse {
+  isSuccess: boolean;
+  result: any; // 또는 result의 정확한 타입을 정의
+  message?: string;
+}
 
 export default function MatchOverviewItem() {
   const navigate = useNavigate();
-  const { id } = useParams(); // URL에서 id 가져오기
+  const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
 
-  const [seniorData, setSeniorData] = useState(null);
+  const [seniorData, setSeniorData] = useState<SeniorData | null>(null);
   const [isAccepted, setIsAccepted] = useState(false);
   const [region, setRegion] = useState("");
   const [detailAddress, setDetailAddress] = useState("");
@@ -23,7 +36,7 @@ export default function MatchOverviewItem() {
   useEffect(() => {
     const fetchSeniorData = async () => {
       try {
-        const response = await request.get(`/matching/${id}`);
+        const response: MatchResponse = await request.get(`/matching/${id}`);
         console.log("매칭 데이터:", response);
         if (response.isSuccess) {
           setSeniorData(response.result);
@@ -44,7 +57,7 @@ export default function MatchOverviewItem() {
   }, [id]);
 
   // 주소 분리 로직 추가
-  const splitAddress = (fullAddress) => {
+  const splitAddress = (fullAddress: string | null) => {
     if (!fullAddress) return ["", ""];
 
     const parts = fullAddress.split(" ");
@@ -55,12 +68,15 @@ export default function MatchOverviewItem() {
     return [region, detail];
   };
 
-  const handleStatusUpdate = async (status) => {
+  const handleStatusUpdate = async (status: string | null) => {
     try {
-      const response = await request.patch("/matching/status/update", {
-        seniorId: id, // URL에서 가져온 id 사용
-        status: status,
-      });
+      const response: MatchResponse = await request.patch(
+        "/matching/status/update",
+        {
+          seniorId: id, // URL에서 가져온 id 사용
+          status: status,
+        }
+      );
 
       if (response.isSuccess) {
         if (status === "ACCEPTED") {
