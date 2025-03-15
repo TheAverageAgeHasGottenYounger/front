@@ -4,20 +4,68 @@ import * as items from "./Styled/MatchOverviewAdmin.main.styles";
 import { Card, NavigationBar, Dropdown } from "../../components/Components";
 import request from "../../Api/request";
 
+// 어르신 정보 타입 정의
+interface Senior {
+  seniorId: number;
+  name: string;
+  sex: string;
+  birthday: string;
+  address: string;
+  profileUrl?: string;
+}
+
+// 매칭 추천 리스트 아이템 타입 정의
+interface MatchRequest {
+  memberId: number;
+  fitness: number; // fitness 필드 추가
+  profileUrl: string; // profileUrl 필드 추가
+  seniorName: string | null; // seniorName 필드 추가
+  name: string; // name 필드 추가
+  address: string; // address 필드 추가
+  seniorDay?: string[]; // seniorDay 필드 추가 (옵셔널)
+  dayList?: string[]; // dayList 필드 추가 (옵셔널)
+  startTime: string; // startTime 필드 추가
+  endTime: string; // endTime 필드 추가
+  careStyle: string; // careStyle 필드 추가
+}
+
+// API 응답 데이터 타입 정의
+interface ApiResponse<T> {
+  isSuccess: boolean;
+  result: T; // 실제 데이터
+  data: {
+    message: string;
+  };
+}
+
+// 어르신 목록 응답 타입
+interface SeniorListResponse {
+  seniorList: Senior[];
+}
+
+// 추천 리스트 응답 타입
+interface RecommendListResponse {
+  recommendList: MatchRequest[];
+}
+
 export default function MatchOverviewAdmin() {
   const navigate = useNavigate();
 
-  const [seniorOptions, setSeniorOptions] = useState([]); // Dropdown 옵션 리스트
-  const [seniorLists, setSeniorLists] = useState([]); // 어르신 리스트
-  const [selectedSenior, setSelectedSenior] = useState(null); // 선택된 seniorId
-  const [matchRequests, setMatchRequests] = useState([]); // 매칭 추천 리스트
-  const [seniorInfo, setSeniorInfo] = useState(null); // 선택된 어르신 정보
+  const [seniorOptions, setSeniorOptions] = useState<
+    { value: number; label: string }[]
+  >([]); // Dropdown 옵션 리스트
+  const [seniorLists, setSeniorLists] = useState<Senior[]>([]); // 어르신 리스트
+  const [selectedSenior, setSelectedSenior] = useState<string | null>(null); // 선택된 seniorId
+  const [matchRequests, setMatchRequests] = useState<MatchRequest[]>([]); // 매칭 추천 리스트
+  const [seniorInfo, setSeniorInfo] = useState<Senior | null>(null); // 선택된 어르신 정보
 
   // 마운트 시 '/senior' GET 요청하여 seniorOptions 설정
   useEffect(() => {
     const fetchSeniorList = async () => {
       try {
-        const response = await request.get("/senior");
+        const response: ApiResponse<SeniorListResponse> = await request.get(
+          "/senior"
+        );
         if (response.isSuccess) {
           setSeniorLists(response.result.seniorList);
           const options = response.result.seniorList.map((senior) => ({
@@ -40,7 +88,7 @@ export default function MatchOverviewAdmin() {
   }, []);
 
   // Dropdown 선택 시 실행
-  const handleSeniorChange = async (seniorId) => {
+  const handleSeniorChange = async (seniorId: string) => {
     setSelectedSenior(seniorId);
 
     // 선택된 어르신 정보 설정
@@ -48,10 +96,12 @@ export default function MatchOverviewAdmin() {
       console.log(senior.seniorId, " :::: ", seniorId);
       return senior.seniorId === Number(seniorId);
     });
-    setSeniorInfo(selected);
+    setSeniorInfo(selected || null);
 
     try {
-      const response = await request.get(`/senior/${seniorId}/recommend`);
+      const response: ApiResponse<RecommendListResponse> = await request.get(
+        `/senior/${seniorId}/recommend`
+      );
       if (response.isSuccess) {
         setMatchRequests(response.result.recommendList);
       } else {
@@ -65,7 +115,7 @@ export default function MatchOverviewAdmin() {
     }
   };
 
-  const onHandle = (id) => {
+  const onHandle = (id: number) => {
     navigate(`/admin/matchoverview/${id}`, {
       state: { seniorId: seniorInfo?.seniorId },
     });

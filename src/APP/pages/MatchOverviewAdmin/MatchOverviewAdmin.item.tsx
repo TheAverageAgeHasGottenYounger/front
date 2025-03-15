@@ -3,6 +3,35 @@ import { useNavigate, useLocation } from "react-router-dom";
 import * as items from "./Styled/MatchOverviewAdmin.item.styles";
 import request from "../../Api/request";
 
+// 데이터 타입 정의 (인터페이스)
+interface JobSearchData {
+  name: string;
+  careStyle: string;
+  fitness: number;
+  jobSearchAreas: {
+    address: { city: string; district: string; dong: string };
+  }[];
+  dayList: string[];
+  startTime: string;
+  endTime: string;
+  salary: number;
+  certificateList: { type: string; grade: string | null }[];
+  careerPeriod: string;
+  career: string;
+  introduction: string;
+}
+
+interface Response<T> {
+  isSuccess: boolean;
+  result: T;
+  message?: string;
+}
+
+interface MatchResponse {
+  isSuccess: boolean;
+  message?: string;
+}
+
 export default function MatchOverviewItemAdmin() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,13 +43,15 @@ export default function MatchOverviewItemAdmin() {
   // `state`에서 seniorId 가져오기
   const seniorId = location.state?.seniorId || 1; // 기본값 1 설정
 
-  const [jobSearchData, setJobSearchData] = useState(null);
+  const [jobSearchData, setJobSearchData] = useState<JobSearchData | null>(
+    null
+  );
   const [isAccepted, setIsAccepted] = useState(false); // 수락 여부 상태
 
   useEffect(() => {
     const fetchJobSearchData = async () => {
       try {
-        const response = await request.get(
+        const response: Response<JobSearchData> = await request.get(
           `/job-search/${workerId}/${seniorId}`
         );
         if (response.isSuccess) {
@@ -38,7 +69,7 @@ export default function MatchOverviewItemAdmin() {
 
   const handleMatchRequest = async () => {
     try {
-      const response = await request.post(
+      const response: MatchResponse = await request.post(
         `/matching/request/${workerId}/${seniorId}`
       );
 

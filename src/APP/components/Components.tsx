@@ -29,13 +29,13 @@ interface InputProps {
 
 // Dropdown Props 타입 정의
 interface DropdownOption {
-  value: string;
+  value: string | number;
   label: string;
 }
 
 interface DropdownProps {
   options: DropdownOption[];
-  value: string;
+  value?: string;
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   placeholder?: string;
   width?: string;
