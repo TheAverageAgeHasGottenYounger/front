@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import * as tokens from "../../../../tokens";
 
+// 태그 관련
+interface TagProps {
+  label?: string;
+}
+
 export const Container = styled.div`
   background-color: ${tokens.colors.gray[50]};
   display: flex;
@@ -17,8 +22,10 @@ export const OrangeContainer = styled.div`
 
   width: 393px;
   height: 278px;
-  background-image: url("/img/homelogo-user.jpeg");
+  background-image: url("/img/homelogo-admin.jpeg");
   background-size: cover;
+
+  position: relative;
 `;
 
 export const NotificationBox = styled.div`
@@ -85,7 +92,7 @@ export const MatchOverviewBox = styled.div`
   border: none;
   border-radius: 22px;
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
+  margin-bottom: 0px;
   padding: 24px 0;
   position: relative;
 `;
@@ -102,9 +109,9 @@ export const MatchOverviewItem = styled.div`
 export const ScheduleAndSenior = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   width: 324px;
+  gap: 16px;
 `;
 
 export const Divider = styled.div`
@@ -121,7 +128,7 @@ export const Label = styled.div`
       case "gray500":
         return tokens.colors.gray[500];
       case "gray900":
-        return tokens.colors.primary.darken[900];
+        return tokens.colors.gray[900];
       case "primary0":
         return tokens.colors.primary[0];
       default:
@@ -130,7 +137,7 @@ export const Label = styled.div`
   }};
 `;
 
-export const Value = styled.div`
+export const Value = styled.div<TagProps>`
   ${tokens.typography.h2};
   /* color: ${tokens.colors
     .gray[700]}; // .primary.darken[100], #3DC558, #FF5E4C */
@@ -214,4 +221,29 @@ export const BottomCardImgBox = styled.div`
   position: absolute;
   bottom: 20px;
   right: 20px;
+`;
+
+export const getTagColor = (label: string | null) => {
+  switch (label) {
+    case "대기":
+      return "#5C5CEF"; // 파랑
+    case "거절":
+      return "#FF5E4C"; // 빨강
+    case "조율요청":
+      return tokens.colors.primary.darken[100]; // 주황
+    case "수락":
+      return "#3DC558"; // 초록
+    default:
+      return tokens.colors.gray[700]; // 기본값
+  }
+};
+
+export const Tag = styled.div<TagProps>`
+  display: inline-block;
+  padding: 5.5px 16px;
+  ${tokens.typography.label_Sb_16};
+  color: ${({ label }) => getTagColor(label || "")};
+  background-color: ${({ label }) => `${getTagColor(label || "")}20`};
+  border: 1px solid ${({ label }) => getTagColor(label || "")};
+  border-radius: 10px;
 `;

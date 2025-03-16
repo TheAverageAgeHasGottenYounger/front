@@ -1,17 +1,25 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/Home.main.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-  DashBoardCard,
-  NavigationBar,
-} from "../../components/Components";
-import { dummyItems2, dummyItems3 } from "./dummy";
+import { NavigationBar } from "../../components/Components";
+import { dummyItems3 } from "./dummy";
 import request from "../../Api/request";
+
+interface MemberResponse {
+  isSuccess: boolean;
+  result: {
+    memberId: number;
+  };
+  message?: string;
+}
+
+interface CurrentMemberResponse {
+  isSuccess: boolean;
+  result: {
+    name: string;
+  };
+  message?: string;
+}
 
 export default function Home() {
   const navigate = useNavigate();
@@ -27,11 +35,13 @@ export default function Home() {
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const response = await request.get("/member/current");
+        const response: MemberResponse = await request.get("/member/current");
 
         if (response.isSuccess) {
           const memberId = response.result.memberId;
-          const centerResponse = await request.get(`/member/${memberId}`);
+          const centerResponse: CurrentMemberResponse = await request.get(
+            `/member/${memberId}`
+          );
           if (centerResponse.isSuccess) {
             setName(centerResponse.result.name);
           } else {
@@ -147,7 +157,7 @@ export default function Home() {
                 필요한 정보
               </items.BottomSubLabel>
               <items.BottomCardImgBox>
-                <img src="/img/home_card2.svg" width="46px" />
+                <img src="/img/home_card2.svg" alt="." width="46px" />
               </items.BottomCardImgBox>
             </items.BottomCardHeader>
           </items.MatchOverviewBox>

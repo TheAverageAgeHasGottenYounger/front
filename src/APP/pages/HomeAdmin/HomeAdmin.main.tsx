@@ -1,17 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as items from "./Styled/HomeAdmin.main.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-  DashBoardCard,
-  NavigationBar,
-} from "../../components/Components";
-import { dummyItems2, dummyItems3 } from "./dummy";
+import { NavigationBar } from "../../components/Components";
+import { dummyItems3 } from "./dummy";
 import request from "../../Api/request";
+
+interface MemberResponse {
+  isSuccess: boolean;
+  result: {
+    memberId: number;
+  };
+  message?: string;
+}
+
+interface CurrentMemberResponse {
+  isSuccess: boolean;
+  result: {
+    center: {
+      name: string;
+    };
+  };
+  message?: string;
+}
 
 export default function Home() {
   const navigate = useNavigate();
@@ -22,11 +32,13 @@ export default function Home() {
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const response = await request.get("/member/current");
+        const response: MemberResponse = await request.get("/member/current");
 
         if (response.isSuccess) {
           const memberId = response.result.memberId;
-          const centerResponse = await request.get(`/member/${memberId}`);
+          const centerResponse: CurrentMemberResponse = await request.get(
+            `/member/${memberId}`
+          );
 
           if (centerResponse.isSuccess) {
             setCenterName(centerResponse.result.center.name);
@@ -80,7 +92,9 @@ export default function Home() {
               height: "170px",
             }}
           >
-            <items.BottomCardHeader onClick={() => navigate("/jobpost/seniorRegistration")}>
+            <items.BottomCardHeader
+              onClick={() => navigate("/jobpost/seniorRegistration")}
+            >
               <items.Head3>
                 어르신 정보
                 <br />
@@ -101,7 +115,9 @@ export default function Home() {
               height: "170px",
             }}
           >
-            <items.BottomCardHeader onClick={() => navigate("/jobpost/seniorCheck")}>
+            <items.BottomCardHeader
+              onClick={() => navigate("/jobpost/seniorCheck")}
+            >
               <items.Head3>
                 구인 공고
                 <br />
