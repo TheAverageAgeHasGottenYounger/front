@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import * as items from "./Styled/jobRequirements.main.styles";
 import {
   PageHeader,
@@ -12,17 +11,41 @@ import {
 import axios from "axios";
 import request from "../../Api/request";
 
-export default function JobRequirements() {
-  const navigate = useNavigate();
+interface MemberResponse {
+  isSuccess: boolean;
+  result: {
+    memberId: number;
+  }; // 또는 result의 정확한 타입을 정의
+  message?: string;
+}
 
+interface TimeSchedule {
+  id: number;
+  selectedDays: string[];
+  selectedStartTime: string;
+  selectedEndTime: string;
+}
+
+interface Location {
+  city: string;
+  gu: string;
+  dong: string;
+}
+
+interface PayTypeOption {
+  value: string;
+  label: string;
+}
+
+export default function JobRequirements() {
   // 근무 가능 지역 상태
-  const [cityOptions, setCityOptions] = useState([]); // 시 리스트
-  const [guOptions, setGuOptions] = useState([]); // 구 리스트
-  const [dongOptions, setDongOptions] = useState([]); // 동 리스트
+  const [cityOptions, setCityOptions] = useState<PayTypeOption[]>([]); // 시 리스트
+  const [guOptions, setGuOptions] = useState<PayTypeOption[]>([]); // 구 리스트
+  const [dongOptions, setDongOptions] = useState<PayTypeOption[]>([]); // 동 리스트
   const [city, setCity] = useState(""); // 선택된 시
   const [gu, setGu] = useState(""); // 선택된 구
   const [dong, setDong] = useState(""); // 선택된 동
-  const [locateList, setLocateList] = useState([]); // 근무 가능 지역 리스트
+  const [locateList, setLocateList] = useState<Location[]>([]); // 근무 가능 지역 리스트
   const locateCount = locateList.length; // 근무 가능 지역 개수
 
   const [selectedPayType, setSelectedPayType] = useState("");
@@ -30,18 +53,18 @@ export default function JobRequirements() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [timeSchedules, setTimeSchedules] = useState([
+  const [timeSchedules, setTimeSchedules] = useState<TimeSchedule[]>([
     { id: 1, selectedDays: [], selectedStartTime: "", selectedEndTime: "" },
   ]);
 
-  const payType = [{ value: "시급", label: "시급" }];
+  const payType: PayTypeOption[] = [{ value: "시급", label: "시급" }];
 
-  const [memberId, setMemberId] = useState(null);
+  const [memberId, setMemberId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchMemberData = async () => {
       try {
-        const response = await request.get("/member/current");
+        const response: MemberResponse = await request.get("/member/current");
         if (response.isSuccess) {
           const id = response.result.memberId;
           setMemberId(id);
@@ -108,7 +131,7 @@ export default function JobRequirements() {
     return times;
   };
 
-  const toggleSelectDay = (id, day) =>
+  const toggleSelectDay = (id: number, day: string) =>
     setTimeSchedules((prev) =>
       prev.map((schedule) =>
         schedule.id === id
@@ -122,24 +145,12 @@ export default function JobRequirements() {
       )
     );
 
-  const addSchedule = () => {
-    setTimeSchedules((prev) => [
-      ...prev,
-      {
-        id: Date.now(),
-        selectedDays: [],
-        selectedStartTime: "",
-        selectedEndTime: "",
-      },
-    ]);
-  };
-
-  const removeSchedule = (id) =>
+  const removeSchedule = (id: number) =>
     setTimeSchedules((prev) =>
       prev.length > 1 ? prev.filter((schedule) => schedule.id !== id) : prev
     );
 
-  const updateTime = (id, field, value) =>
+  const updateTime = (id: number, field: keyof TimeSchedule, value: string) =>
     setTimeSchedules((prev) =>
       prev.map((schedule) =>
         schedule.id === id ? { ...schedule, [field]: value } : schedule
@@ -152,7 +163,10 @@ export default function JobRequirements() {
       try {
         const response = await axios.get("https://api.ondue.store/map/city");
         setCityOptions(
-          response.data.result.map((city) => ({ value: city, label: city }))
+          response.data.result.map((city: string) => ({
+            value: city,
+            label: city,
+          }))
         );
       } catch (error) {
         console.error("시 목록 불러오기 실패:", error);
@@ -163,7 +177,7 @@ export default function JobRequirements() {
   }, []);
 
   // '시' 선택 핸들러 -> '구' 목록 요청
-  const handleCityChange = async (value) => {
+  const handleCityChange = async (value: string) => {
     setCity(value); // '시' 이름을 두 글자로 제한
     setGu(""); // '구' 초기화
     setDong(""); // '동' 초기화
@@ -173,7 +187,7 @@ export default function JobRequirements() {
         `https://api.ondue.store/map/gu-gun?city=${encodeURIComponent(value)}`
       );
       setGuOptions(
-        response.data.result.map((gu) => ({ value: gu, label: gu }))
+        response.data.result.map((gu: string) => ({ value: gu, label: gu }))
       );
     } catch (error) {
       console.error("구 목록 불러오기 실패:", error);
@@ -181,7 +195,7 @@ export default function JobRequirements() {
   };
 
   // '구' 선택 핸들러 -> '동' 목록 요청
-  const handleGuChange = async (value) => {
+  const handleGuChange = async (value: string) => {
     setGu(value);
     setDong(""); // '동' 초기화
 
@@ -190,7 +204,10 @@ export default function JobRequirements() {
         `https://api.ondue.store/map/dong?guGun=${encodeURIComponent(value)}`
       );
       setDongOptions(
-        response.data.result.map((dong) => ({ value: dong, label: dong }))
+        response.data.result.map((dong: string) => ({
+          value: dong,
+          label: dong,
+        }))
       );
     } catch (error) {
       console.error("동 목록 불러오기 실패:", error);
@@ -198,7 +215,7 @@ export default function JobRequirements() {
   };
 
   // '동' 선택 핸들러
-  const handleDongChange = (value) => {
+  const handleDongChange = (value: string) => {
     setDong(value);
   };
 
@@ -219,7 +236,7 @@ export default function JobRequirements() {
   };
 
   // 근무 지역 삭제
-  const removeLocate = (index) => {
+  const removeLocate = (index: number) => {
     setLocateList((prev) => prev.filter((_, i) => i !== index));
   };
 
@@ -324,9 +341,6 @@ export default function JobRequirements() {
             </items.DropdownContainer>
           </items.TimeContainer>
         ))}
-        {/* <items.AddButton onClick={addSchedule}>
-          <img src="/img/add.svg" alt="추가" width="21" height="21" /> 일정 추가
-        </items.AddButton> */}
 
         <items.InputContainer>
           <items.Label>희망 급여</items.Label>

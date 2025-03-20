@@ -131,13 +131,13 @@ export const Label = styled.div`
 `;
 
 export const ExtraLabel = styled.div`
-  ${tokens.typography.Body_M_18};
+  ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[600]};
   padding: 4px;
 `;
 
 export const ExtraInstruction = styled.div`
-  ${tokens.typography.Body_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[700]};
 `;
 
