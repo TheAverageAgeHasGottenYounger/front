@@ -108,7 +108,7 @@ interface DashBoardCardProps {
     tuning: number;
     acceptance: number;
   };
-  onClick: () => void;
+  onClick?: () => void;
   width?: string;
 }
 

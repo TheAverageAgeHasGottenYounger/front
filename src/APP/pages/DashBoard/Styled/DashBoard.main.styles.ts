@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import * as tokens from "../../../../tokens";
 
+// 태그 관련
+interface TagProps {
+  label?: string;
+}
+
 export const Container = styled.div`
   background-color: ${tokens.colors.gray[50]};
   display: flex;
@@ -57,7 +62,7 @@ export const Label = styled.div`
   color: ${tokens.colors.gray[900]};
 `;
 
-export const Value = styled.div`
+export const Value = styled.div<TagProps>`
   ${tokens.typography.h2};
   /* color: ${tokens.colors
     .gray[700]}; // .primary.darken[100], #3DC558, #FF5E4C */

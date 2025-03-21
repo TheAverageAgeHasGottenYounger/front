@@ -1,30 +1,46 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import * as items from "./Styled/DashBoard.main.styles";
-import {
-  Button,
-  Label,
-  Input,
-  Dropdown,
-  Card,
-  DashBoardCard,
-  NavigationBar,
-} from "../../components/Components";
-import { dummyItems } from "./dummy";
+import { DashBoardCard, NavigationBar } from "../../components/Components";
 import request from "../../Api/request";
 
-export default function DashBoard() {
-  const navigate = useNavigate();
+interface StatusResponse {
+  isSuccess: boolean;
+  result: {
+    fullMatching: number;
+    newMatching: number;
+  };
+  message?: string;
+}
 
+interface MatchingProgress {
+  profileImageUrl: string;
+  seniorName: string;
+  seniorDay: string[];
+  startTime: string;
+  atmosphere: number;
+  refusal: number;
+  tuning: number;
+  acceptance: number;
+}
+
+interface ProgressionResponse {
+  isSuccess: boolean;
+  result: MatchingProgress[];
+  message?: string;
+}
+
+export default function DashBoard() {
   const [total, setTotal] = useState(0); // 전체 매칭
   const [requestCount, setRequestCount] = useState(0); // 신규 매칭
 
-  const [progression, setProgression] = useState([]); // 신규 매칭
+  const [progression, setProgression] = useState<MatchingProgress[]>([]); // 신규 매칭
 
   useEffect(() => {
     const fetchMatchingStatistics = async () => {
       try {
-        const response = await request.get("/dashboard/matching/statistics");
+        const response: StatusResponse = await request.get(
+          "/dashboard/matching/statistics"
+        );
 
         if (response.isSuccess) {
           setTotal(response.result.fullMatching);
@@ -43,7 +59,9 @@ export default function DashBoard() {
   useEffect(() => {
     const fetchProgression = async () => {
       try {
-        const response = await request.get("/dashboard/progression/matching");
+        const response: ProgressionResponse = await request.get(
+          "/dashboard/progression/matching"
+        );
 
         if (response.isSuccess) {
           setProgression(response.result);
