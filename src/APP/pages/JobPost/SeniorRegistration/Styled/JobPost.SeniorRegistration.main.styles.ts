@@ -272,9 +272,9 @@ export const searchBoxContainer = styled.div`
   align-items: center;
   ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[400]};
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 29px;
-  border: 2px solid #D4D4D8;
+  border: 2px solid #d4d4d8;
   margin-top: 18px;
 `;
 
@@ -319,11 +319,11 @@ export const searchResultBox = styled.div`
 `;
 
 export const AddressText = styled.div`
-  ${tokens.typography.button_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[900]};
 `;
 
 export const SubAddressText = styled.div`
-  ${tokens.typography.button_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[400]};
 `;

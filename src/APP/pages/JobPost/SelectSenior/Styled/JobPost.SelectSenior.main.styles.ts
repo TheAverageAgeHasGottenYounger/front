@@ -38,7 +38,7 @@ export const ProfileImage = styled.img`
 
 export const SelectedIcon = styled.img`
   background-color: white;
-  border-radius: 50%;  
+  border-radius: 50%;
   position: absolute;
   top: 0;
   right: 0;
@@ -54,7 +54,7 @@ export const InfoContainer = styled.div`
 `;
 
 export const Name = styled.div`
-  ${tokens.typography.Button_Sb_18};
+  ${tokens.typography.button_Sb_18};
   color: ${tokens.colors.gray[900]};
 `;
 
