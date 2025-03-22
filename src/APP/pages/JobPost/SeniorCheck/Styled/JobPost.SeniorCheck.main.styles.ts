@@ -35,7 +35,7 @@ export const ProfileContainer = styled.div`
   white-space: nowrap;
   width: 100%;
   max-width: 361px;
-    &::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     display: none;
   }
 `;
@@ -62,7 +62,7 @@ export const Profile = styled.img`
 
 export const SelectedIcon = styled.img`
   background-color: white;
-  border-radius: 50%;  
+  border-radius: 50%;
   position: absolute;
   top: 0;
   right: 0;
@@ -74,9 +74,8 @@ export const ProfileLabel = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${tokens.typography.Body_M_18};
+  ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[900]};
-
 `;
 
 export const HiddenFileInput = styled.input`
@@ -196,13 +195,13 @@ export const Label = styled.div`
 `;
 
 export const ExtraLabel = styled.div`
-  ${tokens.typography.Body_M_18};
+  ${tokens.typography.body_M_18};
   color: ${tokens.colors.gray[600]};
   padding: 4px;
 `;
 
 export const ExtraInstruction = styled.div`
-  ${tokens.typography.Body_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[700]};
 `;
 
@@ -309,9 +308,9 @@ export const searchBoxContainer = styled.div`
   align-items: center;
   ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[400]};
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 29px;
-  border: 2px solid #D4D4D8;
+  border: 2px solid #d4d4d8;
   margin-top: 18px;
 `;
 
@@ -356,15 +355,14 @@ export const searchResultBox = styled.div`
 `;
 
 export const AddressText = styled.div`
-  ${tokens.typography.button_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[900]};
 `;
 
 export const SubAddressText = styled.div`
-  ${tokens.typography.button_M_16};
+  ${tokens.typography.body_M_16};
   color: ${tokens.colors.gray[400]};
 `;
-
 
 export const AddressModalOverlay = styled.div`
   position: fixed;
